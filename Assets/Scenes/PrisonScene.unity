@@ -605,7 +605,7 @@ Transform:
   m_GameObject: {fileID: 443638698}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.21, y: 1.79, z: -0.6}
+  m_LocalPosition: {x: 0.31, y: -3.77, z: -0.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -627,6 +627,7 @@ MonoBehaviour:
   inputVec1: {x: 0, y: 0}
   inputVec2: {x: 0, y: 0}
   speed: 3
+  canMove: 1
   playerID: 1
 --- !u!1 &611649856
 GameObject:
@@ -682,7 +683,6 @@ MonoBehaviour:
   hasInteracted: 0
   prisonDust: {fileID: 611649856}
   sr: {fileID: 611649859}
-  dustPuzzle: {fileID: 1673583909}
 --- !u!212 &611649859
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6305,7 +6305,6 @@ MonoBehaviour:
   hasInteracted: 0
   prisonDust: {fileID: 1020231855}
   sr: {fileID: 1020231858}
-  dustPuzzle: {fileID: 1673583909}
 --- !u!212 &1020231858
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6647,7 +6646,6 @@ MonoBehaviour:
   hasInteracted: 0
   floodWaterPrefab: {fileID: 4514021233988864339, guid: b9da7948c1f650844843685cc4e87959, type: 3}
   sr: {fileID: 1136572491}
-  pipePuzzle: {fileID: 1673583909}
 --- !u!212 &1136572491
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6920,7 +6918,6 @@ MonoBehaviour:
   prisonDoor: {fileID: 1264324508}
   doorMoveSpeed: 1
   sr: {fileID: 1264324512}
-  doorPuzzle: {fileID: 1673583909}
 --- !u!60 &1264324511
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -7154,6 +7151,7 @@ MonoBehaviour:
   inputVec1: {x: 0, y: 0}
   inputVec2: {x: 0, y: 0}
   speed: 3
+  canMove: 1
   playerID: 2
 --- !u!50 &1279382549
 Rigidbody2D:
@@ -7278,7 +7276,7 @@ Transform:
   m_GameObject: {fileID: 1279382546}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.76, y: 5.18, z: -0.6}
+  m_LocalPosition: {x: 2, y: -3.99, z: -0.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7779,6 +7777,8 @@ MonoBehaviour:
   goalZoneColor: {r: 1, g: 1, b: 1, a: 0.50980395}
   interactionsCompleted: 
   interactCount: 0
+  player1: {fileID: 504270776}
+  player2: {fileID: 1279382548}
   limitTime: 5
   remainTime: 5
   isTimeOver: 0
@@ -7853,7 +7853,6 @@ MonoBehaviour:
   hasInteracted: 0
   prisonDust: {fileID: 1664822651}
   sr: {fileID: 1664822654}
-  dustPuzzle: {fileID: 1673583909}
 --- !u!212 &1664822654
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8118,7 +8117,6 @@ MonoBehaviour:
   prisonDoor: {fileID: 1722749263}
   doorMoveSpeed: 1
   sr: {fileID: 1722749267}
-  doorPuzzle: {fileID: 1673583909}
 --- !u!60 &1722749266
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -9070,7 +9068,6 @@ MonoBehaviour:
   hasInteracted: 0
   prisonDust: {fileID: 2125304059}
   sr: {fileID: 2125304062}
-  dustPuzzle: {fileID: 1673583909}
 --- !u!212 &2125304062
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -9229,7 +9226,6 @@ MonoBehaviour:
   hasInteracted: 0
   prisonLeaf: {fileID: 2128404430}
   sr: {fileID: 2128404432}
-  leafPuzzle: {fileID: 1673583909}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
