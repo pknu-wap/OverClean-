@@ -66,6 +66,8 @@ public class PipeInteract : MonoBehaviour
             stageManager.ObjectInteract(objectIndex);
             // 퍼즐매니저의 퍼즐 성공여부를 초기화
             PuzzleManager.instance.isPuzzleSuccess = false;
+            // 퍼즐이 성공했으므로 플레이어 이동 가능하게 설정
+            stageManager.SetPlayerMovement(true);
             // 상호작용 성공 시 물 숨기기
             Destroy(floodWaterInstance);
         }
@@ -81,6 +83,8 @@ public class PipeInteract : MonoBehaviour
             SceneManager.LoadScene("PrisonPipePuzzleScene", LoadSceneMode.Additive);
             // 퍼즐 오픈 변수 true
             isPuzzleOpen = true;
+            // 상호작용해서 퍼즐이 열리면 플레이어 1,2 둘 다 이동 제한
+            stageManager.SetPlayerMovement(false);
         }
     }
 

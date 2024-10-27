@@ -64,6 +64,8 @@ public class DustInteract : MonoBehaviour
             stageManager.ObjectInteract(objectIndex);
             // 퍼즐매니저의 퍼즐 성공여부를 초기화
             PuzzleManager.instance.isPuzzleSuccess = false;
+            // 퍼즐이 성공했으므로 플레이어 이동 가능하게 설정
+            playerLocation.GetComponent<Player>().canMove = true;
             // 상호작용 성공 시 먼지 맵에서 삭제
             Destroy(prisonDust);
         }
@@ -79,6 +81,8 @@ public class DustInteract : MonoBehaviour
             SceneManager.LoadScene("PrisonDustPuzzleScene", LoadSceneMode.Additive);
             // 퍼즐 오픈 변수 true
             isPuzzleOpen = true;
+            // Player.cs의 canMove를 제어해 플레이어 이동 제한
+            playerLocation.GetComponent<Player>().canMove = false;
         }
     }
 
