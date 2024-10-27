@@ -29,8 +29,6 @@ public class DoorInteract : MonoBehaviour
     private bool isMoving = false;
     // 문을 참조해서 material을 조정하기 위한 spriterenderer 변수
     public SpriteRenderer sr;
-    // 문 퍼즐
-    public GameObject doorPuzzle;
     // 퍼즐이 열려있는지 확인하기 위한 변수
     private bool isPuzzleOpen = false;
 
@@ -95,7 +93,7 @@ public class DoorInteract : MonoBehaviour
         {
             // 씬매니저로 퍼즐씬 불러오기
             SceneManager.LoadScene("PrisonDoorPuzzleScene", LoadSceneMode.Additive);
-            // doorPuzzle 오브젝트 활성화
+            // 퍼즐 오픈 변수 true
             isPuzzleOpen = true;
        }
 

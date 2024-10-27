@@ -23,8 +23,6 @@ public class PipeInteract : MonoBehaviour
     private GameObject floodWaterInstance; 
     // 파이프를 참조해서 material을 조정하기 위한 spriterenderer 변수
     public SpriteRenderer sr;
-    // 파이프 퍼즐
-    public GameObject pipePuzzle;
     // 퍼즐이 열려있는지 확인하기 위한 변수
     private bool isPuzzleOpen = false;
 
@@ -38,6 +36,7 @@ public class PipeInteract : MonoBehaviour
         // start 혹은 awake에서 sr을 getcomponent 메서드로 초기화
         sr = GetComponent<SpriteRenderer>();
     }
+    
     void Update()
     {
         // 상호작용 존 안에 두 플레이어 모두가 있고 상호작용하지 않았다면
@@ -56,37 +55,33 @@ public class PipeInteract : MonoBehaviour
             // 테두리 삭제
             HideHighlight();
         }
-        // 퍼즐이 열려 있는 상태에서 Z를 누르면 씬을 닫음
-        if (isPuzzleOpen && Input.GetKeyDown(KeyCode.Z))
+        // 퍼즐이 열려 있을 때 퍼즐을 해결하면 상호작용 성공
+        if (isPuzzleOpen && PuzzleManager.instance.isPuzzleSuccess)
         {
-            CloseCurrentPuzzleScene();
+            // 오브젝트 상호작용됨
+            hasInteracted = true;
+            // 퍼즐이 닫힘
+            isPuzzleOpen = false;
+            // statemanager에게 상호작용되었다고 알림
+            stageManager.ObjectInteract(objectIndex);
+            // 퍼즐매니저의 퍼즐 성공여부를 초기화
+            PuzzleManager.instance.isPuzzleSuccess = false;
+            // 상호작용 성공 시 물 숨기기
+            Destroy(floodWaterInstance);
         }
     }
 
     // 상호작용 함수
     void Interact()
     {
-        // 씬매니저로 퍼즐씬 불러오기
-        SceneManager.LoadScene("PrisonPipePuzzleScene", LoadSceneMode.Additive);
-        // pipePuzzle 오브젝트 활성화
-        if (pipePuzzle != null)
+        // 퍼즐이 열려 있지 않을 때만 Interact가 실행되었을 때 퍼즐씬이 불러와지도록 조건 추가
+        if (!isPuzzleOpen)
         {
-            pipePuzzle.SetActive(true);
+            // 씬매니저로 퍼즐씬 불러오기
+            SceneManager.LoadScene("PrisonPipePuzzleScene", LoadSceneMode.Additive);
+            // 퍼즐 오픈 변수 true
             isPuzzleOpen = true;
         }
-        stageManager.ObjectInteract(objectIndex);
-        HideHighlight();
-        // 물 숨기기
-        Destroy(floodWaterInstance);
-    }
-
-    void CloseCurrentPuzzleScene()
-    {
-        pipePuzzle.SetActive(false);
-        // 퍼즐 닫힘을 표시
-        isPuzzleOpen = false;
-        // 상호작용되었음을 표시
-        hasInteracted = true;
     }
 
     // 테두리 생성 및 표시
