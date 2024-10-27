@@ -10,9 +10,11 @@ public class Player : MonoBehaviour
 	// 플레이어2의 입력 방향을 저장하는 벡터
 	public Vector2 inputVec2;
 
-
 	// 플레이어의 이동 속도
 	public float speed;
+
+	// 플레이어가 이동 가능한지를 제어하는 변수
+	public bool canMove = true;
 		
 	// Rigidbody2D 변수 선언
 	Rigidbody2D rigid;
@@ -60,6 +62,13 @@ public class Player : MonoBehaviour
     	// 물리적 이동은 여기서 처리하는 것이 적합하다.
 	void FixedUpdate()
 	{
+		// 만약 canMove가 false라면
+		if(!canMove)
+		{
+			// 이동 금지
+			return;
+		}
+		
 		Vector2 nextVec = Vector2.zero;	
 		if(playerID == 1)
 		{
