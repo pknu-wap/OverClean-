@@ -14,23 +14,21 @@ public class DoorInteract : MonoBehaviour
     // stagemanager를 참조해서 상호작용 여부를 제어하기 위한 변수
     public StageManager stageManager;
     // 플레이어를 참조해서 위치를 받아오기 위한 변수
-    public Transform playerLocation; 
+    public Transform playerLocation;
     // 상호작용 거리
-    public float interactionDistance = 1.0f; 
+    public float interactionDistance = 1.0f;
     // 상호작용 여부
-    public bool hasInteracted = false; 
+    public bool hasInteracted = false;
     // 문을 참조하기 위한 변수
     public GameObject prisonDoor;
     // 문을 이동시킬 목표 위치 targetPosition 선언
     private Vector3 targetPosition;
     // 문 이동 속도
-    public float doorMoveSpeed = 0.1f; 
+    public float doorMoveSpeed = 0.1f;
     // 문이 이동 중인지 여부
-    private bool isMoving = false; 
+    private bool isMoving = false;
     // 문을 참조해서 material을 조정하기 위한 spriterenderer 변수
     public SpriteRenderer sr;
-    // 문 퍼즐
-    public GameObject doorPuzzle;
     // 퍼즐이 열려있는지 확인하기 위한 변수
     private bool isPuzzleOpen = false;
 
@@ -50,18 +48,18 @@ public class DoorInteract : MonoBehaviour
         float distanceToPlayer = Vector3.Distance(transform.position, playerLocation.position);
 
         // 테두리 생성
-        ShowHighlight(); 
+        ShowHighlight();
 
         // 상호작용 가능한 거리 안에 있고 상호작용하지 않았다면
         if (distanceToPlayer <= interactionDistance && !hasInteracted)
         {
             // 스페이스바로 상호작용
-            if (Input.GetKeyDown(KeyCode.Space)) 
+            if (Input.GetKeyDown(KeyCode.Space))
             {
-                Interact(); 
+                Interact();
             }
         }
-        else 
+        else
         {
             // 테두리 삭제
             HideHighlight();
@@ -72,13 +70,15 @@ public class DoorInteract : MonoBehaviour
             // 오브젝트 상호작용됨
             hasInteracted = true;
             // 퍼즐이 닫힘
-            isPuzzleOpen = false; 
+            isPuzzleOpen = false;
             // 문 열기 시작
-            isMoving = true; 
+            isMoving = true;
             // statemanager에게 상호작용되었다고 알림
             stageManager.ObjectInteract(objectIndex);
             // 퍼즐매니저의 퍼즐 성공여부를 초기화
             PuzzleManager.instance.isPuzzleSuccess = false;
+            // 퍼즐이 성공했으므로 플레이어 이동 가능하게 설정
+            playerLocation.GetComponent<Player>().canMove = true;
         }
         // isMoving이면 문을 이동시키는 애니메이션 함수 작동
         if (isMoving)
@@ -90,10 +90,17 @@ public class DoorInteract : MonoBehaviour
     // 상호작용 함수
     void Interact()
     {
-        // 씬매니저로 퍼즐씬 불러오기
-        SceneManager.LoadScene("PrisonDoorPuzzleScene", LoadSceneMode.Additive);
-        // doorPuzzle 오브젝트 활성화
-        isPuzzleOpen = true;
+        // 퍼즐이 열려 있지 않을 때만 Interact가 실행되었을 때 퍼즐씬이 불러와지도록 조건 추가
+        if (!isPuzzleOpen)
+        {
+            // 씬매니저로 퍼즐씬 불러오기
+            SceneManager.LoadScene("PrisonDoorPuzzleScene", LoadSceneMode.Additive);
+            // 퍼즐 오픈 변수 true
+            isPuzzleOpen = true;
+            // Player.cs의 canMove를 제어해 플레이어 이동 제한
+            playerLocation.GetComponent<Player>().canMove = false;
+       }
+
     }
 
     // 문을 부드럽게 이동시키는 함수
