@@ -1146,7 +1146,7 @@ GameObject:
   - component: {fileID: 1222379146}
   - component: {fileID: 1222379145}
   m_Layer: 5
-  m_Name: MakeRoom
+  m_Name: RoomScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
