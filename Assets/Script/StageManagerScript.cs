@@ -19,6 +19,9 @@ public class StageManager : MonoBehaviour
     public bool[] interactionsCompleted;
     // 상호작용 완료된 오브젝트 개수
     public int interactCount = 0;
+    // 플레이어를 관리하는 변수 추가
+    public Player player1;
+    public Player player2;
 
     // 타이머 관련 변수
     // 주어진 시간 - Inspector에서 설정 가능
@@ -107,6 +110,19 @@ public class StageManager : MonoBehaviour
                 // 도착지점 활성화
                 ActiveGoalZone();
             }
+        }
+    }
+
+    // 2인용 퍼즐에 상호작용했을 때, 두 플레이어 모두 이동을 제한하는 메서드
+    public void SetPlayerMovement(bool setcanMove)
+    {
+        if (player1 != null) 
+        {
+            player1.canMove = setcanMove;
+        }
+        if (player2 != null) 
+        {
+            player2.canMove = setcanMove;
         }
     }
 
