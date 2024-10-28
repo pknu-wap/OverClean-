@@ -29,4 +29,16 @@ public class PipeTileScript : MonoBehaviour
         RotateTile();
     }
 
+    // 다른 타일과의 연결을 검사하는 함수 예시
+    public bool IsConnected(PipeTileScript otherTile)
+    {
+        // 구현할 내용: otherTile과의 방향 및 연결 상태 검사 로직
+        // 연결되어 있다고 가정
+        return true;
+    }
+    
+    void Update()
+    {
+        
+    }
 }
