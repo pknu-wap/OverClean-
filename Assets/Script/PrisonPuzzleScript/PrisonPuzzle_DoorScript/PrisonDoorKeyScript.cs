@@ -9,10 +9,12 @@ public class PrisonDoorKeyScript : MonoBehaviour
     public Camera puzzleCamera;
 
     // 객체가 드래그 중인지 여부를 나타내는 플래그
-    private bool isDragging = false;
+    public bool isDragging = false;
 
     // 드래그 시 피봇 오프셋
     private Vector3 pivotOffset;
+    // DoorLockScript 참조(isTimeout 참조를 위함)
+    private PrisonDoorLockScript doorLockScript; 
 
     void Start()
     {
@@ -21,10 +23,18 @@ public class PrisonDoorKeyScript : MonoBehaviour
         {
             puzzleCamera = GameObject.FindGameObjectWithTag("PuzzleCamera").GetComponent<Camera>();
         }
+        // DoorLockScript를 찾아 참조
+        doorLockScript = FindObjectOfType<PrisonDoorLockScript>();
     }
 
     void Update()
     {
+        // 타임아웃 상태일 때는 드래그 불가
+        if (doorLockScript.isTimeout) 
+        {
+            return;
+        }
+
         // 마우스 왼쪽 버튼이 눌렸는지 확인
         if (Input.GetMouseButtonDown(0))
         {
@@ -35,7 +45,6 @@ public class PrisonDoorKeyScript : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             isDragging = false;
-            Debug.Log("드래그 종료");
         }
 
         // 객체가 드래그 중인 경우 처리
@@ -48,6 +57,11 @@ public class PrisonDoorKeyScript : MonoBehaviour
     // 마우스 클릭 시 호출되는 함수
     private void OnMouseDownHandler()
     {
+        // 타임아웃 상태일 때는 클릭 처리 금지
+        if (doorLockScript.isTimeout)
+        {
+            return;
+        }
         // 마우스 위치를 월드 좌표로 변환 (2D 평면에서의 위치만 사용)
         Vector3 mousePosition = puzzleCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -puzzleCamera.transform.position.z));
         mousePosition.z = 0f; // 2D 평면에서의 위치만 사용
