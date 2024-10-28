@@ -49,13 +49,13 @@ EditorBuildSettings:
     path: Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/SlotCar-Scene.unity
     guid: 711b38c07f2cf904f81b3422c67f1825
   - enabled: 1
-    path: Assets/Scenes/MainScreen.unity
+    path: Assets/Scenes/TitleScene.unity
     guid: 3df4798afc466864897985ee064b14da
   - enabled: 1
-    path: Assets/Scenes/GameLobby.unity
+    path: Assets/Scenes/LobbyScene.unity
     guid: 8dac55dc856f88e42a802039ded6ce4d
   - enabled: 1
-    path: Assets/Scenes/Room.unity
+    path: Assets/Scenes/RoomScene.unity
     guid: 248669a9fdb55404e80fb44fb15b3e0c
   - enabled: 1
     path: Assets/Scenes/GamePlay.unity
