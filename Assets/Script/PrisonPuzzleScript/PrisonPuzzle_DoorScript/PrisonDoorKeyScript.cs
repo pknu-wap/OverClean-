@@ -54,11 +54,12 @@ public class PrisonDoorKeyScript : MonoBehaviour
 
         // 현재 오브젝트에 마우스 클릭이 감지되었는지 확인
         RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
+        // Ray가 오브젝트에 닿았을 때
         if (hit.collider != null && hit.collider.gameObject == gameObject)
         {
+            // 오브젝트의 중심점과 마우스 포지션의 상대적 위치를 계산해 pivot을 설정, 클릭 위치가 유지되도록 함
             pivotOffset = transform.position - mousePosition;
             isDragging = true;
-            Debug.Log("드래그 시작 - 피봇 오프셋: " + pivotOffset);
         }
     }
 
@@ -67,8 +68,8 @@ public class PrisonDoorKeyScript : MonoBehaviour
     {
         // 마우스 위치를 월드 좌표로 변환 (2D 평면에서의 위치만 사용)
         Vector3 mousePosition = puzzleCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -puzzleCamera.transform.position.z));
-        mousePosition.z = 0f; // 2D 평면에서의 위치만 사용
-        Debug.Log("드래그 중 마우스 위치: " + mousePosition);
+        // 2D 평면에서의 위치만 사용
+        mousePosition.z = 0f; 
 
         // 객체 위치를 마우스 위치와 피봇 오프셋을 더한 값으로 설정
         transform.position = mousePosition + pivotOffset;
