@@ -1121,7 +1121,7 @@ GameObject:
   - component: {fileID: 615327833}
   - component: {fileID: 615327832}
   m_Layer: 5
-  m_Name: TutorialGuideMeesagePlayer1
+  m_Name: TutorialGuideMessagePlayer1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8742,7 +8742,7 @@ GameObject:
   - component: {fileID: 1558089207}
   - component: {fileID: 1558089206}
   m_Layer: 5
-  m_Name: TutorialGuideMeesagePlayer2
+  m_Name: TutorialGuideMessagePlayer2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
