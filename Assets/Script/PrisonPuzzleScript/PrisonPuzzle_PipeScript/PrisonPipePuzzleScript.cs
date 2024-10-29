@@ -12,6 +12,7 @@ public class PrisonPipePuzzleScript : MonoBehaviour
     
     private int gridWidth = 10;
     private int gridHeight = 5;
+    private int tileSize = 110;  // 각 타일 간격 (약간의 여유 공간 포함)
 
     void Start()
     {
@@ -29,7 +30,10 @@ public class PrisonPipePuzzleScript : MonoBehaviour
                 GameObject pipeTile = Instantiate(pipeShapes[randomIndex], pipeGrid.transform);
                 
                 // 위치 및 회전 설정
-                pipeTile.transform.localPosition = Vector3.zero;
+                // pipeTile.transform.localPosition = Vector3.zero;
+                // 타일 위치 계산
+                Vector3 tilePosition = new Vector3(-494 + x * tileSize, 216 -y * tileSize, 0);
+                pipeTile.transform.localPosition = tilePosition;
                 // 0도, 90도, 180도, 270도 중 하나로 회전
                 pipeTile.transform.localRotation = Quaternion.Euler(0, 0, Random.Range(0, 4) * 90);
             }
