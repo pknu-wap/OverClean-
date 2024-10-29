@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PrisonPipePuzzleScript : MonoBehaviour
 {
+    public PipeTileScript pipeTileScript;
+    
     // Grid Layout Group을 포함한 빈 오브젝트
     public GameObject pipeGrid;
     // 파이프 모양 배열 (일자, L자, T자)
@@ -40,7 +43,14 @@ public class PrisonPipePuzzleScript : MonoBehaviour
         }
     }
     void Update()
-    {
+    {   
+        if (pipeTileScript != null)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                pipeTileScript.RotateTile();
+            }
+        }
         // Z 키를 눌렀을 때 씬 닫기
         if (Input.GetKeyDown(KeyCode.Z))
         {

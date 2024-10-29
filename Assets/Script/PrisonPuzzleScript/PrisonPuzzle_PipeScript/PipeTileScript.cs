@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PipeTileScript : MonoBehaviour
 {
+    public static PipeTileScript instance;
+
     // 회전 각도 (0, 90, 180, 270도로 제한)
     private int currentRotation;
 
@@ -24,11 +26,6 @@ public class PipeTileScript : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0, currentRotation);
     }
 
-    void OnMouseDown()
-    {
-        RotateTile();
-    }
-
     // 다른 타일과의 연결을 검사하는 함수 예시
     public bool IsConnected(PipeTileScript otherTile)
     {
@@ -39,6 +36,9 @@ public class PipeTileScript : MonoBehaviour
     
     void Update()
     {
-        
+        if (Input.GetMouseButtonDown(0))
+        {
+            RotateTile();
+        }
     }
 }
