@@ -302,6 +302,6 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public override void OnLeftRoom()
     {
         Debug.Log("방을 떠났습니다.");
-        SceneManager.LoadScene("GameLobby");
+        SceneManager.LoadScene("LobbyScene");
     }
 }
