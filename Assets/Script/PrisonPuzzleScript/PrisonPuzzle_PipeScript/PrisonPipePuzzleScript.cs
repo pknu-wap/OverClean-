@@ -15,7 +15,12 @@ public class PrisonPipePuzzleScript : MonoBehaviour
     
     private int gridWidth = 10;
     private int gridHeight = 5;
-    private int tileSize = 110;  // 각 타일 간격 (약간의 여유 공간 포함)
+
+    // 파이프 타일 생성의 초기 x,y 좌표
+    private int originXPosition = -494;
+    private int originYPosition = 216;
+    // 각 타일 간격 (약간의 여유 공간 포함)
+    private int tileSize = 110;
 
     void Start()
     {
@@ -35,7 +40,7 @@ public class PrisonPipePuzzleScript : MonoBehaviour
                 // 위치 및 회전 설정
                 // pipeTile.transform.localPosition = Vector3.zero;
                 // 타일 위치 계산
-                Vector3 tilePosition = new Vector3(-494 + x * tileSize, 216 -y * tileSize, 0);
+                Vector3 tilePosition = new Vector3(originXPosition + x * tileSize, originYPosition -y * tileSize, 0);
                 pipeTile.transform.localPosition = tilePosition;
                 // 0도, 90도, 180도, 270도 중 하나로 회전
                 pipeTile.transform.localRotation = Quaternion.Euler(0, 0, Random.Range(0, 4) * 90);
@@ -44,13 +49,13 @@ public class PrisonPipePuzzleScript : MonoBehaviour
     }
     void Update()
     {   
-        if (pipeTileScript != null)
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                pipeTileScript.RotateTile();
-            }
-        }
+        // if (pipeTileScript != null)
+        // {
+        //     if (Input.GetMouseButtonDown(0))
+        //     {
+        //         pipeTileScript.RotateTile();
+        //     }
+        // }
         // Z 키를 눌렀을 때 씬 닫기
         if (Input.GetKeyDown(KeyCode.Z))
         {
