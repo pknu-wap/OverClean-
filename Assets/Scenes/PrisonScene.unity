@@ -1066,6 +1066,7 @@ MonoBehaviour:
   hasInteracted: 0
   prisonDust: {fileID: 611649856}
   sr: {fileID: 611649859}
+  PuzzleUI: {fileID: 1869929549}
 --- !u!212 &611649859
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6686,6 +6687,7 @@ MonoBehaviour:
   hasInteracted: 0
   prisonDust: {fileID: 1020231855}
   sr: {fileID: 1020231858}
+  PuzzleUI: {fileID: 1869929549}
 --- !u!212 &1020231858
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7027,6 +7029,7 @@ MonoBehaviour:
   hasInteracted: 0
   floodWaterPrefab: {fileID: 4514021233988864339, guid: b9da7948c1f650844843685cc4e87959, type: 3}
   sr: {fileID: 1136572491}
+  PuzzleUI: {fileID: 1869929549}
 --- !u!212 &1136572491
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7482,6 +7485,7 @@ MonoBehaviour:
   prisonDoor: {fileID: 1264324508}
   doorMoveSpeed: 1
   sr: {fileID: 1264324512}
+  PuzzleUI: {fileID: 1869929549}
 --- !u!60 &1264324511
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -8726,6 +8730,7 @@ MonoBehaviour:
   hasInteracted: 0
   prisonDust: {fileID: 1664822651}
   sr: {fileID: 1664822654}
+  PuzzleUI: {fileID: 1869929549}
 --- !u!212 &1664822654
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8874,7 +8879,7 @@ GameObject:
   - component: {fileID: 1673583912}
   - component: {fileID: 1673583911}
   m_Layer: 6
-  m_Name: PuzzleUI
+  m_Name: PlayPuzzleUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9094,6 +9099,7 @@ MonoBehaviour:
   prisonDoor: {fileID: 1722749263}
   doorMoveSpeed: 1
   sr: {fileID: 1722749267}
+  PuzzleUI: {fileID: 1869929549}
 --- !u!60 &1722749266
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -9575,7 +9581,7 @@ GameObject:
   - component: {fileID: 1869929547}
   - component: {fileID: 1869929546}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: PuzzleUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10096,6 +10102,7 @@ MonoBehaviour:
   hasInteracted: 0
   prisonDust: {fileID: 2125304059}
   sr: {fileID: 2125304062}
+  PuzzleUI: {fileID: 1869929549}
 --- !u!212 &2125304062
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -10254,6 +10261,7 @@ MonoBehaviour:
   hasInteracted: 0
   prisonLeaf: {fileID: 2128404430}
   sr: {fileID: 2128404432}
+  PuzzleUI: {fileID: 1869929549}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
