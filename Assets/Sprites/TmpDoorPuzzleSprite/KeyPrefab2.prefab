@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -8475401827771343156}
   - component: {fileID: 595813005726105974}
   m_Layer: 0
-  m_Name: TmpKeyb
+  m_Name: KeyPrefab2
   m_TagString: Key
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: eb96a66ec1f5c2d419a6e30ef1159667, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2f21389e82d071443adc2fd7ca56763d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -100,8 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAnsKey: 1
   puzzleCamera: {fileID: 0}
-  tr: {fileID: 0}
-  mousePosition: {x: 0, y: 0, z: 0}
+  isDragging: 0
 --- !u!60 &595813005726105974
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -138,7 +137,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.5, y: 4}
+    oldSize: {x: 1.3340495, y: 4.133333}
     newSize: {x: 2.5, y: 4}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -146,8 +145,22 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -1.25, y: 2}
-      - {x: -1.25, y: -2}
-      - {x: 1.25, y: -2}
-      - {x: 1.25, y: 2}
+    - - {x: -0.32550806, y: 2.062}
+      - {x: -0.33884856, y: -0.83933336}
+      - {x: -0.66702473, y: -1.0986667}
+      - {x: -0.66702473, y: -1.8466667}
+      - {x: -0.43023095, y: -2.0666666}
+      - {x: 0.2454651, y: -2.0666666}
+      - {x: 0.44557253, y: -1.6786667}
+      - {x: 0.5149431, y: -1.1153333}
+      - {x: 0.16208701, y: -0.83666664}
+      - {x: 0.16542214, y: 0.68133336}
+      - {x: 0.594986, y: 0.67733335}
+      - {x: 0.60445964, y: 2.0666666}
+    - - {x: -0.26136068, y: -1.4046874}
+      - {x: -0.13421224, y: -1.4046874}
+      - {x: -0.12815754, y: -1.3986328}
+      - {x: -0.0050455728, y: -1.3380859}
+      - {x: -0.0050455728, y: -1.5944011}
+      - {x: -0.26136068, y: -1.5944011}
   m_UseDelaunayMesh: 0

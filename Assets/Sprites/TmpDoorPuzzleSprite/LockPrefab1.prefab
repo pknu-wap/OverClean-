@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -8891339892031002361}
   - component: {fileID: 4473423391463486268}
   m_Layer: 0
-  m_Name: TmpLockA
+  m_Name: LockPrefab1
   m_TagString: Lock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8e280d24d968f1e4084e13e38dcc6f5d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 232f3fed439ed574a803bf358f556fb7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -100,7 +100,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorPuzzleManager: {fileID: 0}
-  ansKey: {fileID: 0}
+  timeBar: {fileID: 0}
+  isTimeout: 0
+  oImage: {fileID: 0}
+  xImage: {fileID: 0}
 --- !u!50 &-8891339892031002361
 Rigidbody2D:
   serializedVersion: 4
@@ -164,7 +167,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5, y: 5}
+    oldSize: {x: 3.666667, y: 2.4008791}
     newSize: {x: 5, y: 5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -172,8 +175,8 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -2.5, y: 2.5}
-      - {x: -2.5, y: -2.5}
-      - {x: 2.5, y: -2.5}
-      - {x: 2.5, y: 2.5}
+    - - {x: -1.8333335, y: 1.2004396}
+      - {x: -1.8333335, y: -1.2004396}
+      - {x: 1.8333335, y: -1.2004396}
+      - {x: 1.8333335, y: 1.2004396}
   m_UseDelaunayMesh: 0
