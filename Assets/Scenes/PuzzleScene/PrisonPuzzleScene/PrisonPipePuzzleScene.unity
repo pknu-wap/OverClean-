@@ -607,6 +607,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PipeTileStraightShape
       objectReference: {fileID: 0}
+    - target: {fileID: 2783707034080327878, guid: 1fbe2ce79e7f75a418f9fec2c688428c, type: 3}
+      propertyPath: puzzleCamera
+      value: 
+      objectReference: {fileID: 576152283}
     - target: {fileID: 4393560287442456110, guid: 1fbe2ce79e7f75a418f9fec2c688428c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -748
@@ -670,6 +674,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1507231582}
     m_Modifications:
+    - target: {fileID: -2410966383492373772, guid: f5d139065cf08984292fcb6c41a672b0, type: 3}
+      propertyPath: puzzleCamera
+      value: 
+      objectReference: {fileID: 576152283}
     - target: {fileID: 2105311140788913115, guid: f5d139065cf08984292fcb6c41a672b0, type: 3}
       propertyPath: m_Name
       value: PipeTileTShape
@@ -741,6 +749,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PipeTileLShape
       objectReference: {fileID: 0}
+    - target: {fileID: 5361702753275299277, guid: 75f7887e0a476be4098d45c8306f770e, type: 3}
+      propertyPath: puzzleCamera
+      value: 
+      objectReference: {fileID: 576152283}
     - target: {fileID: 5642052764487835015, guid: 75f7887e0a476be4098d45c8306f770e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -745

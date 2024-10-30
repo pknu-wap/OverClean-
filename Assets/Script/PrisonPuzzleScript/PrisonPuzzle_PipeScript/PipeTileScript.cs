@@ -26,10 +26,8 @@ public class PipeTileScript : MonoBehaviour
 
     public void RotateTile()
     {
-        // 90도씩 시계방향 회전
-        currentRotation = (currentRotation + 90) % 360;
-        // Z축을 기준으로 회전
-        transform.rotation = Quaternion.Euler(0, 0, -currentRotation);
+        // 파이프 타일이 기존 회전 각도를 유지한 상태에서 90도 회전
+        transform.Rotate(0, 0, -90);
     }
 
     // 다른 타일과의 연결을 검사하는 함수 예시
@@ -51,7 +49,8 @@ public class PipeTileScript : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
         if (hit.collider != null && hit.collider.gameObject == gameObject)
         {
-            RotateTile();
+            RotateTile(); 
+            Debug.Log("회전함!");
         }
     }
     
