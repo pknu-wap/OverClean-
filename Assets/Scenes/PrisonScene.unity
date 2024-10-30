@@ -913,7 +913,7 @@ Transform:
   m_GameObject: {fileID: 443638698}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.4, y: 6, z: -0.6}
+  m_LocalPosition: {x: 11.17, y: -7.15, z: -0.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6832,7 +6832,7 @@ Transform:
   m_GameObject: {fileID: 1036409774}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.7}
+  m_LocalPosition: {x: 0, y: 0, z: -0.69}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7572,7 +7572,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8aa808fff62d64545a91cb8703794d1f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 698acbec27c6915499036c2360246f27, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -9184,7 +9184,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8aa808fff62d64545a91cb8703794d1f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 698acbec27c6915499036c2360246f27, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -9945,8 +9945,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isPlayer1In: 0
   isPlayer2In: 0
-  pipeInteractZonePlayerCounter1: {fileID: 0}
-  pipeInteractZonePlayerCounter2: {fileID: 0}
+  pipeInteractZonePlayerCounter1: {fileID: 1054376979}
+  pipeInteractZonePlayerCounter2: {fileID: 222089048}
 --- !u!61 &2054068920
 BoxCollider2D:
   m_ObjectHideFlags: 0
