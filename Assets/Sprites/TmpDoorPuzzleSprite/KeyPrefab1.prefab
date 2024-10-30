@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -7432238826853506067}
   - component: {fileID: -3250793466499630808}
   m_Layer: 0
-  m_Name: TmpKeya
+  m_Name: KeyPrefab1
   m_TagString: Key
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b1c1c53c2fbe9324eb100eb8a75a6ac6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 99d447ea6f6e0fd42b00499585106b5a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -100,8 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAnsKey: 1
   puzzleCamera: {fileID: 0}
-  tr: {fileID: 0}
-  mousePosition: {x: 0, y: 0, z: 0}
+  isDragging: 0
 --- !u!60 &-3250793466499630808
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -138,7 +137,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.5, y: 4}
+    oldSize: {x: 4.4683633, y: 2.3999999}
     newSize: {x: 2.5, y: 4}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
