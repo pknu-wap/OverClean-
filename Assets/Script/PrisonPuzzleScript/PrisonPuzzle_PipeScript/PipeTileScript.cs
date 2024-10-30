@@ -23,7 +23,7 @@ public class PipeTileScript : MonoBehaviour
         // 90도씩 시계방향 회전
         currentRotation = (currentRotation + 90) % 360;
         // Z축을 기준으로 회전
-        transform.rotation = Quaternion.Euler(0, 0, currentRotation);
+        transform.rotation = Quaternion.Euler(0, 0, -currentRotation);
     }
 
     // 다른 타일과의 연결을 검사하는 함수 예시
