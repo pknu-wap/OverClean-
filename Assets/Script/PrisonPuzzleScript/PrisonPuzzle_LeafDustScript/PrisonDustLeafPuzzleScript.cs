@@ -71,7 +71,7 @@ public class PrisonDustLeafPuzzleScript : MonoBehaviour
         Vector3 GeneratePosition = new Vector3(
                 Random.Range(minPosition.x, maxPosition.x),
                 Random.Range(minPosition.y, maxPosition.y),
-                -1.2f
+                -2.5f
             );
 
         // 해당 위치에 프리팹 생성
