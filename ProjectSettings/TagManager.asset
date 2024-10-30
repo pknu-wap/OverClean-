@@ -9,6 +9,8 @@ TagManager:
   - PuzzleCamera
   - Key
   - Lock
+  - Dust
+  - Leaf
   layers:
   - Default
   - TransparentFX
