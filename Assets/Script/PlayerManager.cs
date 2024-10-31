@@ -57,7 +57,6 @@ public class Player : MonoBehaviour
 
 
 	}
-		
     	// FixedUpdate는 물리 연산이 이루어지는 고정된 주기로 호출되므로,
     	// 물리적 이동은 여기서 처리하는 것이 적합하다.
 	void FixedUpdate()
@@ -92,19 +91,23 @@ public class Player : MonoBehaviour
 			anim.SetFloat("Speed", inputVec1.magnitude);
 			if (inputVec1.y < 0)
     		{
-        		anim.SetInteger("Direction", 0); // 정면
+				// 정면
+        		anim.SetInteger("Direction", 0); 
     		}
 			else if (inputVec1.x > 0)
     		{
-        		anim.SetInteger("Direction", 1); // 오른쪽
+				// 오른쪽
+        		anim.SetInteger("Direction", 1); 
     		}	
     		else if (inputVec1.x < 0)
     		{
-        		anim.SetInteger("Direction", 2); // 왼쪽
+				// 왼쪽
+        		anim.SetInteger("Direction", 2); 
     		}
     		else if (inputVec1.y > 0)
     		{
-        		anim.SetInteger("Direction", 3); // 뒤쪽
+				// 뒤쪽
+        		anim.SetInteger("Direction", 3); 
     		}
 		}
 
@@ -113,19 +116,23 @@ public class Player : MonoBehaviour
 			anim.SetFloat("Speed", inputVec2.magnitude);
 			if (inputVec2.y < 0)
     		{
-        		anim.SetInteger("Direction", 0); // 정면
+				// 정면
+        		anim.SetInteger("Direction", 0); 
     		}
 			else if (inputVec2.x > 0)
     		{
-        		anim.SetInteger("Direction", 1); // 오른쪽
+				// 오른쪽
+        		anim.SetInteger("Direction", 1); 
     		}	
     		else if (inputVec2.x < 0)
     		{
-        		anim.SetInteger("Direction", 2); // 왼쪽
+				// 왼쪽
+        		anim.SetInteger("Direction", 2); 
     		}
     		else if (inputVec2.y > 0)
     		{
-        		anim.SetInteger("Direction", 3); // 뒤쪽
+				// 뒤쪽
+        		anim.SetInteger("Direction", 3); 
     		}
 		}
 	}
