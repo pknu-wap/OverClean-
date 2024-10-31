@@ -57,7 +57,6 @@ public class Player : MonoBehaviour
 
 
 	}
-		
     	// FixedUpdate는 물리 연산이 이루어지는 고정된 주기로 호출되므로,
     	// 물리적 이동은 여기서 처리하는 것이 적합하다.
 	void FixedUpdate()
@@ -90,29 +89,51 @@ public class Player : MonoBehaviour
 		if(playerID == 1)
 		{
 			anim.SetFloat("Speed", inputVec1.magnitude);
-
-			// 플레이어가 x축 방향으로 움직이고 있는지 확인
-			if(inputVec1.x != 0)
-			{
-				// x축 입력 값이 음수일 경우 (왼쪽으로 이동 중) 스프라이트를 뒤집음
-				// x축 입력 값이 양수일 경우 (오른쪽으로 이동 중) 스프라이트를 원래 방향으로 돌림
-				spriter.flipX = inputVec1.x < 0;
-			}
+			if (inputVec1.y < 0)
+    		{
+				// 정면
+        		anim.SetInteger("Direction", 0); 
+    		}
+			else if (inputVec1.x > 0)
+    		{
+				// 오른쪽
+        		anim.SetInteger("Direction", 1); 
+    		}	
+    		else if (inputVec1.x < 0)
+    		{
+				// 왼쪽
+        		anim.SetInteger("Direction", 2); 
+    		}
+    		else if (inputVec1.y > 0)
+    		{
+				// 뒤쪽
+        		anim.SetInteger("Direction", 3); 
+    		}
 		}
+
 		else if(playerID == 2)
 		{
 			anim.SetFloat("Speed", inputVec2.magnitude);
-
-			// 플레이어가 x축 방향으로 움직이고 있는지 확인
-			if(inputVec2.x != 0)
-			{
-				// x축 입력 값이 음수일 경우 (왼쪽으로 이동 중) 스프라이트를 뒤집음
-				// x축 입력 값이 양수일 경우 (오른쪽으로 이동 중) 스프라이트를 원래 방향으로 돌림
-				spriter.flipX = inputVec2.x < 0;
-			}
+			if (inputVec2.y < 0)
+    		{
+				// 정면
+        		anim.SetInteger("Direction", 0); 
+    		}
+			else if (inputVec2.x > 0)
+    		{
+				// 오른쪽
+        		anim.SetInteger("Direction", 1); 
+    		}	
+    		else if (inputVec2.x < 0)
+    		{
+				// 왼쪽
+        		anim.SetInteger("Direction", 2); 
+    		}
+    		else if (inputVec2.y > 0)
+    		{
+				// 뒤쪽
+        		anim.SetInteger("Direction", 3); 
+    		}
 		}
-		
-
-    	
 	}
 }
