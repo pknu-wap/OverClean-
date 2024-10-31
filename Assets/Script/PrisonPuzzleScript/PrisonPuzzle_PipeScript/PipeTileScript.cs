@@ -4,12 +4,20 @@ using UnityEngine;
 
 public class PipeTileScript : MonoBehaviour
 {
-    // 회전 각도 (0, 90, 180, 270도로 제한)
-    private int currentRotation;
     // currentRotation, pipeShape는 타일이 생성될 때 PrisonPipePuzzleScript.cs에서 정보를 받아 초기화됨
     public int currentRotation;
     public int pipeShape;
-
+    public enum Direction
+    {
+        Top, Right, Bottom, Left
+    }
+    public Dictionary<Direction, bool> connections = new Dictionary<Direction, bool>
+    {
+        { Direction.Top, false },
+        { Direction.Bottom, false },
+        { Direction.Left, false },
+        { Direction.Right, false }
+    };
     // 스프라이트 렌더러
     private SpriteRenderer spriteRenderer;
 
@@ -44,7 +52,7 @@ public class PipeTileScript : MonoBehaviour
         return true;
     }
 
-     private void OnMouseDownHandler()
+    private void OnMouseDownHandler()
     {
         // 마우스 위치를 월드 좌표로 변환 (2D 평면에서의 위치만 사용)
         Vector3 mousePosition = puzzleCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -puzzleCamera.transform.position.z));
@@ -55,8 +63,7 @@ public class PipeTileScript : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
         if (hit.collider != null && hit.collider.gameObject == gameObject)
         {
-            RotateTile(); 
-            Debug.Log("회전함!");
+            RotateTile();
         }
     }
     
