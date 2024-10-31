@@ -20,14 +20,12 @@ public class PipeTileScript : MonoBehaviour
     };
     // 스프라이트 렌더러
     private SpriteRenderer spriteRenderer;
-
     public Camera puzzleCamera;
 
     void Start()
     {
-         // 초기 회전 각도
-        currentRotation = 0;
         spriteRenderer = GetComponent<SpriteRenderer>();
+        UpdateConnections();
 
         if (puzzleCamera == null)
         {
@@ -41,7 +39,41 @@ public class PipeTileScript : MonoBehaviour
         transform.Rotate(0, 0, -90);
         // 0,1,2,3 으로 회전 정보 구분
         currentRotation = (currentRotation + 1) % 4;
+        // 회전 시 마다 연결 정보 변경
+        UpdateConnections();
         Debug.Log($"회전함! / pipeshape : {pipeShape} , currentRotation : {currentRotation}");
+        Debug.Log($"connections : {connections[Direction.Top]}, {connections[Direction.Right]}, {connections[Direction.Bottom]}, {connections[Direction.Left]}");
+    }
+
+    private void UpdateConnections()
+    {
+        // 파이프 모양에 따른 연결 설정
+        switch (pipeShape)
+        {
+            // 일자 모양
+            case 0:
+                connections[(Direction)currentRotation] = true;
+                connections[(Direction)((currentRotation+1)%4)] = false;
+                connections[(Direction)((currentRotation+2)%4)] = true;
+                connections[(Direction)((currentRotation+3)%4)] = false;
+                break;
+            // L자 모양
+            case 1:
+                connections[(Direction)currentRotation] = true;
+                connections[(Direction)((currentRotation+1)%4)] = true;
+                connections[(Direction)((currentRotation+2)%4)] = false;
+                connections[(Direction)((currentRotation+3)%4)] = false;
+                break;
+            // T자 모양
+            case 2:
+                connections[(Direction)currentRotation] = true;
+                connections[(Direction)((currentRotation+1)%4)] = true;
+                connections[(Direction)((currentRotation+2)%4)] = true;
+                connections[(Direction)((currentRotation+3)%4)] = false;
+                break;
+            default:
+                break;
+        }
     }
 
     // 다른 타일과의 연결을 검사하는 함수 예시
