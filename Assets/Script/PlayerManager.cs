@@ -90,17 +90,17 @@ public class Player : MonoBehaviour
 		if(playerID == 1)
 		{
 			anim.SetFloat("Speed", inputVec1.magnitude);
-			if (inputVec1.x < 0)
-    		{
-        		anim.SetInteger("Direction", 2); // 왼쪽
-    		}	
-    		else if (inputVec1.x > 0)
-    		{
-        		anim.SetInteger("Direction", 1); // 오른쪽
-    		}
-    		else if (inputVec1.y < 0)
+			if (inputVec1.y < 0)
     		{
         		anim.SetInteger("Direction", 0); // 정면
+    		}
+			else if (inputVec1.x > 0)
+    		{
+        		anim.SetInteger("Direction", 1); // 오른쪽
+    		}	
+    		else if (inputVec1.x < 0)
+    		{
+        		anim.SetInteger("Direction", 2); // 왼쪽
     		}
     		else if (inputVec1.y > 0)
     		{
@@ -111,17 +111,17 @@ public class Player : MonoBehaviour
 		else if(playerID == 2)
 		{
 			anim.SetFloat("Speed", inputVec2.magnitude);
-			if (inputVec2.x < 0)
-    		{
-        		anim.SetInteger("Direction", 2); // 왼쪽
-    		}	
-    		else if (inputVec2.x > 0)
-    		{
-        		anim.SetInteger("Direction", 1); // 오른쪽
-    		}
-    		else if (inputVec2.y < 0)
+			if (inputVec2.y < 0)
     		{
         		anim.SetInteger("Direction", 0); // 정면
+    		}
+			else if (inputVec2.x > 0)
+    		{
+        		anim.SetInteger("Direction", 1); // 오른쪽
+    		}	
+    		else if (inputVec2.x < 0)
+    		{
+        		anim.SetInteger("Direction", 2); // 왼쪽
     		}
     		else if (inputVec2.y > 0)
     		{
