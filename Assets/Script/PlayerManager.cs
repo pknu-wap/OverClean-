@@ -90,8 +90,6 @@ public class Player : MonoBehaviour
 		if(playerID == 1)
 		{
 			anim.SetFloat("Speed", inputVec1.magnitude);
-       
-
 			if (inputVec1.x < 0)
     		{
         		anim.SetInteger("Direction", 2); // 왼쪽
@@ -113,14 +111,22 @@ public class Player : MonoBehaviour
 		else if(playerID == 2)
 		{
 			anim.SetFloat("Speed", inputVec2.magnitude);
-
-			// 플레이어가 x축 방향으로 움직이고 있는지 확인
-			if(inputVec2.x != 0)
-			{
-				// x축 입력 값이 음수일 경우 (왼쪽으로 이동 중) 스프라이트를 뒤집음
-				// x축 입력 값이 양수일 경우 (오른쪽으로 이동 중) 스프라이트를 원래 방향으로 돌림
-				spriter.flipX = inputVec2.x < 0;
-			}
+			if (inputVec2.x < 0)
+    		{
+        		anim.SetInteger("Direction", 2); // 왼쪽
+    		}	
+    		else if (inputVec2.x > 0)
+    		{
+        		anim.SetInteger("Direction", 1); // 오른쪽
+    		}
+    		else if (inputVec2.y < 0)
+    		{
+        		anim.SetInteger("Direction", 0); // 정면
+    		}
+    		else if (inputVec2.y > 0)
+    		{
+        		anim.SetInteger("Direction", 3); // 뒤쪽
+    		}
 		}
 	}
 }
