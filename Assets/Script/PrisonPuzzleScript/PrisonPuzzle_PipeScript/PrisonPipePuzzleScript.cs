@@ -41,13 +41,15 @@ public class PrisonPipePuzzleScript : MonoBehaviour
                 Vector3 tilePosition = new Vector3(originXPosition + x * tileSize, originYPosition -y * tileSize, 0);
                 pipeTile.transform.localPosition = tilePosition;
                 // 0도, 90도, 180도, 270도 중 하나로 회전
-                int randomRotation = Random.Range(0, 4) * 90;
+                int randomRotation = Random.Range(0, 4) * -90;
                 pipeTile.transform.localRotation = Quaternion.Euler(0, 0, randomRotation);
 
-                // 각 파이프 타일의 스크립트에 pipeShape를 전해주기 위해 GetComponent 사용
-                pipeTile.GetComponent<PipeTileScript>().pipeShape = randomShape;
-                // 각 파이프 타일의 스크립트에 currentRotation을 전해주기 위해 GetComponent 사용
-                pipeTile.GetComponent<PipeTileScript>().currentRotation = randomRotation;
+                // 각 파이프 타일의 스크립트에 파이프 모양과 회전 정보를 전해줌
+                PipeTileScript pipeTileScript = pipeTile.GetComponent<PipeTileScript>();
+                pipeTileScript.pipeShape = randomShape;
+                // currentRotation은 실제 각도 (-90, -180 등)이 아니라 0,1,2,3으로 간편히 구분하도록 함
+                pipeTileScript.currentRotation = randomRotation / -90;
+                Debug.Log($"location : {x}, {y} / pipeshape : {pipeTileScript.pipeShape} , currentRotation : {pipeTileScript.currentRotation}");
             }
         }
     }

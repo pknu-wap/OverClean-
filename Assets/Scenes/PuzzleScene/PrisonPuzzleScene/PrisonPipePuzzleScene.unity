@@ -355,8 +355,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pipeGrid: {fileID: 1507231581}
   pipeShapes:
-  - {fileID: 6928357554528484970}
   - {fileID: 1771439471432629780}
+  - {fileID: 6928357554528484970}
   - {fileID: 5066803469716535619}
 --- !u!1 &576152281
 GameObject:
@@ -594,6 +594,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8de8277255241f648a49d96b5e37a08d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentRotation: 0
+  pipeShape: 0
   puzzleCamera: {fileID: 0}
 --- !u!1001 &1771439471432629778
 PrefabInstance:

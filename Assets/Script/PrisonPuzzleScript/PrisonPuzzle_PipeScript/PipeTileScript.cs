@@ -6,6 +6,9 @@ public class PipeTileScript : MonoBehaviour
 {
     // 회전 각도 (0, 90, 180, 270도로 제한)
     private int currentRotation;
+    // currentRotation, pipeShape는 타일이 생성될 때 PrisonPipePuzzleScript.cs에서 정보를 받아 초기화됨
+    public int currentRotation;
+    public int pipeShape;
 
     // 스프라이트 렌더러
     private SpriteRenderer spriteRenderer;
@@ -28,6 +31,9 @@ public class PipeTileScript : MonoBehaviour
     {
         // 파이프 타일이 기존 회전 각도를 유지한 상태에서 90도 회전
         transform.Rotate(0, 0, -90);
+        // 0,1,2,3 으로 회전 정보 구분
+        currentRotation = (currentRotation + 1) % 4;
+        Debug.Log($"회전함! / pipeshape : {pipeShape} , currentRotation : {currentRotation}");
     }
 
     // 다른 타일과의 연결을 검사하는 함수 예시
