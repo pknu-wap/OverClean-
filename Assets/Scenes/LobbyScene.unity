@@ -1391,7 +1391,7 @@ GameObject:
   - component: {fileID: 1523785828}
   - component: {fileID: 1523785827}
   m_Layer: 5
-  m_Name: InputRoomCodeModal
+  m_Name: RoomCodeInputPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
