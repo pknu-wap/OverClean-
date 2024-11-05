@@ -75,4 +75,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PuzzleScene/PrisonPuzzleScene/PrisonPipePuzzleScene.unity
     guid: 3b77c8fd16799a946b25fd7d14f01bf6
+  - enabled: 1
+    path: Assets/Scenes/MapChooseScene.unity
+    guid: ea19cffba1fec89499f4bdcd9683f72c
+  - enabled: 1
+    path: Assets/Scenes/HouseScene.unity
+    guid: a2888ed2c96b4f047ae89fab6bf626f7
   m_configObjects: {}
