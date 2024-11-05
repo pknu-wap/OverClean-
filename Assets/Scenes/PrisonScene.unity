@@ -541,10 +541,10 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0.5}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 635386917}
+  m_Father: {fileID: 812403688}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &265958730
 SpriteRenderer:
@@ -857,7 +857,7 @@ Transform:
   m_GameObject: {fileID: 443638698}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.06, y: -7.97, z: -0.6}
+  m_LocalPosition: {x: -10.19, y: 5.08, z: -0.6}
   m_LocalScale: {x: 0.13, y: 0.13, z: 0.13}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -1196,7 +1196,6 @@ Transform:
   m_Children:
   - {fileID: 654883692}
   - {fileID: 1845557210}
-  - {fileID: 265958729}
   m_Father: {fileID: 812403688}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &654883691
@@ -6350,6 +6349,7 @@ Transform:
   - {fileID: 1036409775}
   - {fileID: 1667781375}
   - {fileID: 822678604}
+  - {fileID: 265958729}
   - {fileID: 635386917}
   - {fileID: 1054376980}
   - {fileID: 222089049}
@@ -7960,7 +7960,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1.1111112}
+  m_Size: {x: 2.875, y: 8.275}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -7975,7 +7975,7 @@ Transform:
   m_GameObject: {fileID: 1279382546}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.57, y: -5.53, z: -0.6}
+  m_LocalPosition: {x: -5.78, y: 4.99, z: -0.6}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -8018,40 +8018,40 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.8333333, y: 11.033334}
-    newSize: {x: 1, y: 1.1111112}
+    oldSize: {x: 2.875, y: 8.275}
+    newSize: {x: 2.875, y: 8.275}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 1.3000001, y: 1.35}
-      - {x: 0.48333335, y: 2.6000001}
-      - {x: 1.0500001, y: 3.3666668}
-      - {x: 1.1500001, y: 5.0000005}
-      - {x: 0.8166667, y: 5.516667}
-      - {x: -0.6, y: 5.4500003}
-      - {x: -0.95000005, y: 4.9833336}
-      - {x: -0.9666667, y: 3.5500002}
-      - {x: -0.35000002, y: 2.6333334}
-      - {x: -1.0333334, y: 1.45}
-      - {x: -1.1333334, y: -0.5}
-      - {x: -1.9166667, y: -1.5500001}
-      - {x: -1.35, y: -1.8833334}
-      - {x: -0.5166667, y: -0.65000004}
-      - {x: -0.43333337, y: -4.4833336}
-      - {x: -1.0666667, y: -5.466667}
-      - {x: -0.26666668, y: -5.516667}
-      - {x: 0.116666675, y: -5.2500005}
-      - {x: 0.48333335, y: -5.516667}
-      - {x: 1.1500001, y: -5.4500003}
-      - {x: 0.6666667, y: -4.666667}
-      - {x: 0.6833334, y: -1.0333334}
-      - {x: 1.1166667, y: -1.9666668}
-      - {x: 1.9166667, y: -1.9333334}
-      - {x: 1.8833334, y: -1.2833334}
-      - {x: 1.2166667, y: -0.8000001}
+    - - {x: 0.975, y: 1.0125}
+      - {x: 0.3625, y: 1.95}
+      - {x: 0.7875, y: 2.525}
+      - {x: 0.8625, y: 3.75}
+      - {x: 0.6125, y: 4.1375003}
+      - {x: -0.45000002, y: 4.0875}
+      - {x: -0.71250004, y: 3.7375}
+      - {x: -0.725, y: 2.6625001}
+      - {x: -0.26250002, y: 1.975}
+      - {x: -0.77500004, y: 1.0875}
+      - {x: -0.85, y: -0.375}
+      - {x: -1.4375, y: -1.1625}
+      - {x: -1.0125, y: -1.4125}
+      - {x: -0.38750002, y: -0.4875}
+      - {x: -0.32500002, y: -3.3625}
+      - {x: -0.8, y: -4.1}
+      - {x: -0.2, y: -4.1375003}
+      - {x: 0.0875, y: -3.9375}
+      - {x: 0.3625, y: -4.1375003}
+      - {x: 0.8625, y: -4.0875}
+      - {x: 0.5, y: -3.5}
+      - {x: 0.5125, y: -0.77500004}
+      - {x: 0.83750004, y: -1.475}
+      - {x: 1.4375, y: -1.45}
+      - {x: 1.4125, y: -0.96250004}
+      - {x: 0.9125, y: -0.6}
   m_UseDelaunayMesh: 0
 --- !u!1 &1284700839
 GameObject:
@@ -8725,7 +8725,7 @@ MonoBehaviour:
   interactCount: 0
   player1: {fileID: 504270776}
   player2: {fileID: 1279382548}
-  limitTime: 5
+  limitTime: 550
   remainTime: 5
   isTimeOver: 0
   timerText: {fileID: 1359239812}
@@ -10020,8 +10020,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isPlayer1In: 0
   isPlayer2In: 0
-  pipeInteractZonePlayerCounter1: {fileID: 0}
-  pipeInteractZonePlayerCounter2: {fileID: 0}
+  pipeInteractZonePlayerCounter1: {fileID: 1054376979}
+  pipeInteractZonePlayerCounter2: {fileID: 222089048}
 --- !u!61 &2054068920
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10096,12 +10096,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e394e4e889c5fa4caa9fd2c8e30b9f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TutorialMessage: {fileID: 1150927360}
-  TutorialGuideShowButton: {fileID: 173938826}
-  TutorialGudeCloseButton: {fileID: 1274250095}
-  hiddenPosition: {x: -930, y: 510}
-  shownPosition: {x: 470, y: 0}
-  isModalVisible: 0
 --- !u!4 &2080126693
 Transform:
   m_ObjectHideFlags: 0
