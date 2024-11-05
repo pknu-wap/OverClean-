@@ -8401,7 +8401,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stageManager: {fileID: 1558506330}
-  stageClear: 1
+  stageClear: 0
 --- !u!61 &1393663721
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8616,7 +8616,7 @@ MonoBehaviour:
   goalZone: {fileID: 1393663720}
   goalZoneColor: {r: 1, g: 1, b: 1, a: 0.50980395}
   interactionsCompleted: 
-  interactCount: 8
+  interactCount: 0
   player1: {fileID: 504270776}
   player2: {fileID: 1279382548}
   limitTime: 550
