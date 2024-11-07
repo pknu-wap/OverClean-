@@ -1391,7 +1391,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: NetworkingManager, Assembly-CSharp
-        m_MethodName: SwitchPlayers
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1737,7 +1737,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1710354786}
         m_TargetAssemblyTypeName: RoomManager, Assembly-CSharp
-        m_MethodName: ReadyUp
+        m_MethodName: ReadyUpPlayer2
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1827,6 +1827,8 @@ MonoBehaviour:
   player2Indicator: {fileID: 1912108533}
   player1ReadyText: {fileID: 187048803}
   player2ReadyText: {fileID: 345217155}
+  player1ReadyButton: {fileID: 1956269874}
+  player2ReadyButton: {fileID: 1528054315}
 --- !u!4 &1710354787
 Transform:
   m_ObjectHideFlags: 0
@@ -2296,7 +2298,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1710354786}
         m_TargetAssemblyTypeName: RoomManager, Assembly-CSharp
-        m_MethodName: ReadyUp
+        m_MethodName: ReadyUpPlayer1
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
