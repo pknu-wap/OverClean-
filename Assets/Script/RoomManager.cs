@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using UnityEngine.SocialPlatforms;
+using Photon.Pun.UtilityScripts;
 
 public class RoomManager : MonoBehaviourPunCallbacks
 {
@@ -166,18 +168,23 @@ public class RoomManager : MonoBehaviourPunCallbacks
     // 플레이어별 레디 버튼을 자신의 캐릭터에 맞게 활성화 또는 비활성화
     private void SetReadyButtonInteractivity()
     {
-        if (PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey("Character"))
+        foreach (Photon.Realtime.Player player in PhotonNetwork.PlayerList)
         {
-            string character = PhotonNetwork.LocalPlayer.CustomProperties["Character"].ToString();
-            if (character == "Dave")
+            if (player.CustomProperties.ContainsKey("Character"))
             {
-                player1ReadyButton.interactable = true;
-                player2ReadyButton.interactable = false;
-            }
-            else if (character == "Matthew")
-            {
-                player1ReadyButton.interactable = false;
-                player2ReadyButton.interactable = true;
+                string character = player.CustomProperties["Character"].ToString();
+                if(player.IsLocal)
+                {
+                    if (character == "Dave")
+                    {
+                        player1ReadyButton.interactable = true;
+                        player2ReadyButton.interactable = false;
+                    }
+                    else if(character == "Matthew"){
+                        player1ReadyButton.interactable = false;
+                        player2ReadyButton.interactable = true;
+                    }
+                }
             }
         }
     }
@@ -261,45 +268,49 @@ public class RoomManager : MonoBehaviourPunCallbacks
             {
                 string character = player.CustomProperties["Character"].ToString();
 
-                if (character == "Dave")
+                if (character == "Matthew")
                 {
-                    player1Image.sprite = daveBWImage;
-                }
-                else if (character == "Matthew")
-                {
-                    player2Image.sprite = matthewBWImage;
+                    return;
                 }
             }
         }
+        player2Image.sprite = matthewBWImage;
     }
 
     // 플레이어가 방에서 나갈 때 호출
     public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
     {
-        Debug.Log(otherPlayer.NickName + "이(가) 방을 나갔습니다.");
-
-        // 나간 플레이어의 캐릭터 이미지 업데이트
-        SetCharacterImagesToBlackAndWhite();
-
-        if (otherPlayer.ActorNumber == 1)
+        if (otherPlayer.CustomProperties["Character"].ToString() == "Dave")
         {
-            player1Text.text = "플레이어를 기다리는 중...";
+            Photon.Realtime.Player remainingPlayer;
+            if(PhotonNetwork.PlayerList[0] == otherPlayer)
+            {
+                remainingPlayer = PhotonNetwork.PlayerList[1];
+            }
+            else
+            {
+                remainingPlayer = PhotonNetwork.PlayerList[0];
+            }
+
+            var newProperties = new ExitGames.Client.Photon.Hashtable();
+            foreach (var key in otherPlayer.CustomProperties.Keys)
+            {
+                if(remainingPlayer.CustomProperties.ContainsKey(key))
+                {
+                    newProperties[key] = otherPlayer.CustomProperties[key];
+                }
+            }
+            remainingPlayer.SetCustomProperties(newProperties);
         }
-        else if (otherPlayer.ActorNumber == 2)
+        // 매튜를 흑백처리
+        player2Image.sprite = matthewBWImage;
+        // You 
+        UpdatePlayerIndicator();
+        // 버튼 조작권한
+        SetReadyButtonInteractivity();
+        if(PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey("Ready"))
         {
-            player2Text.text = "플레이어를 기다리는 중...";
-        }
-
-        // 레디 상태 초기화
-        player1Ready = false;
-        player2Ready = false;
-        player1ReadyText.text = "Not Ready";
-        player2ReadyText.text = "Not Ready";
-
-        if (startGameCoroutine != null)
-        {
-            StopCoroutine(startGameCoroutine);
-            startGameCoroutine = null;
+            player1ReadyText.text = (bool)PhotonNetwork.LocalPlayer.CustomProperties["Ready"] ? "Ready!" : "";
         }
     }
 
