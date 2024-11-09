@@ -196,10 +196,21 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
         if (changedProps.ContainsKey("Ready"))
         {
+            bool isReady = (bool)targetPlayer.CustomProperties["Ready"];
+            if (targetPlayer.CustomProperties["Character"].ToString() == "Dave")
+            {
+                player1ReadyText.text = isReady ? "Ready!" : "Not Ready";
+            }
+            else if (targetPlayer.CustomProperties["Character"].ToString() == "Matthew")
+            {
+                player2ReadyText.text = isReady ? "Ready!" : "Not Ready";
+            }
             CheckAllPlayersReady();
         }
         // 캐릭터 속성이 변경되었을 때 이미지 업데이트
         UpdateCharacterImages();
+
+
     }
 
     // 플레이어의 캐릭터 속성에 따라 이미지를 업데이트하는 함수
@@ -301,16 +312,17 @@ public class RoomManager : MonoBehaviourPunCallbacks
                 }
             }
             remainingPlayer.SetCustomProperties(newProperties);
-        }
-        // 매튜를 흑백처리
-        player2Image.sprite = matthewBWImage;
-        // You 
-        UpdatePlayerIndicator();
-        // 버튼 조작권한
-        SetReadyButtonInteractivity();
-        if(PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey("Ready"))
-        {
-            player1ReadyText.text = (bool)PhotonNetwork.LocalPlayer.CustomProperties["Ready"] ? "Ready!" : "";
+
+            // 매튜를 흑백처리
+            player2Image.sprite = matthewBWImage;
+            // You 
+            UpdatePlayerIndicator();
+            // 버튼 조작권한
+            SetReadyButtonInteractivity();
+            if(PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey("Ready"))
+            {
+                player1ReadyText.text = (bool)PhotonNetwork.LocalPlayer.CustomProperties["Ready"] ? "Ready!" : "";
+            }
         }
     }
 
