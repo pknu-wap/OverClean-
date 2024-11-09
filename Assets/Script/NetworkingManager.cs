@@ -31,10 +31,14 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
     }
 
     private void Start()
+{
+    // Photon 서버에 연결된 상태가 아닌 경우에만 연결 시도
+    if (!PhotonNetwork.IsConnected)
     {
-        // 게임 시작 시 서버 연결
         ConnectToPhotonServer();
     }
+}
+
 
     // Photon 서버에 연결하는 함수
     public void ConnectToPhotonServer()
