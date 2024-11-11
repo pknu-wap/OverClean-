@@ -311,9 +311,6 @@ public class RoomManager : MonoBehaviourPunCallbacks
                 }
             }
             remainingPlayer.SetCustomProperties(newProperties);
-
-            // 매튜를 흑백처리
-            matthewImage.sprite = matthewBWImage;
             // You 
             UpdatePlayerIndicator();
             // 버튼 조작권한
@@ -323,6 +320,8 @@ public class RoomManager : MonoBehaviourPunCallbacks
                 daveReadyText.text = (bool)PhotonNetwork.LocalPlayer.CustomProperties["Ready"] ? "Ready!" : "";
             }
         }
+        // 매튜를 흑백처리
+        matthewImage.sprite = matthewBWImage;
     }
 
     // Back 버튼 클릭 시 호출되는 함수

@@ -1817,8 +1817,8 @@ MonoBehaviour:
   roomCodeText: {fileID: 260297526}
   daveImage: {fileID: 1494266184}
   matthewImage: {fileID: 1092640913}
-  daveBWImage: {fileID: 21300000, guid: db1ab3213814a984a901e8b233b6cbaa, type: 3}
-  matthewBWImage: {fileID: 21300000, guid: 7869cc5ff7aaee14ca1953f136f02c4c, type: 3}
+  daveBWImage: {fileID: 21300000, guid: 580504e1072455749b0ffb1a199e243d, type: 3}
+  matthewBWImage: {fileID: 21300000, guid: 124a58340e9514b42a29a9d4fe30b52e, type: 3}
   daveColorImage: {fileID: 21300000, guid: 1c2a50f127c5127499e2eb2acdee2e6c, type: 3}
   matthewColorImage: {fileID: 21300000, guid: 4a9f930dda97db140af3793d597f93f3, type: 3}
   daveText: {fileID: 884843663}
