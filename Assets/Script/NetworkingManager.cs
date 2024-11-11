@@ -39,6 +39,15 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
         }
     }
 
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            int playerCount = PhotonNetwork.CountOfPlayers;
+            Debug.Log("현재 로비에 접속된 플레이어 수: " + playerCount);
+        }
+    }
+
 
     // Photon 서버에 연결하는 함수
     public void ConnectToPhotonServer()
