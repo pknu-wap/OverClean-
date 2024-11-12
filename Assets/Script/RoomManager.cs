@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using UnityEngine.SocialPlatforms;
+using Photon.Pun.UtilityScripts;
 
 public class RoomManager : MonoBehaviourPunCallbacks
 {
@@ -10,8 +12,8 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public Text roomCodeText;
 
     // 플레이어 슬롯을 위한 변수
-    public Image player1Image;
-    public Image player2Image;
+    public Image daveImage;
+    public Image matthewImage;
 
     // 흑백 이미지
     public Sprite daveBWImage;
@@ -22,20 +24,27 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public Sprite matthewColorImage;
 
     // 플레이어 텍스트
-    public Text player1Text;
-    public Text player2Text;
+    public Text daveText;
+    public Text matthewText;
 
     // "You" 텍스트를 위한 변수
-    public Text player1Indicator;
-    public Text player2Indicator;
+    public Text daveIndicator;
+    public Text matthewIndicator;
 
     // 레디 상태 표시 텍스트
-    public Text player1ReadyText;
-    public Text player2ReadyText;
+    public Text daveReadyText;
+    public Text matthewReadyText;
+
+    // 레디 버튼
+    public Button daveReadyButton;
+    public Button matthewReadyButton;
 
     // 준비 상태
-    private bool player1Ready = false;
-    private bool player2Ready = false;
+    public bool daveReady = false;
+    public bool matthewReady = false;
+
+    // 게임 시작 코루틴
+    private Coroutine startGameCoroutine;
 
     private void Start()
     {
@@ -48,18 +57,33 @@ public class RoomManager : MonoBehaviourPunCallbacks
             }
 
             // 초기 텍스트 설정
-            player1Text.text = "플레이어를 기다리는 중...";
-            player2Text.text = "플레이어를 기다리는 중...";
+            daveText.text = "플레이어를 기다리는 중...";
+            matthewText.text = "플레이어를 기다리는 중...";
 
             // 방에 입장 시 초기 이미지 설정
-            player1Image.sprite = daveBWImage;
-            player2Image.sprite = matthewBWImage;
+            daveImage.sprite = daveBWImage;
+            matthewImage.sprite = matthewBWImage;
 
             // 캐릭터 이미지 업데이트
             UpdateCharacterImages();
 
-            // 초기화 시 캐릭터 이미지를 흑백으로 설정
-            SetCharacterImagesToBlackAndWhite();
+            // 플레이어별로 버튼 접근 권한 설정
+            // SetReadyButtonInteractivity();
+        }
+    }
+
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            foreach (Photon.Realtime.Player player in PhotonNetwork.PlayerList)
+            {
+                if(player.IsLocal)
+                {
+                        Debug.Log("할당 값 : 캐릭터에는 " + (string)player.CustomProperties["Character"]);
+                        Debug.Log("할당 값 : 레디에는 " + ((bool)player.CustomProperties["Ready"] ? "true" : "false"));
+                }
+            }
         }
     }
 
@@ -89,54 +113,72 @@ public class RoomManager : MonoBehaviourPunCallbacks
         if (allReady)
         {
             // 모두 준비 상태일 때 5초 후에 게임 시작
-            StartCoroutine(StartGameAfterDelay(5));
+            if (startGameCoroutine == null)
+            {
+                startGameCoroutine = StartCoroutine(StartGameAfterDelay(5));
+            }
+        }
+        else
+        {
+            // 한 명이라도 준비를 취소하면 코루틴을 중지
+            if (startGameCoroutine != null)
+            {
+                StopCoroutine(startGameCoroutine);
+                startGameCoroutine = null;
+            }
         }
     }
 
     // 5초 후에 게임 시작
     private IEnumerator StartGameAfterDelay(float delay)
     {
-        yield return new WaitForSeconds(delay);
+        float checkTime = 0f;
+        while (checkTime < delay)
+        {
+            foreach (Photon.Realtime.Player player in PhotonNetwork.PlayerList)
+            {
+                if (!player.CustomProperties.ContainsKey("Ready") || !(bool)player.CustomProperties["Ready"])
+                {
+                    yield break;
+                }
+            }
+            checkTime += Time.deltaTime;
+            yield return null;
+        }
         SceneManager.LoadScene("PrisonScene");
     }
 
-    public void ReadyUp()
+    public void ReadyUpDave()
     {
-        if (PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey("Character"))
+        if (PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey("Character") && PhotonNetwork.LocalPlayer.CustomProperties["Character"].ToString() == "Dave")
         {
-            string character = PhotonNetwork.LocalPlayer.CustomProperties["Character"].ToString();
+            // Dave의 준비 상태 전환
+            daveReady = !daveReady;
+            daveReadyText.text = daveReady ? "Ready!" : "Not Ready";
 
-            if (character == "Dave")
-            {
-                // 준비 상태 전환
-                player1Ready = !player1Ready;
-                player1ReadyText.text = player1Ready ? "Ready!" : "";
-                
-                // 플레이어의 준비 상태를 네트워크에 동기화
-                PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { { "Ready", player1Ready } });
-            }
-            else if (character == "Matthew")
-            {
-                player2Ready = !player2Ready;
-                player2ReadyText.text = player2Ready ? "Ready!" : "";
-                
-                // 플레이어의 준비 상태를 네트워크에 동기화
-                PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { { "Ready", player2Ready } });
-            }
+            // Dave의 준비 상태를 네트워크에 동기화
+            PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { { "Ready", daveReady } });
 
             // 모든 플레이어가 준비됐는지 확인
             CheckAllPlayersReady();
         }
     }
 
-    // 플레이어가 룸에 입장했을 때 호출되는 콜백 (자신 포함)
-    public override void OnJoinedRoom()
+    public void ReadyUpMatthew()
     {
-        Debug.Log(PhotonNetwork.LocalPlayer.NickName + "이(가) 방에 들어왔습니다.");
+        if (PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey("Character") && PhotonNetwork.LocalPlayer.CustomProperties["Character"].ToString() == "Matthew")
+        {
+            // matthew의 준비 상태 전환
+            matthewReady = !matthewReady;
+            matthewReadyText.text = matthewReady ? "Ready!" : "Not Ready";
 
-        // 플레이어 텍스트 및 이미지 업데이트
-        UpdatePlayerTexts();
-        UpdateCharacterImages();
+            
+            // matthew의 준비 상태를 네트워크에 동기화
+            PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { { "Ready", matthewReady } });
+
+            // 모든 플레이어가 준비됐는지 확인
+            CheckAllPlayersReady();
+        }
     }
 
     // 플레이어의 커스텀 프로퍼티가 업데이트될 때 호출되는 함수
@@ -144,47 +186,82 @@ public class RoomManager : MonoBehaviourPunCallbacks
     {
         base.OnPlayerPropertiesUpdate(targetPlayer, changedProps);
 
+        if (changedProps.ContainsKey("Ready"))
+        {
+            Debug.Log("레디 변경 감지 작동");
+            bool isReady = (bool)targetPlayer.CustomProperties["Ready"];
+            if (targetPlayer.CustomProperties["Character"].ToString() == "Dave")
+            {
+                Debug.Log(targetPlayer.CustomProperties["Character"].ToString() + "의 상태는 " + (isReady ? "Ready!" : "Not Ready"));
+                daveReadyText.text = isReady ? "Ready!" : "Not Ready";
+            }
+            else if (targetPlayer.CustomProperties["Character"].ToString() == "Matthew")
+            {
+                Debug.Log(targetPlayer.CustomProperties["Character"].ToString() + "의 상태는 " + (isReady ? "Ready!" : "Not Ready"));
+                matthewReadyText.text = isReady ? "Ready!" : "Not Ready";
+            }
+            CheckAllPlayersReady();
+        }
         // 캐릭터 속성이 변경되었을 때 이미지 업데이트
         UpdateCharacterImages();
+
+
     }
 
-    // 플레이어의 캐릭터 속성에 따라 이미지를 업데이트하는 함수
+
     public void UpdateCharacterImages()
+{
+    // Dave와 Matthew의 캐릭터 속성을 확인하여 정보 업데이트
+    foreach (Photon.Realtime.Player player in PhotonNetwork.PlayerList)
     {
-        // Player1과 Player2의 캐릭터 속성을 확인하여 정보 업데이트
-        foreach (Photon.Realtime.Player player in PhotonNetwork.PlayerList)
+        if (player.CustomProperties.ContainsKey("Character"))
         {
-            if (player.CustomProperties.ContainsKey("Character"))
+            string character = player.CustomProperties["Character"].ToString();
+            if (character == "Dave")
             {
-                string character = player.CustomProperties["Character"].ToString();
-                if (character == "Dave")
+                // Dave가 룸에 있을 경우 이미지 컬러로 변경 및 텍스트 업데이트
+                daveImage.sprite = daveColorImage;
+                daveText.text = "Player1";
+                if (player.IsLocal)
                 {
-                    // Player1이 Dave일 경우 이미지 컬러로 변경 및 텍스트 업데이트
-                    player1Image.sprite = daveColorImage;
-                    player1Text.text = "Player1";
-                    // 준비 상태 표시
-                    player1ReadyText.text = player1Ready ? "Ready!" : "";
-                    // 로컬 플레이어가 Player1이면 "You" 표시
-                    player1Indicator.text = player.IsLocal ? "You" : "";
+                    daveReadyButton.interactable = true;
+                    matthewReadyButton.interactable = false;
                 }
-                else if (character == "Matthew")
+
+                // 레디 상태 업데이트
+                if (player.CustomProperties.ContainsKey("Ready"))
                 {
-                    // Player2가 Matthew일 경우 이미지 컬러로 변경 및 텍스트 업데이트
-                    player2Image.sprite = matthewColorImage;
-                    player2Text.text = "Player2";
-                    // 준비 상태 표시
-                    player2ReadyText.text = player2Ready ? "Ready!" : "";
-                    // 로컬 플레이어가 Player2이면 "You" 표시
-                    player2Indicator.text = player.IsLocal ? "You" : "";
+                    bool isReady = (bool)player.CustomProperties["Ready"];
+                    daveReadyText.text = isReady ? "Ready!" : "Not Ready";
+                }
+            }
+            else if (character == "Matthew")
+            {
+                // Matthew가 룸에 있을 경우 이미지 컬러로 변경 및 텍스트 업데이트
+                matthewImage.sprite = matthewColorImage;
+                matthewText.text = "Player2";
+                if (player.IsLocal)
+                {
+                    daveReadyButton.interactable = false;
+                    matthewReadyButton.interactable = true;
+                }
+
+                // 레디 상태 업데이트
+                if (player.CustomProperties.ContainsKey("Ready"))
+                {
+                    bool isReady = (bool)player.CustomProperties["Ready"];
+                    matthewReadyText.text = isReady ? "Ready!" : "Not Ready";
                 }
             }
         }
-        
-        // 추가: 만약 스위칭 로직에서 호출되면 즉시 "You" 텍스트 업데이트
-        UpdatePlayerIndicator();
     }
 
-    private void UpdatePlayerIndicator()
+    // 추가: 만약 스위칭 로직에서 호출되면 즉시 "You" 텍스트 업데이트
+    UpdatePlayerIndicator();
+}
+
+
+    public void UpdatePlayerIndicator()
     {
         // 플레이어 전환 시 "You" 텍스트를 알맞게 업데이트
         foreach (Photon.Realtime.Player player in PhotonNetwork.PlayerList)
@@ -196,61 +273,16 @@ public class RoomManager : MonoBehaviourPunCallbacks
                 {
                     if (character == "Dave")
                     {
-                        player1Indicator.text = "You";
-                        player2Indicator.text = "";
+                        daveIndicator.text = "You";
+                        matthewIndicator.text = "";
                     }
                     else if (character == "Matthew")
                     {
-                        player1Indicator.text = "";
-                        player2Indicator.text = "You";
+                        daveIndicator.text = "";
+                        matthewIndicator.text = "You";
                     }
                 }
-            }
-        }
-    }
-
-    // 플레이어 텍스트 업데이트 함수
-    private void UpdatePlayerTexts()
-    {
-        // 플레이어의 수에 따라 텍스트 업데이트
-        int playerCount = PhotonNetwork.PlayerList.Length;
-
-        if (playerCount == 0)
-        {
-            player1Text.text = "플레이어를 기다리는 중...";
-            player2Text.text = "플레이어를 기다리는 중...";
-        }
-        else if (playerCount == 1)
-        {
-            player1Text.text = "Player1";
-            player2Text.text = "플레이어를 기다리는 중...";
-        }
-        else if (playerCount == 2)
-        {
-            player1Text.text = "Player1";
-            player2Text.text = "Player2";
-        }
-    }
-
-    // 방을 나간 플레이어의 캐릭터 이미지를 흑백으로 변경하는 메서드
-    private void SetCharacterImagesToBlackAndWhite()
-    {
-        // 모든 플레이어의 캐릭터 정보 확인
-        foreach (var player in PhotonNetwork.PlayerList)
-        {
-            if (player.CustomProperties.ContainsKey("Character"))
-            {
-                string character = player.CustomProperties["Character"].ToString();
-
-                // 해당 캐릭터 이미지 흑백으로 변경
-                if (character == "Dave")
-                {
-                    player1Image.sprite = daveBWImage;
-                }
-                else if (character == "Matthew")
-                {
-                    player2Image.sprite = matthewBWImage;
-                }
+                
             }
         }
     }
@@ -258,37 +290,38 @@ public class RoomManager : MonoBehaviourPunCallbacks
     // 플레이어가 방에서 나갈 때 호출
     public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
     {
-        Debug.Log(otherPlayer.NickName + "이(가) 방을 나갔습니다.");
-
-        // 나간 플레이어의 캐릭터 이미지 업데이트
-        SetCharacterImagesToBlackAndWhite();
-
-        // Player1이 나간 경우
-        if (otherPlayer.ActorNumber == 1)
+        if (otherPlayer.CustomProperties["Character"].ToString() == "Dave")
         {
-            // 남아 있는 플레이어가 있을 경우 Player2를 Player1으로 할당
-            if (PhotonNetwork.PlayerList.Length > 1)
+            Photon.Realtime.Player remainingPlayer;
+            if (PhotonNetwork.PlayerList[0] == otherPlayer)
             {
-                Photon.Realtime.Player newPlayer1 = PhotonNetwork.PlayerList[1]; // Player2를 새로운 Player1으로 설정
-                newPlayer1.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { { "Character", "Matthew" } });
+                remainingPlayer = PhotonNetwork.PlayerList[1];
+            }
+            else
+            {
+                remainingPlayer = PhotonNetwork.PlayerList[0];
+            }
 
-                // Player2 이미지 업데이트
-                player1Image.sprite = matthewColorImage;
-                player1Text.text = "Player1";
-
-                // Player2의 이미지 흑백으로 설정
-                player2Image.sprite = matthewBWImage;
-                player2Text.text = "플레이어를 기다리는 중...";
+            var newProperties = new ExitGames.Client.Photon.Hashtable();
+            foreach (var key in otherPlayer.CustomProperties.Keys)
+            {
+                if (remainingPlayer.CustomProperties.ContainsKey(key))
+                {
+                    newProperties[key] = otherPlayer.CustomProperties[key];
+                }
+            }
+            remainingPlayer.SetCustomProperties(newProperties);
+            // You 
+            UpdatePlayerIndicator();
+            // 버튼 조작권한
+            //SetReadyButtonInteractivity();
+            if (PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey("Ready"))
+            {
+                daveReadyText.text = (bool)PhotonNetwork.LocalPlayer.CustomProperties["Ready"] ? "Ready!" : "";
             }
         }
-        else
-        {
-            // 나간 플레이어가 Player2인 경우
-            UpdateCharacterImages();
-        }
-
-        // 플레이어 텍스트 업데이트
-        UpdatePlayerTexts();
+        // 매튜를 흑백처리
+        matthewImage.sprite = matthewBWImage;
     }
 
     // Back 버튼 클릭 시 호출되는 함수
