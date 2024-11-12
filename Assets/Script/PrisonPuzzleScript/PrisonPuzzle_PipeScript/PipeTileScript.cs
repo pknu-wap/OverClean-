@@ -7,11 +7,12 @@ public class PipeTileScript : MonoBehaviour
     // currentRotation, pipeShape는 타일이 생성될 때 PrisonPipePuzzleScript.cs에서 정보를 받아 초기화됨
     public int currentRotation;
     public int pipeShape;
+    public int x, y;
     public enum Direction
     {
         Top, Right, Bottom, Left
     }
-    public Dictionary<Direction, bool> connections = new Dictionary<Direction, bool>
+    public Dictionary<Direction, bool> connectableDirections = new Dictionary<Direction, bool>
     {
         { Direction.Top, false },
         { Direction.Bottom, false },
@@ -25,7 +26,7 @@ public class PipeTileScript : MonoBehaviour
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        UpdateConnections();
+        UpdateConnectableDirections();
 
         if (puzzleCamera == null)
         {
@@ -40,36 +41,34 @@ public class PipeTileScript : MonoBehaviour
         // 0,1,2,3 으로 회전 정보 구분
         currentRotation = (currentRotation + 1) % 4;
         // 회전 시 마다 연결 정보 변경
-        UpdateConnections();
-        Debug.Log($"회전함! / pipeshape : {pipeShape} , currentRotation : {currentRotation}");
-        Debug.Log($"connections : {connections[Direction.Top]}, {connections[Direction.Right]}, {connections[Direction.Bottom]}, {connections[Direction.Left]}");
+        UpdateConnectableDirections();
     }
 
-    private void UpdateConnections()
+    private void UpdateConnectableDirections()
     {
         // 파이프 모양에 따른 연결 설정
         switch (pipeShape)
         {
             // 일자 모양
             case 0:
-                connections[(Direction)currentRotation] = true;
-                connections[(Direction)((currentRotation+1)%4)] = false;
-                connections[(Direction)((currentRotation+2)%4)] = true;
-                connections[(Direction)((currentRotation+3)%4)] = false;
+                connectableDirections[(Direction)currentRotation] = true;
+                connectableDirections[(Direction)((currentRotation + 1) % 4)] = false;
+                connectableDirections[(Direction)((currentRotation + 2) % 4)] = true;
+                connectableDirections[(Direction)((currentRotation + 3) % 4)] = false;
                 break;
             // L자 모양
             case 1:
-                connections[(Direction)currentRotation] = true;
-                connections[(Direction)((currentRotation+1)%4)] = true;
-                connections[(Direction)((currentRotation+2)%4)] = false;
-                connections[(Direction)((currentRotation+3)%4)] = false;
+                connectableDirections[(Direction)currentRotation] = true;
+                connectableDirections[(Direction)((currentRotation + 1) % 4)] = true;
+                connectableDirections[(Direction)((currentRotation + 2) % 4)] = false;
+                connectableDirections[(Direction)((currentRotation + 3) % 4)] = false;
                 break;
             // T자 모양
             case 2:
-                connections[(Direction)currentRotation] = true;
-                connections[(Direction)((currentRotation+1)%4)] = true;
-                connections[(Direction)((currentRotation+2)%4)] = true;
-                connections[(Direction)((currentRotation+3)%4)] = false;
+                connectableDirections[(Direction)currentRotation] = true;
+                connectableDirections[(Direction)((currentRotation + 1) % 4)] = true;
+                connectableDirections[(Direction)((currentRotation + 2) % 4)] = true;
+                connectableDirections[(Direction)((currentRotation + 3) % 4)] = false;
                 break;
             default:
                 break;
