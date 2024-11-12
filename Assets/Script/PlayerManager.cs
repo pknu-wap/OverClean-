@@ -9,7 +9,6 @@ public class PlayerManager : MonoBehaviourPun, IPunObservable
     public bool canMove = true;
 
     private Rigidbody2D rigid;
-    private SpriteRenderer spriter;
     private Animator anim;
 
     // 플레이어 ID (1번 또는 2번 플레이어)
@@ -24,13 +23,12 @@ public class PlayerManager : MonoBehaviourPun, IPunObservable
     // 보간 속도를 위한 변수
     private Vector2 lastPosition;
     private float distance;
-    private float smoothingDelay = 5.0f; // 동기화 스무딩 속도 조절
+    private float smoothingDelay = 5.0f;
 
     void Start()
     {
         photonView = GetComponent<PhotonView>();
         rigid = GetComponent<Rigidbody2D>();
-        spriter = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
 
         // 초기 위치 설정
@@ -48,15 +46,10 @@ public class PlayerManager : MonoBehaviourPun, IPunObservable
         // 로컬 플레이어가 아닌 경우 보간 처리만 수행
         if (!photonView.IsMine)
         {
-            if (distance > 0.1f) // 일정 거리 이상 차이 있을 때만 보간 시작
-            {
-                rigid.position = Vector2.Lerp(rigid.position, networkedPosition, Time.deltaTime * smoothingDelay);
-                distance -= Time.deltaTime * smoothingDelay;
-            }
-            else
-            {
-                rigid.position = networkedPosition; // 보간이 끝나면 목표 위치에 정착
-            }
+            // 보간 적용 부분 수정
+            distance = Vector2.Distance(rigid.position, networkedPosition);
+            float interpolationFactor = Mathf.Clamp01(Time.deltaTime * smoothingDelay);
+            rigid.position = Vector2.Lerp(rigid.position, networkedPosition, interpolationFactor);
             return;
         }
 
@@ -82,37 +75,17 @@ public class PlayerManager : MonoBehaviourPun, IPunObservable
         // 로컬 플레이어가 아닌 경우 움직임 처리하지 않음
         if (!photonView.IsMine || !canMove) return;
 
-        Vector2 nextVec = Vector2.zero;
-        if (playerID == 1)
-        {
-            nextVec = inputVec1.normalized * speed * Time.fixedDeltaTime;
-        }
-        else if (playerID == 2)
-        {
-            nextVec = inputVec2.normalized * speed * Time.fixedDeltaTime;
-        }
-
+        Vector2 nextVec = (playerID == 1 ? inputVec1 : inputVec2).normalized * speed * Time.fixedDeltaTime;
         rigid.MovePosition(rigid.position + nextVec);
     }
 
     private void UpdateAnimationDirection(Vector2 inputVec)
     {
-        if (inputVec.y < 0)
-        {
-            anim.SetInteger("Direction", 0); // 정면
-        }
-        else if (inputVec.x > 0)
-        {
-            anim.SetInteger("Direction", 1); // 오른쪽
-        }
-        else if (inputVec.x < 0)
-        {
-            anim.SetInteger("Direction", 2); // 왼쪽
-        }
-        else if (inputVec.y > 0)
-        {
-            anim.SetInteger("Direction", 3); // 뒤쪽
-        }
+        // 차례대로 정면, 오른쪽, 왼쪽, 뒤쪽
+        if (inputVec.y < 0) anim.SetInteger("Direction", 0);
+        else if (inputVec.x > 0) anim.SetInteger("Direction", 1);
+        else if (inputVec.x < 0) anim.SetInteger("Direction", 2);
+        else if (inputVec.y > 0) anim.SetInteger("Direction", 3);
     }
 
     // IPunObservable 인터페이스 구현을 통한 네트워크 동기화
