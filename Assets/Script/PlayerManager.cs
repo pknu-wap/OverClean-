@@ -1,139 +1,106 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerManager : MonoBehaviour
+public class PlayerManager : MonoBehaviourPun
 {
-	// 플레이어1의 입력 방향을 저장하는 벡터
-	public Vector2 inputVec1;
+    public Vector2 inputVec1;
+    public Vector2 inputVec2;
+    public float speed;
+    public bool canMove = true;
+    
+    private Rigidbody2D rigid;
+    private SpriteRenderer spriter;
+    private Animator anim;
 
-	// 플레이어2의 입력 방향을 저장하는 벡터
-	public Vector2 inputVec2;
+    // 플레이어 ID (1번 또는 2번 플레이어)
+    public int playerID;
+    private PhotonView photonView;
 
-	// 플레이어의 이동 속도
-	public float speed;
+    void Start()
+    {
+        photonView = GetComponent<PhotonView>();
+        rigid = GetComponent<Rigidbody2D>();
+        spriter = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
 
-	// 플레이어가 이동 가능한지를 제어하는 변수
-	public bool canMove = true;
-		
-	// Rigidbody2D 변수 선언
-	Rigidbody2D rigid;
+        // 로컬 플레이어가 아니라면, 스크립트 비활성화
+        if (!photonView.IsMine)
+        {
+            enabled = false;
+        }
+    }
 
-	// SpriterRenderer 변수 선언
-	SpriteRenderer spriter;
+    void Update()
+    {
+        // 로컬 플레이어가 아닌 경우 입력 처리하지 않음
+        if (!photonView.IsMine) return;
 
-	// Animator 변수 선언
-	Animator anim;
-		
-	// 플레이어 ID 변수 추가 (1번 플레이어, 2번 플레이어 구분)
-	public int playerID;
-	void Start()
-	{
-		// Rigidbody2D 초기화
-		rigid = GetComponent<Rigidbody2D>();
-		// SpriterRenderer 초기화
-		spriter = GetComponent<SpriteRenderer>();
-		// Animator 초기화
-		anim = GetComponent<Animator>();
-	}
+        if (playerID == 1)
+        {
+            inputVec1.x = Input.GetAxisRaw("Player1HorizontalKey");
+            inputVec1.y = Input.GetAxisRaw("Player1VerticalKey");
+        }
+        else if (playerID == 2)
+        {
+            inputVec2.x = Input.GetAxisRaw("Player2HorizontalKey");
+            inputVec2.y = Input.GetAxisRaw("Player2VerticalKey");
+        }
+    }
 
-	void Update()
-	{
-		// 사용자의 입력을 실시간으로 받아서 inputVec에 저장
- 		// "Horizontal"과 "Vertical"은 Unity에서 설정된 입력 축을 의미하며,
-		// 각각 키보드의 좌우(WASD, 화살표)와 상하 입력을 감지함
-		
+    void FixedUpdate()
+    {
+        // 로컬 플레이어가 아닌 경우 움직임 처리하지 않음
+        if (!photonView.IsMine || !canMove) return;
 
-		if(playerID == 1)
-		{
-			inputVec1.x = Input.GetAxisRaw("Player1HorizontalKey");
-			inputVec1.y = Input.GetAxisRaw("Player1VerticalKey");
-		}
-		else if(playerID == 2)
-		{
-			inputVec2.x = Input.GetAxisRaw("Player2HorizontalKey");
-			inputVec2.y = Input.GetAxisRaw("Player2VerticalKey");
-		}
+        Vector2 nextVec = Vector2.zero;
+        if (playerID == 1)
+        {
+            nextVec = inputVec1.normalized * speed * Time.fixedDeltaTime;
+        }
+        else if (playerID == 2)
+        {
+            nextVec = inputVec2.normalized * speed * Time.fixedDeltaTime;
+        }
+        
+        rigid.MovePosition(rigid.position + nextVec);
+    }
 
+    void LateUpdate()
+    {
+        // 로컬 플레이어가 아닌 경우 애니메이션 처리하지 않음
+        if (!photonView.IsMine) return;
 
-	}
-    	// FixedUpdate는 물리 연산이 이루어지는 고정된 주기로 호출되므로,
-    	// 물리적 이동은 여기서 처리하는 것이 적합하다.
-	void FixedUpdate()
-	{
-		// 만약 canMove가 false라면
-		if(!canMove)
-		{
-			// 이동 금지
-			return;
-		}
-		
-		Vector2 nextVec = Vector2.zero;	
-		if(playerID == 1)
-		{
-			// 입력 벡터를 정규화하여 속도와 델타 시간에 맞춰 다음 위치를 계산	
-			nextVec = inputVec1.normalized * speed * Time.fixedDeltaTime;
-		}
-		else if(playerID == 2)
-		{
-			// 입력 벡터를 정규화하여 속도와 델타 시간에 맞춰 다음 위치를 계산
-			nextVec = inputVec2.normalized * speed * Time.fixedDeltaTime;
-		}
-		
-		// Rigidbody2D의 MovePosition 메서드를 사용해 계산된 위치로 물체를 이동시킴
-		rigid.MovePosition(rigid.position + nextVec);
-	}
+        if (playerID == 1)
+        {
+            anim.SetFloat("Speed", inputVec1.magnitude);
+            UpdateAnimationDirection(inputVec1);
+        }
+        else if (playerID == 2)
+        {
+            anim.SetFloat("Speed", inputVec2.magnitude);
+            UpdateAnimationDirection(inputVec2);
+        }
+    }
 
-	void LateUpdate()
-	{
-		if(playerID == 1)
-		{
-			anim.SetFloat("Speed", inputVec1.magnitude);
-			if (inputVec1.y < 0)
-    		{
-				// 정면
-        		anim.SetInteger("Direction", 0); 
-    		}
-			else if (inputVec1.x > 0)
-    		{
-				// 오른쪽
-        		anim.SetInteger("Direction", 1); 
-    		}	
-    		else if (inputVec1.x < 0)
-    		{
-				// 왼쪽
-        		anim.SetInteger("Direction", 2); 
-    		}
-    		else if (inputVec1.y > 0)
-    		{
-				// 뒤쪽
-        		anim.SetInteger("Direction", 3); 
-    		}
-		}
-
-		else if(playerID == 2)
-		{
-			anim.SetFloat("Speed", inputVec2.magnitude);
-			if (inputVec2.y < 0)
-    		{
-				// 정면
-        		anim.SetInteger("Direction", 0); 
-    		}
-			else if (inputVec2.x > 0)
-    		{
-				// 오른쪽
-        		anim.SetInteger("Direction", 1); 
-    		}	
-    		else if (inputVec2.x < 0)
-    		{
-				// 왼쪽
-        		anim.SetInteger("Direction", 2); 
-    		}
-    		else if (inputVec2.y > 0)
-    		{
-				// 뒤쪽
-        		anim.SetInteger("Direction", 3); 
-    		}
-		}
-	}
+    private void UpdateAnimationDirection(Vector2 inputVec)
+    {
+        if (inputVec.y < 0)
+        {
+            anim.SetInteger("Direction", 0); // 정면
+        }
+        else if (inputVec.x > 0)
+        {
+            anim.SetInteger("Direction", 1); // 오른쪽
+        }
+        else if (inputVec.x < 0)
+        {
+            anim.SetInteger("Direction", 2); // 왼쪽
+        }
+        else if (inputVec.y > 0)
+        {
+            anim.SetInteger("Direction", 3); // 뒤쪽
+        }
+    }
 }
