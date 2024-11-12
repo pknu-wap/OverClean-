@@ -21,9 +21,11 @@ public class PrisonPipePuzzleScript : MonoBehaviour
 
     // 각 타일 간격 (약간의 여유 공간 포함)
     private int tileSize = 110;
+    public PipeTileScript[,] pipeTiles;
 
     void Start()
     {
+        pipeTiles = new PipeTileScript[gridWidth, gridHeight];
         CreatePipeGrid();
     }
 
@@ -46,13 +48,56 @@ public class PrisonPipePuzzleScript : MonoBehaviour
 
                 // 각 파이프 타일의 스크립트에 파이프 모양과 회전 정보를 전해줌
                 PipeTileScript pipeTileScript = pipeTile.GetComponent<PipeTileScript>();
+                pipeTileScript.x = x;
+                pipeTileScript.y = y;
                 pipeTileScript.pipeShape = randomShape;
                 // currentRotation은 실제 각도 (-90, -180 등)이 아니라 0,1,2,3으로 간편히 구분하도록 함
                 pipeTileScript.currentRotation = randomRotation / -90;
-                Debug.Log($"location : {x}, {y} / pipeshape : {pipeTileScript.pipeShape} , currentRotation : {pipeTileScript.currentRotation}");
+
+                // 이후 연결 확인을 위해 각 pipeTileScript를 배열에 저장
+                pipeTiles[x, y] = pipeTileScript;
             }
         }
     }
+private bool DFS(int x, int y, bool[,] visited)
+{
+    // 종료 조건: 종료 파이프에 도달
+    if (x == gridWidth - 1 && y == gridHeight - 1)
+    {
+        Debug.Log("경로가 시작에서 종료 파이프까지 연결되었습니다.");
+        return true;
+    }
+    visited[x, y] = true;
+    PipeTileScript currentTile = pipeTiles[x, y];
+    
+    // 각 방향에 대해 연결 확인 및 DFS 재귀 호출
+    foreach (PipeTileScript.Direction direction in System.Enum.GetValues(typeof(PipeTileScript.Direction)))
+    {
+        int nx = x, ny = y;
+        
+        switch (direction)
+        {
+            case PipeTileScript.Direction.Top: ny -= 1; break;
+            case PipeTileScript.Direction.Right: nx += 1; break;
+            case PipeTileScript.Direction.Bottom: ny += 1; break;
+            case PipeTileScript.Direction.Left: nx -= 1; break;
+        }
+        // 인접한 좌표가 유효한지, 방문하지 않았는지, 현재 타일과 연결되어 있는지 확인
+        if (nx >= 0 && nx < gridWidth && ny >= 0 && ny < gridHeight && !visited[nx, ny])
+        {
+            PipeTileScript adjacentTile = pipeTiles[nx, ny];
+            if (currentTile.IsConnectedTo(adjacentTile, direction))
+            {
+                if (DFS(nx, ny, visited))
+                {
+                    return true;
+                }
+            }
+        }
+    }
+
+    return false;
+}
     void Update()
     {   
         // Z 키를 눌렀을 때 씬 닫기
