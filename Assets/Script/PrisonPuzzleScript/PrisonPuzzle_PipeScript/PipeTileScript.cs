@@ -75,12 +75,24 @@ public class PipeTileScript : MonoBehaviour
         }
     }
 
-    // 다른 타일과의 연결을 검사하는 함수 예시
-    public bool IsConnected(PipeTileScript otherTile)
+
+    // 인접한 타일의 스크립트를 받아와 connectableDirections에 접근
+    public bool IsConnectedTo(PipeTileScript otherTile, Direction direction)
     {
-        // 구현할 내용: otherTile과의 방향 및 연결 상태 검사 로직
-        // 연결되어 있다고 가정
-        return true;
+        Direction oppositeDirection = GetOppositeDirection(direction);
+        return connectableDirections[direction] && otherTile.connectableDirections[oppositeDirection];    
+    }
+
+    private Direction GetOppositeDirection(Direction direction)
+    {
+        switch (direction)
+        {
+            case Direction.Top: return Direction.Bottom;
+            case Direction.Bottom: return Direction.Top;
+            case Direction.Left: return Direction.Right;
+            case Direction.Right: return Direction.Left;
+            default: return direction;
+        }
     }
 
     private void OnMouseDownHandler()
