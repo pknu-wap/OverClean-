@@ -404,7 +404,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Ready
+  m_Text: Not Ready
 --- !u!222 &187048804
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -562,7 +562,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Ready
+  m_Text: Not Ready
 --- !u!222 &345217156
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1391,7 +1391,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: NetworkingManager, Assembly-CSharp
-        m_MethodName: SwitchPlayers
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1737,7 +1737,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1710354786}
         m_TargetAssemblyTypeName: RoomManager, Assembly-CSharp
-        m_MethodName: ReadyUp
+        m_MethodName: ReadyUpMatthew
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1815,18 +1815,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomCodeText: {fileID: 260297526}
-  player1Image: {fileID: 1494266184}
-  player2Image: {fileID: 1092640913}
+  daveImage: {fileID: 1494266184}
+  matthewImage: {fileID: 1092640913}
   daveBWImage: {fileID: 21300000, guid: 580504e1072455749b0ffb1a199e243d, type: 3}
   matthewBWImage: {fileID: 21300000, guid: 124a58340e9514b42a29a9d4fe30b52e, type: 3}
   daveColorImage: {fileID: 21300000, guid: 1c2a50f127c5127499e2eb2acdee2e6c, type: 3}
   matthewColorImage: {fileID: 21300000, guid: 4a9f930dda97db140af3793d597f93f3, type: 3}
-  player1Text: {fileID: 884843663}
-  player2Text: {fileID: 370826063}
-  player1Indicator: {fileID: 119636156}
-  player2Indicator: {fileID: 1912108533}
-  player1ReadyText: {fileID: 187048803}
-  player2ReadyText: {fileID: 345217155}
+  daveText: {fileID: 884843663}
+  matthewText: {fileID: 370826063}
+  daveIndicator: {fileID: 119636156}
+  matthewIndicator: {fileID: 1912108533}
+  daveReadyText: {fileID: 187048803}
+  matthewReadyText: {fileID: 345217155}
+  daveReadyButton: {fileID: 1956269874}
+  matthewReadyButton: {fileID: 1528054315}
+  daveReady: 0
+  matthewReady: 0
 --- !u!4 &1710354787
 Transform:
   m_ObjectHideFlags: 0
@@ -2296,7 +2300,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1710354786}
         m_TargetAssemblyTypeName: RoomManager, Assembly-CSharp
-        m_MethodName: ReadyUp
+        m_MethodName: ReadyUpDave
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
