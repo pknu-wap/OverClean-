@@ -1,6 +1,4 @@
 using Photon.Pun;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviourPun, IPunObservable
@@ -23,6 +21,11 @@ public class PlayerManager : MonoBehaviourPun, IPunObservable
     private float networkedSpeed;
     private int networkedDirection;
 
+    // 보간 속도를 위한 변수
+    private Vector2 lastPosition;
+    private float distance;
+    private float smoothingDelay = 5.0f; // 동기화 스무딩 속도 조절
+
     void Start()
     {
         photonView = GetComponent<PhotonView>();
@@ -42,9 +45,22 @@ public class PlayerManager : MonoBehaviourPun, IPunObservable
 
     void Update()
     {
-        // 로컬 플레이어가 아닌 경우 입력 처리하지 않음
-        if (!photonView.IsMine) return;
+        // 로컬 플레이어가 아닌 경우 보간 처리만 수행
+        if (!photonView.IsMine)
+        {
+            if (distance > 0.1f) // 일정 거리 이상 차이 있을 때만 보간 시작
+            {
+                rigid.position = Vector2.Lerp(rigid.position, networkedPosition, Time.deltaTime * smoothingDelay);
+                distance -= Time.deltaTime * smoothingDelay;
+            }
+            else
+            {
+                rigid.position = networkedPosition; // 보간이 끝나면 목표 위치에 정착
+            }
+            return;
+        }
 
+        // 로컬 플레이어 입력 처리
         if (playerID == 1)
         {
             inputVec1.x = Input.GetAxisRaw("Player1HorizontalKey");
@@ -55,6 +71,10 @@ public class PlayerManager : MonoBehaviourPun, IPunObservable
             inputVec2.x = Input.GetAxisRaw("Player2HorizontalKey");
             inputVec2.y = Input.GetAxisRaw("Player2VerticalKey");
         }
+
+        Vector2 currentInputVec = (playerID == 1) ? inputVec1 : inputVec2;
+        anim.SetFloat("Speed", currentInputVec.magnitude);
+        UpdateAnimationDirection(currentInputVec);
     }
 
     void FixedUpdate()
@@ -71,18 +91,8 @@ public class PlayerManager : MonoBehaviourPun, IPunObservable
         {
             nextVec = inputVec2.normalized * speed * Time.fixedDeltaTime;
         }
-        
+
         rigid.MovePosition(rigid.position + nextVec);
-    }
-
-    void LateUpdate()
-    {
-        // 로컬 플레이어가 아닌 경우 애니메이션 처리하지 않음
-        if (!photonView.IsMine) return;
-
-        Vector2 currentInputVec = (playerID == 1) ? inputVec1 : inputVec2;
-        anim.SetFloat("Speed", currentInputVec.magnitude);
-        UpdateAnimationDirection(currentInputVec);
     }
 
     private void UpdateAnimationDirection(Vector2 inputVec)
@@ -126,8 +136,9 @@ public class PlayerManager : MonoBehaviourPun, IPunObservable
             anim.SetFloat("Speed", networkedSpeed);
             anim.SetInteger("Direction", networkedDirection);
 
-            // 원격 플레이어의 위치를 보간 이동
-            rigid.position = Vector2.Lerp(rigid.position, networkedPosition, Time.deltaTime * 10);
+            // 원격 플레이어의 위치 보간 설정
+            distance = Vector2.Distance(rigid.position, networkedPosition);
+            lastPosition = rigid.position;
         }
     }
 }
