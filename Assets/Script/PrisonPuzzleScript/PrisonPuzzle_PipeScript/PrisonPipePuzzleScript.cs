@@ -59,6 +59,13 @@ public class PrisonPipePuzzleScript : MonoBehaviour
             }
         }
     }
+
+public bool IsPathConnectedToEnd()
+{
+    bool[,] visited = new bool[gridWidth, gridHeight];
+    return DFS(0, 0, visited);
+}
+
 private bool DFS(int x, int y, bool[,] visited)
 {
     // 종료 조건: 종료 파이프에 도달
@@ -104,6 +111,11 @@ private bool DFS(int x, int y, bool[,] visited)
         if (Input.GetKeyDown(KeyCode.Z))
         {
             ClosePuzzleScene();
+        }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            Debug.Log("keyon");
+            IsPathConnectedToEnd();
         }
     }
 
