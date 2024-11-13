@@ -3,38 +3,47 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviourPun, IPunObservable
 {
-    public Vector2 inputVec1;
-    public Vector2 inputVec2;
+    public Vector2 inputVec;
     public float speed;
     public bool canMove = true;
 
     private Rigidbody2D rigid;
     private Animator anim;
 
-    // 플레이어 ID (1번 또는 2번 플레이어)
     public int playerID;
-    private PhotonView photonView;
+    private string characterName;
 
-    // 네트워크 동기화용 변수
     private Vector2 networkedPosition;
-    private float networkedSpeed;
+    // SmoothDamp에서 속도 추적 변수
+    private Vector2 currentVelocity; 
     private int networkedDirection;
-
-    // 보간 속도를 위한 변수
-    private Vector2 lastPosition;
-    private float distance;
-    private float smoothingDelay = 5.0f;
+    // SmoothDamp 보간 시간
+    private float smoothingDelay = 0.33f; 
 
     void Start()
-    {
-        photonView = GetComponent<PhotonView>();
+    {   
+        // 커스텀 프로퍼티의 캐릭터 이름값으로 플레이어 id 할당
+        if (photonView.IsMine)
+        {   
+            characterName = PhotonNetwork.LocalPlayer.CustomProperties["Character"].ToString();
+
+            if (characterName == "Dave")
+            {
+                playerID = 1;
+            }
+            else if (characterName == "Matthew")
+            {
+                playerID = 2;
+            }
+
+            Debug.Log("내 플레이어 ID: " + playerID + ", 캐릭터 이름: " + characterName);
+        }
+
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
 
-        // 초기 위치 설정
         networkedPosition = rigid.position;
-        
-        // 로컬 플레이어가 아니라면, 물리 상호작용 비활성화
+
         if (!photonView.IsMine)
         {
             rigid.isKinematic = true;
@@ -43,75 +52,64 @@ public class PlayerManager : MonoBehaviourPun, IPunObservable
 
     void Update()
     {
-        // 로컬 플레이어가 아닌 경우 보간 처리만 수행
-        if (!photonView.IsMine)
+        // 원격 플레이어일 경우 보간만 수행
+        if (!photonView.IsMine) 
         {
-            // 보간 적용 부분 수정
-            distance = Vector2.Distance(rigid.position, networkedPosition);
-            float interpolationFactor = Mathf.Clamp01(Time.deltaTime * smoothingDelay);
-            rigid.position = Vector2.Lerp(rigid.position, networkedPosition, interpolationFactor);
+            // SmoothDamp로 부드러운 위치 보간 처리
+            rigid.position = Vector2.SmoothDamp(rigid.position, networkedPosition, ref currentVelocity, smoothingDelay);
+
+            // 원격 플레이어의 방향만 받아와서 로컬에서 애니메이션 처리(깜빡임 약간 줄어듬, 완전히 없애진 못함 / 프레임 오류일지도?)
+            UpdateAnimationDirection(networkedDirection);
             return;
         }
 
-        // 로컬 플레이어 입력 처리
-        if (playerID == 1)
-        {
-            inputVec1.x = Input.GetAxisRaw("Player1HorizontalKey");
-            inputVec1.y = Input.GetAxisRaw("Player1VerticalKey");
-        }
-        else if (playerID == 2)
-        {
-            inputVec2.x = Input.GetAxisRaw("Player2HorizontalKey");
-            inputVec2.y = Input.GetAxisRaw("Player2VerticalKey");
-        }
+        inputVec.x = Input.GetAxisRaw("Horizontal");
+        inputVec.y = Input.GetAxisRaw("Vertical");
 
-        Vector2 currentInputVec = (playerID == 1) ? inputVec1 : inputVec2;
-        anim.SetFloat("Speed", currentInputVec.magnitude);
-        UpdateAnimationDirection(currentInputVec);
+        anim.SetFloat("Speed", inputVec.magnitude);
+        UpdateAnimationDirection(CalculateDirection(inputVec));
     }
 
     void FixedUpdate()
     {
-        // 로컬 플레이어가 아닌 경우 움직임 처리하지 않음
         if (!photonView.IsMine || !canMove) return;
 
-        Vector2 nextVec = (playerID == 1 ? inputVec1 : inputVec2).normalized * speed * Time.fixedDeltaTime;
+        Vector2 nextVec = inputVec.normalized * speed * Time.fixedDeltaTime;
         rigid.MovePosition(rigid.position + nextVec);
     }
 
-    private void UpdateAnimationDirection(Vector2 inputVec)
+    private void UpdateAnimationDirection(int direction)
     {
-        // 차례대로 정면, 오른쪽, 왼쪽, 뒤쪽
-        if (inputVec.y < 0) anim.SetInteger("Direction", 0);
-        else if (inputVec.x > 0) anim.SetInteger("Direction", 1);
-        else if (inputVec.x < 0) anim.SetInteger("Direction", 2);
-        else if (inputVec.y > 0) anim.SetInteger("Direction", 3);
+        anim.SetInteger("Direction", direction);
     }
 
-    // IPunObservable 인터페이스 구현을 통한 네트워크 동기화
+    private int CalculateDirection(Vector2 inputVec)
+    {
+        // 정면
+        if (inputVec.y < 0) return 0; 
+        // 오른쪽
+        else if (inputVec.x > 0) return 1; 
+        // 왼쪽
+        else if (inputVec.x < 0) return 2; 
+        
+        else if (inputVec.y > 0) return 3; 
+        // 방향 없음
+        return -1; 
+    }
+
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)
         {
             // 로컬 플레이어의 데이터를 전송
             stream.SendNext(rigid.position);
-            stream.SendNext(anim.GetFloat("Speed"));
-            stream.SendNext(anim.GetInteger("Direction"));
+            stream.SendNext(CalculateDirection(inputVec));
         }
         else
         {
             // 원격 플레이어의 데이터를 수신
             networkedPosition = (Vector2)stream.ReceiveNext();
-            networkedSpeed = (float)stream.ReceiveNext();
             networkedDirection = (int)stream.ReceiveNext();
-
-            // 수신한 값을 애니메이션에 반영
-            anim.SetFloat("Speed", networkedSpeed);
-            anim.SetInteger("Direction", networkedDirection);
-
-            // 원격 플레이어의 위치 보간 설정
-            distance = Vector2.Distance(rigid.position, networkedPosition);
-            lastPosition = rigid.position;
         }
     }
 }

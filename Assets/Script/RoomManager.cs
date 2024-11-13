@@ -145,7 +145,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
             checkTime += Time.deltaTime;
             yield return null;
         }
-        SceneManager.LoadScene("PrisonScene");
+        PhotonNetwork.LoadLevel("PrisonScene");
     }
 
     public void ReadyUpDave()
