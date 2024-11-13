@@ -12,6 +12,7 @@ TagManager:
   - Dust
   - Leaf
   - Sponge
+  - Towel
   layers:
   - Default
   - TransparentFX
