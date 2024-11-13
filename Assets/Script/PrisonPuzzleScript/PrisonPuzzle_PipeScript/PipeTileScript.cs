@@ -8,10 +8,12 @@ public class PipeTileScript : MonoBehaviour
     public int currentRotation;
     public int pipeShape;
     public int x, y;
+    // 방향 정보 설정
     public enum Direction
     {
         Top, Right, Bottom, Left
     }
+    // 연결 가능한 방향 정보 저장
     public Dictionary<Direction, bool> connectableDirections = new Dictionary<Direction, bool>
     {
         { Direction.Top, false },
@@ -28,13 +30,14 @@ public class PipeTileScript : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         UpdateConnectableDirections();
 
+        // 파이프 타일에 마우스 클릭이 가능하도록 함
         if (puzzleCamera == null)
         {
             puzzleCamera = GameObject.FindGameObjectWithTag("PuzzleCamera").GetComponent<Camera>();
         }
     }
 
-    public void RotateTile()
+    public void RotatePipe()
     {
         // 파이프 타일이 기존 회전 각도를 유지한 상태에서 90도 회전
         transform.Rotate(0, 0, -90);
@@ -76,13 +79,15 @@ public class PipeTileScript : MonoBehaviour
     }
 
 
-    // 인접한 타일의 스크립트를 받아와 connectableDirections에 접근
-    public bool IsConnectedTo(PipeTileScript otherTile, Direction direction)
+    // 인접한 파이프와 인자로 받은 방향으로 연결이 가능한지 확인
+    // 인접한 파이프의 스크립트를 받아와 connectableDirections에 접근
+    public bool IsConnectedTo(PipeTileScript otherPipe, Direction direction)
     {
         Direction oppositeDirection = GetOppositeDirection(direction);
-        return connectableDirections[direction] && otherTile.connectableDirections[oppositeDirection];    
+        return connectableDirections[direction] && otherPipe.connectableDirections[oppositeDirection];    
     }
 
+    // 인자로 받은 방향의 반대 방향을 반환하는 함수 
     private Direction GetOppositeDirection(Direction direction)
     {
         switch (direction)
@@ -106,7 +111,9 @@ public class PipeTileScript : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
         if (hit.collider != null && hit.collider.gameObject == gameObject)
         {
-            RotateTile();
+            RotatePipe();
+            Debug.Log($"x : {x}, y : {y}, pipeshape : {pipeShape} , currentRotation : {currentRotation}");
+            Debug.Log($"connectableDirections : {connectableDirections[Direction.Top]}, {connectableDirections[Direction.Right]}, {connectableDirections[Direction.Bottom]}, {connectableDirections[Direction.Left]}");
         }
     }
     

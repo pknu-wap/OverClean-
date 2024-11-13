@@ -8,24 +8,23 @@ public class PrisonPipePuzzleScript : MonoBehaviour
 {
     // Grid Layout Group을 포함한 빈 오브젝트
     public GameObject pipeGrid;
-    
     // 파이프 모양 배열 (일자, L자, T자)
     public GameObject[] pipeShapes;
-    
+    // 파이프들의 세로줄 갯수
     private int gridWidth = 10;
+    // 파이프들의 가로줄 갯수
     private int gridHeight = 5;
-
-    // 파이프 타일 생성의 초기 x,y 좌표
+    // 파이프 타일 생성의 초기 x,y 절대 좌표
     private int originXPosition = -494;
     private int originYPosition = 216;
-
-    // 각 타일 간격 (약간의 여유 공간 포함)
+    // 각 파이프 타일 간격 (약간의 여유 공간 포함)
     private int tileSize = 110;
-    public PipeTileScript[,] pipeTiles;
+    // 각 파이프 타일의 변수에 접근하기 위해, 스크립트를 저장하는 배열
+    public PipeTileScript[,] pipeTileScripts;
 
     void Start()
     {
-        pipeTiles = new PipeTileScript[gridWidth, gridHeight];
+        pipeTileScripts = new PipeTileScript[gridWidth, gridHeight];
         CreatePipeGrid();
     }
 
@@ -46,16 +45,17 @@ public class PrisonPipePuzzleScript : MonoBehaviour
                 int randomRotation = Random.Range(0, 4) * -90;
                 pipeTile.transform.localRotation = Quaternion.Euler(0, 0, randomRotation);
 
-                // 각 파이프 타일의 스크립트에 파이프 모양과 회전 정보를 전해줌
+                // 각 파이프 타일의 스크립트에 파이프 모양, 좌표와 회전 정보를 전해줌
                 PipeTileScript pipeTileScript = pipeTile.GetComponent<PipeTileScript>();
                 pipeTileScript.x = x;
                 pipeTileScript.y = y;
                 pipeTileScript.pipeShape = randomShape;
-                // currentRotation은 실제 각도 (-90, -180 등)이 아니라 0,1,2,3으로 간편히 구분하도록 함
+                // currentRotation은 실제 각도 (-90, -180 등)가 아니라 0,1,2,3으로 간편히 구분하도록 함
                 pipeTileScript.currentRotation = randomRotation / -90;
 
-                // 이후 연결 확인을 위해 각 pipeTileScript를 배열에 저장
-                pipeTiles[x, y] = pipeTileScript;
+                // 각 pipeTileScript를 배열에 저장
+                pipeTileScripts[x, y] = pipeTileScript;
+                Debug.Log($"location : {x}, {y} / pipeshape : {pipeTileScript.pipeShape} , currentRotation : {pipeTileScript.currentRotation}");
             }
         }
     }
@@ -112,6 +112,7 @@ private bool DFS(int x, int y, bool[,] visited)
         {
             ClosePuzzleScene();
         }
+        // L 키를 눌렀을 때 파이프 연결 확인
         if (Input.GetKeyDown(KeyCode.L))
         {
             Debug.Log("keyon");

@@ -7779,7 +7779,7 @@ MonoBehaviour:
   interactCount: 0
   player1: {fileID: 504270776}
   player2: {fileID: 1279382548}
-  limitTime: 5
+  limitTime: 10000
   remainTime: 5
   isTimeOver: 0
   timerText: {fileID: 1359239812}
