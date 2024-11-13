@@ -11,7 +11,7 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
 
     // 게임 버전 설정
     private string gameVersion = "1";
-    
+
     // 기존 방 코드를 저장할 HashSet
     private HashSet<string> existingRoomCodes = new HashSet<string>();
 
@@ -32,9 +32,22 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        // 게임 시작 시 서버 연결
-        ConnectToPhotonServer();
+        // Photon 서버에 연결된 상태가 아닌 경우에만 연결 시도
+        if (!PhotonNetwork.IsConnected)
+        {
+            ConnectToPhotonServer();
+        }
     }
+
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            int playerCount = PhotonNetwork.CountOfPlayers;
+            Debug.Log("현재 로비에 접속된 플레이어 수: " + playerCount);
+        }
+    }
+
 
     // Photon 서버에 연결하는 함수
     public void ConnectToPhotonServer()
@@ -58,19 +71,19 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
     // Start 버튼 클릭 시 GameLobby 씬으로 이동
     public void OnStartButtonClicked()
     {
-        SceneManager.LoadScene("GameLobby");
+        SceneManager.LoadScene("LobbyScene");
     }
 
     // Exit 버튼 클릭 시 게임 종료
     public void OnExitButtonClicked()
     {
         // 에디터와 프로그램 실행을 구분.
-        #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-        #else
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
             // 어플리케이션 종료
             Application.Quit();
-        #endif
+#endif
         Debug.Log("게임 종료");
     }
 
@@ -85,7 +98,7 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
         } while (existingRoomCodes.Contains(roomCode));
 
         // 생성된 코드는 여기 저장
-        existingRoomCodes.Add(roomCode); 
+        existingRoomCodes.Add(roomCode);
         return roomCode;
     }
 
@@ -138,9 +151,11 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
 
         ExitGames.Client.Photon.Hashtable playerProps = new ExitGames.Client.Photon.Hashtable();
         playerProps.Add("Character", assignedCharacter);
+        playerProps.Add("Ready", false);
         player.SetCustomProperties(playerProps);
 
         Debug.Log(player.NickName + "에게 캐릭터 " + assignedCharacter + "가 할당되었습니다.");
+        //Debug.Log("초기 레디값은" + ((bool)player.CustomProperties["Ready"] ? "true" : "false") + "입니다");
     }
 
     // 로비에 접속 성공 시 호출
@@ -170,7 +185,7 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
         AssignCharacterToPlayer(PhotonNetwork.LocalPlayer);
 
         // 방에 입장 성공하면 씬 전환
-        SceneManager.LoadScene("Room");
+        SceneManager.LoadScene("RoomScene");
     }
 
     // 방 입장 실패 시 호출 (방 코드로 입장 실패 시)
@@ -201,48 +216,45 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
     // 플레이어 전환을 처리하는 함수
     public void SwitchPlayers()
     {
-        // 로컬 플레이어의 캐릭터 속성 가져오기
         var localPlayer = PhotonNetwork.LocalPlayer;
-        string currentCharacter = localPlayer.CustomProperties.ContainsKey("Character")
-                                ? localPlayer.CustomProperties["Character"].ToString() : "";
+        string localCharacter = localPlayer.CustomProperties["Character"].ToString();
 
-        // 상대 플레이어 찾기
         Photon.Realtime.Player otherPlayer = null;
         foreach (var player in PhotonNetwork.PlayerList)
         {
-            if (!player.IsLocal) // 로컬 플레이어가 아닌 상대 플레이어 찾기
+            if (!player.IsLocal)
             {
                 otherPlayer = player;
                 break;
             }
         }
 
-        // 전환할 상대 플레이어가 없으면 리턴
         if (otherPlayer == null) return;
 
-        // 상대 플레이어의 캐릭터 속성 가져오기
-        string otherCharacter = otherPlayer.CustomProperties.ContainsKey("Character")
-                                ? otherPlayer.CustomProperties["Character"].ToString() : "";
+        string otherCharacter = otherPlayer.CustomProperties["Character"].ToString();
 
-        // 로컬 플레이어와 상대 플레이어의 캐릭터 교환
-        if (!string.IsNullOrEmpty(currentCharacter) && !string.IsNullOrEmpty(otherCharacter))
+        ExitGames.Client.Photon.Hashtable localPlayerProperties = new ExitGames.Client.Photon.Hashtable
+    {
+        { "Character", otherCharacter },
+    };
+        localPlayer.SetCustomProperties(localPlayerProperties);
+
+        ExitGames.Client.Photon.Hashtable otherPlayerProperties = new ExitGames.Client.Photon.Hashtable
+    {
+        { "Character", localCharacter },
+    };
+        otherPlayer.SetCustomProperties(otherPlayerProperties);
+
+        // UI에 Ready 상태 즉시 반영
+        RoomManager roomManager = FindObjectOfType<RoomManager>();
+        if (roomManager != null)
         {
-            // 로컬 플레이어는 상대의 캐릭터를, 상대는 로컬의 캐릭터를 할당
-            // System.Collections.Hashtable과 충돌 여지가 있어서 네임스페이스를 명시적으로 사용했습니다.
-            ExitGames.Client.Photon.Hashtable localPlayerProperties = new ExitGames.Client.Photon.Hashtable { { "Character", otherCharacter } };
-            ExitGames.Client.Photon.Hashtable otherPlayerProperties = new ExitGames.Client.Photon.Hashtable { { "Character", currentCharacter } };
-
-            localPlayer.SetCustomProperties(localPlayerProperties);
-            otherPlayer.SetCustomProperties(otherPlayerProperties);
-
-            Debug.Log($"플레이어 전환 완료: localPlayer는 {otherCharacter}, OnlinePlayer는 {currentCharacter}");
-
-            // 추가: 캐릭터 전환 후 RoomManager의 캐릭터 이미지 업데이트 호출
-            RoomManager roomManager = FindObjectOfType<RoomManager>();
-            if (roomManager != null)
-            {
-                roomManager.UpdateCharacterImages();
-            }
+            roomManager.UpdateCharacterImages();
         }
     }
+
+
+
+
+
 }
