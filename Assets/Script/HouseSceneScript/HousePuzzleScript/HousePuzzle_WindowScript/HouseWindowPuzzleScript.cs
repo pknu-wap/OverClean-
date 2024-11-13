@@ -91,7 +91,7 @@ public class HouseWindowPuzzleScript : MonoBehaviour
             yield return StartCoroutine(ShowImage(oImage));
             // puzzlesuccess 호출
             PuzzleManager.instance.PuzzleSuccess();
-            // 제거할 프리팹 없으니 바로 
+            // 제거할 프리팹 없으니 바로 씬 닫기
             SceneManager.UnloadSceneAsync("HouseWindowPuzzleScene");
         }
         else

@@ -11,6 +11,7 @@ TagManager:
   - Lock
   - Dust
   - Leaf
+  - Sponge
   layers:
   - Default
   - TransparentFX
