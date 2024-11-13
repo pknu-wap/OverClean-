@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -39,11 +41,11 @@ public class PrisonPipePuzzleScript : MonoBehaviour
                 GameObject pipeTile = Instantiate(pipeShapes[randomShape], pipeGrid.transform);
 
                 // 타일 위치 계산
-                Vector3 tilePosition = new Vector3(originXPosition + x * tileSize, originYPosition -y * tileSize, 0);
+                UnityEngine.Vector3 tilePosition = new UnityEngine.Vector3(originXPosition + x * tileSize, originYPosition -y * tileSize, 0);
                 pipeTile.transform.localPosition = tilePosition;
                 // 0도, 90도, 180도, 270도 중 하나로 회전
                 int randomRotation = Random.Range(0, 4) * -90;
-                pipeTile.transform.localRotation = Quaternion.Euler(0, 0, randomRotation);
+                pipeTile.transform.localRotation = UnityEngine.Quaternion.Euler(0, 0, randomRotation);
 
                 // 각 파이프 타일의 스크립트에 파이프 모양, 좌표와 회전 정보를 전해줌
                 PipeTileScript pipeTileScript = pipeTile.GetComponent<PipeTileScript>();
