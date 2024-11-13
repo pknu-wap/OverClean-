@@ -60,51 +60,62 @@ public class PrisonPipePuzzleScript : MonoBehaviour
         }
     }
 
-public bool IsPathConnectedToEnd()
-{
-    bool[,] visited = new bool[gridWidth, gridHeight];
-    return DFS(0, 0, visited);
-}
-
-private bool DFS(int x, int y, bool[,] visited)
-{
-    // 종료 조건: 종료 파이프에 도달
-    if (x == gridWidth - 1 && y == gridHeight - 1)
+    // 시작 파이프부터 종료 파이프까지 연결되었는지 확인하는 함수
+    public bool IsPathConnectedToEnd()
     {
-        Debug.Log("경로가 시작에서 종료 파이프까지 연결되었습니다.");
-        return true;
+        bool[,] visited = new bool[gridWidth, gridHeight];
+        return DFS(0, 0, visited);
     }
-    visited[x, y] = true;
-    PipeTileScript currentTile = pipeTiles[x, y];
-    
-    // 각 방향에 대해 연결 확인 및 DFS 재귀 호출
-    foreach (PipeTileScript.Direction direction in System.Enum.GetValues(typeof(PipeTileScript.Direction)))
+
+    // 특정 좌표의 파이프와 연결된 다른 파이프를 확인하는 함수
+    // 종료 조건이 충족될 때까지, 다른 파이프의 좌표를 인자로 재귀적으로 호출됨
+    private bool DFS(int x, int y, bool[,] visited)
     {
-        int nx = x, ny = y;
-        
-        switch (direction)
+        // 종료 조건: 종료 파이프에 도달
+        if (x == gridWidth - 1 && y == gridHeight - 1)
         {
-            case PipeTileScript.Direction.Top: ny -= 1; break;
-            case PipeTileScript.Direction.Right: nx += 1; break;
-            case PipeTileScript.Direction.Bottom: ny += 1; break;
-            case PipeTileScript.Direction.Left: nx -= 1; break;
+            Debug.Log("경로가 시작 파이프에서 종료 파이프까지 연결되었습니다.");
+            return true;
         }
-        // 인접한 좌표가 유효한지, 방문하지 않았는지, 현재 타일과 연결되어 있는지 확인
-        if (nx >= 0 && nx < gridWidth && ny >= 0 && ny < gridHeight && !visited[nx, ny])
+        // 중복 탐색을 방지하기 위해, 해당 좌표에 방문했음을 표시
+        visited[x, y] = true;
+        PipeTileScript currentPipe = pipeTileScripts[x, y];
+        
+        // 각 방향에 대해 연결 확인 및 DFS 재귀 호출
+        foreach (var direction in currentPipe.connectableDirections)
         {
-            PipeTileScript adjacentTile = pipeTiles[nx, ny];
-            if (currentTile.IsConnectedTo(adjacentTile, direction))
+            // 이 방향으로 연결되지 않았다면 다음 방향으로 넘어감
+            if (!direction.Value) continue;
+
+            int nx = x, ny = y;
+            // 연결된 방향 중 어느 방향을 검사할지 결정하여 인접한 파이프 좌표를 설정
+            switch (direction.Key)
             {
-                if (DFS(nx, ny, visited))
+                case PipeTileScript.Direction.Top: ny -= 1; break;
+                case PipeTileScript.Direction.Right: nx += 1; break;
+                case PipeTileScript.Direction.Bottom: ny += 1; break;
+                case PipeTileScript.Direction.Left: nx -= 1; break;
+            }
+            // 해당 좌표가 유효한지, 방문하지 않았는지 확인
+            if (nx >= 0 && nx < gridWidth && ny >= 0 && ny < gridHeight && !visited[nx, ny])
+            {
+                PipeTileScript adjacentPipe = pipeTileScripts[nx, ny];
+                // 현재 파이프와 연결되어 있는지 확인
+                if (currentPipe.IsConnectedTo(adjacentPipe, direction.Key))
                 {
-                    return true;
+                    // DFS 재귀 호출
+                    if (DFS(nx, ny, visited))
+                    {
+                        // 경로 연결에 성공했다면, 제일 마지막에 실행되고 IsPathConnectedToEnd의 반환 값이 됨
+                        return true;
+                    }
                 }
             }
         }
+
+        return false;
     }
 
-    return false;
-}
     void Update()
     {   
         // Z 키를 눌렀을 때 씬 닫기
