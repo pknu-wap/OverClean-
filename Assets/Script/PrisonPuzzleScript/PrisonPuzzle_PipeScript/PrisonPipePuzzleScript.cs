@@ -74,7 +74,6 @@ public class PrisonPipePuzzleScript : MonoBehaviour
         // 종료 조건: 종료 파이프에 도달
         if (x == gridWidth - 1 && y == gridHeight - 1)
         {
-            Debug.Log("경로가 시작 파이프에서 종료 파이프까지 연결되었습니다.");
             return true;
         }
         // 중복 탐색을 방지하기 위해, 해당 좌표에 방문했음을 표시
@@ -127,7 +126,7 @@ public class PrisonPipePuzzleScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.L))
         {
             Debug.Log("keyon");
-            IsPathConnectedToEnd();
+            Debug.Log($"경로 연결 성공 여부 : {IsPathConnectedToEnd()}");
         }
     }
 
