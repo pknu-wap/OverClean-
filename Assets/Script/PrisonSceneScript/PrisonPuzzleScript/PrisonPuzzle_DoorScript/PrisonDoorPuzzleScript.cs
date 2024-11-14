@@ -103,6 +103,11 @@ public class PrisonDoorPuzzleScript : MonoBehaviour
         ClosePuzzleScene();
     }
 
+    public void OnClosePuzzleButtonClicked()
+    {
+        ClosePuzzleScene();
+    }
+
     // 씬 닫기 함수
     void ClosePuzzleScene()
     {
