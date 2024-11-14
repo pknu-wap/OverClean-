@@ -69,7 +69,7 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
     }
 
     // Start 버튼 클릭 시 GameLobby 씬으로 이동
-    public void OnStartButtonClicked()
+    public void LoadLobbyScene()
     {
         SceneManager.LoadScene("LobbyScene");
     }
@@ -86,7 +86,6 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
         #endif
             Debug.Log("게임 종료");
     }
-
     // 방 코드 생성 함수
     private string GenerateRoomCode()
     {
@@ -253,6 +252,7 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
         }
     }
 
+    
 
 
 
