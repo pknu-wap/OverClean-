@@ -57,13 +57,6 @@ public class PrisonDoorPuzzleScript : MonoBehaviour
         {
             PuzzleSuccess();
         }
-
-        // X 키를 눌렀을 때 씬 닫기
-        // 추후 퍼즐 닫기 같은 버튼 UI와 연결..?
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            ClosePuzzleScene();
-        }
     }
 
     // 키 생성 함수
