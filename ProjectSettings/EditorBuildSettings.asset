@@ -90,4 +90,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PuzzleScene/HousePuzzleScene/HouseShelfPuzzleScene.unity
     guid: e4f8cb1b0a9ce1949b68dfeac9ea9303
+  - enabled: 1
+    path: Assets/Scenes/PuzzleScene/HousePuzzleScene/HouseBlockPuzzleScene.unity
+    guid: ca3b7fae9b99d794e9d413ba407b304d
   m_configObjects: {}

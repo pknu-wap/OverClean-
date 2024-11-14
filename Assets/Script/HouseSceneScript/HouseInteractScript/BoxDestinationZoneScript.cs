@@ -23,7 +23,7 @@ public class BoxDestinationZoneScript : MonoBehaviour
     // 존에 데이브가 들어왔을 때
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player1"))
+        if (other.CompareTag("Player1") && daveBox.GetComponent<DaveBoxInteractScript>().isHolding)
         {
             // 도착 변수 true로 변환
             daveBox.GetComponent<DaveBoxInteractScript>().isArrive = true;
@@ -35,7 +35,7 @@ public class BoxDestinationZoneScript : MonoBehaviour
     // 나갔을 때
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Player1"))
+        if (other.CompareTag("Player1") && daveBox.GetComponent<DaveBoxInteractScript>().isHolding)
         {
             // 도착 변수 false로 변환
             daveBox.GetComponent<DaveBoxInteractScript>().isArrive = false;
