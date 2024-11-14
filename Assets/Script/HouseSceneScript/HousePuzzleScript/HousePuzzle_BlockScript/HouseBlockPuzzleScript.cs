@@ -22,18 +22,22 @@ public class HouseBlockPuzzleScript : MonoBehaviour
     public Image xImage;
     void Start()
     {
-        for(int i = 0; i < blockPrefab.Count; i++)
+        for (int i = 0; i < blockPrefab.Count; i++)
         {
             // 범위 내 랜덤한 위치 설정
-            Vector3 GeneratePosition = new Vector3(
+            Vector3 generatePosition = new Vector3(
                 Random.Range(minPosition.x, maxPosition.x),
                 Random.Range(minPosition.y, maxPosition.y),
                 -0.5f
             );
 
-        // 해당 위치에 프리팹 생성
-        Instantiate(blockPrefab[i], GeneratePosition, Quaternion.identity);
+            // 0, 90, 180, 270도 중 하나의 랜덤한 회전 각도 선택
+            float randomRotationZ = Random.Range(0, 4) * 90f;
+
+            // 해당 설정으로 프리팹 생성
+            Instantiate(blockPrefab[i], generatePosition, Quaternion.Euler(0, 0, randomRotationZ));
         }
+
         // UI 이미지 비활성화
         oImage.gameObject.SetActive(false);
         xImage.gameObject.SetActive(false);
@@ -72,8 +76,8 @@ public class HouseBlockPuzzleScript : MonoBehaviour
         // 이미지 표시
         image.gameObject.SetActive(true);
         // 0.5초 대기(코루틴이 매개변수 시간만큼 일시정지됨)
-        yield return new WaitForSeconds(0.5f); 
+        yield return new WaitForSeconds(0.5f);
         // 이미지 숨김
-        image.gameObject.SetActive(false); 
+        image.gameObject.SetActive(false);
     }
 }

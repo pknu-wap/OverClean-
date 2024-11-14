@@ -50,8 +50,17 @@ public class HouseBlockPrefabScript : MonoBehaviour
 
     private void BlockRotate()
     {
-        // 현재 회전에 90도를 더해서 Z축 기준으로 회전
-        transform.rotation = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z + 90);
+        // 마우스 위치를 월드 좌표로 변환 (2D 평면에서의 위치만 사용)
+        Vector3 mousePosition = puzzleCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -puzzleCamera.transform.position.z));
+        mousePosition.z = 0f; // 2D 평면에서의 위치만 사용
+        // 현재 오브젝트에 마우스 클릭이 감지되었는지 확인
+        RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
+        // Ray가 오브젝트에 닿았을 때
+        if (hit.collider != null && hit.collider.gameObject == gameObject)
+        {
+            // 현재 회전에 90도를 더해서 Z축 기준으로 회전
+            gameObject.transform.rotation = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z + 90);
+        }
     }
 
 
