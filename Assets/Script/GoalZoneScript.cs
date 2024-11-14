@@ -63,8 +63,11 @@ public class GoalZone : MonoBehaviour
         stageClear = true;
         Debug.Log("스테이지 클리어");
         // 여기에 게임 클리어 처리 로직 추가
-        // UI를 띄우고 씬을 띄워야 하는데, 일단은 씬 불러오기로만 구현
+        if(MapClearPanel != null)
+        {
+            MapClearPanel.SetActive(true);
+        }
 
-        SceneManager.LoadScene("MapChooseScene");
+        // SceneManager.LoadScene("MapChooseScene");
     }
 }
