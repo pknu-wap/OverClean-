@@ -13,6 +13,9 @@ public class GoalZone : MonoBehaviour
     public StageManager stageManager;    
     // 스테이지 클리어 여부를 stageManager에게 전달하기 위한 변수
     public bool stageClear = false;
+    // MapClearPanel UI를 참조할 변수
+    public GameObject MapClearPanel;
+
 
     // 플레이어가 구역에 들어왔을 때 처리
     void OnTriggerEnter2D(Collider2D other)
@@ -61,6 +64,7 @@ public class GoalZone : MonoBehaviour
         Debug.Log("스테이지 클리어");
         // 여기에 게임 클리어 처리 로직 추가
         // UI를 띄우고 씬을 띄워야 하는데, 일단은 씬 불러오기로만 구현
+
         SceneManager.LoadScene("MapChooseScene");
     }
 }
