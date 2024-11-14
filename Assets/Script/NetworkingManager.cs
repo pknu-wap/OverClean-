@@ -76,6 +76,11 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
     }
 
     // PrisonMap에서 MapClear시 MapClearPanel에서 계속하기 버튼을 클릭 시 MapChoose 씬으로 이동
+    public void LoadMapChooseScene()
+    {
+        SceneManager.LoadScene("MapChooseScene");
+    }
+
     // Exit 버튼 클릭 시 게임 종료
     public void OnExitButtonClicked()
     {
