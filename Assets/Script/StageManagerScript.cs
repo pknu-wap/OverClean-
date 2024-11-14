@@ -39,13 +39,13 @@ public class StageManager : MonoBehaviour
             // 데이브 할당 / 생성
             if (PhotonNetwork.LocalPlayer.CustomProperties["Character"].ToString() == "Dave")
             {
-                GameObject playerObj1 = PhotonNetwork.Instantiate("Player1", new Vector2(player1StartX, player1StartY), Quaternion.identity);
+                GameObject playerObj1 = PhotonNetwork.Instantiate("Player1", new Vector3(player1StartX, player1StartY, player1StartZ), Quaternion.identity);
                 player1 = playerObj1.GetComponent<PlayerManager>();
             }
             // 매튜 할당 / 생성
             else
             {
-                GameObject playerObj2 = PhotonNetwork.Instantiate("Player2", new Vector2(player2StartX, player2StartY), Quaternion.identity);
+                GameObject playerObj2 = PhotonNetwork.Instantiate("Player2", new Vector3(player2StartX, player2StartY, player2StartZ), Quaternion.identity);
                 player2 = playerObj2.GetComponent<PlayerManager>();
             }
         }
