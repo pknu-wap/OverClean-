@@ -68,6 +68,12 @@ public class GoalZone : MonoBehaviour
             MapClearPanel.SetActive(true);
         }
 
+         // 플레이어 이동 제한
+        if (stageManager != null)
+        {
+            stageManager.SetPlayerMovement(false);
+        }
+
         // SceneManager.LoadScene("MapChooseScene");
     }
 }
