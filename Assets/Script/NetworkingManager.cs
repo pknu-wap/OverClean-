@@ -68,12 +68,14 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
         PhotonNetwork.JoinLobby();
     }
 
-    // Start 버튼 클릭 시 GameLobby 씬으로 이동
+    // TitleScene에서 Start 버튼 클릭 시 GameLobby 씬으로 이동
+    // PrisonMap에서 MapClear시 MapClearPanel에서 로비로 이동하기 버튼 클릭 시 GameLobby 씬으로 이동
     public void LoadLobbyScene()
     {
         SceneManager.LoadScene("LobbyScene");
     }
 
+    // PrisonMap에서 MapClear시 MapClearPanel에서 계속하기 버튼을 클릭 시 MapChoose 씬으로 이동
     // Exit 버튼 클릭 시 게임 종료
     public void OnExitButtonClicked()
     {
