@@ -9080,6 +9080,7 @@ MonoBehaviour:
   player2: {fileID: 1279382548}
   limitTime: 550
   remainTime: 5
+  elapsedTime: 0
   isTimeOver: 0
   timerText: {fileID: 1359239812}
   timeSlider: {fileID: 1733002842}
@@ -10334,7 +10335,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1922410599}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2080126692}
+        m_TargetAssemblyTypeName: NetworkingManager, Assembly-CSharp
+        m_MethodName: LoadLobbyScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1922410599
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10806,7 +10819,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2080126691}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e394e4e889c5fa4caa9fd2c8e30b9f1, type: 3}
+  m_Script: {fileID: 11500000, guid: cc90ff6fc42dcab40a80ccf83db8df83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &2080126693
