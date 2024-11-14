@@ -64,7 +64,10 @@ public class GoalZone : MonoBehaviour
         // 스테이지 클리어
         stageClear = true;
         Debug.Log("스테이지 클리어");
-        // 여기에 게임 클리어 처리 로직 추가
+
+        // 시간을 정지하기 전에 남은 시간을 저장
+        float finalTime = stageManager.remainTime;
+        
         if(MapClearPanel != null)
         {
             MapClearPanel.SetActive(true);
