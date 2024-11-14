@@ -78,13 +78,13 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
     public void OnExitButtonClicked()
     {
         // 에디터와 프로그램 실행을 구분.
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #else
             // 어플리케이션 종료
             Application.Quit();
-#endif
-        Debug.Log("게임 종료");
+        #endif
+            Debug.Log("게임 종료");
     }
 
     // 방 코드 생성 함수
