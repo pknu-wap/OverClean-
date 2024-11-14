@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GoalZone : MonoBehaviour
 {
@@ -15,7 +16,8 @@ public class GoalZone : MonoBehaviour
     public bool stageClear = false;
     // MapClearPanel UI를 참조할 변수
     public GameObject MapClearPanel;
-
+    // 타이머 텍스트를 표시하기 위한 text ui 참조
+    public TMP_Text clearTimeText;
 
     // 플레이어가 구역에 들어왔을 때 처리
     void OnTriggerEnter2D(Collider2D other)
