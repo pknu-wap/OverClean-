@@ -6948,15 +6948,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c133f29a21274b043ae3f19249b85dcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normalState: {fileID: 2100000, guid: 156e2e5d3e19cf743a21910567fd6e66, type: 2}
-  canInteractState: {fileID: 2100000, guid: 0e469783926eb7e4baeec88270a07c91, type: 2}
-  objectIndex: 2
-  stageManager: {fileID: 1558506330}
-  pipeInteractZone: {fileID: 2054068919}
-  hasInteracted: 0
-  floodWaterPrefab: {fileID: 4514021233988864339, guid: b9da7948c1f650844843685cc4e87959, type: 3}
-  sr: {fileID: 1136572491}
-  PuzzleUI: {fileID: 1869929549}
 --- !u!212 &1136572491
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7991,6 +7982,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dce8eb0d9932f6647a6232256997ec5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerLocation: {fileID: 443638704}
   isPuzzleSuccess: 0
 --- !u!1 &1341050849
 GameObject:
