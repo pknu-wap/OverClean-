@@ -65,8 +65,8 @@ public class GoalZone : MonoBehaviour
         stageClear = true;
         Debug.Log("스테이지 클리어");
 
-        // 시간을 정지하기 전에 남은 시간을 저장
-        float finalTime = stageManager.remainTime;
+        // 시간을 정지하기 전에 경과된 시간을 저장
+        float finalTime = stageManager.elapsedTime;
 
         if(MapClearPanel != null)
         {
