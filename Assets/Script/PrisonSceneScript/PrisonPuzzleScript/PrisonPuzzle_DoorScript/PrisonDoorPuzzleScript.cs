@@ -105,6 +105,7 @@ public class PrisonDoorPuzzleScript : MonoBehaviour
 
     public void OnClosePuzzleButtonClicked()
     {
+        PuzzleManager.instance.PlayerCanMove();
         ClosePuzzleScene();
     }
 
