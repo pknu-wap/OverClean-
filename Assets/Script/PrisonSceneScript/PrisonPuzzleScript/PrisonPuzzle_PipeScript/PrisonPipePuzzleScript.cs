@@ -23,6 +23,8 @@ public class PrisonPipePuzzleScript : MonoBehaviour
     private int tileSize = 110;
     // 각 파이프 타일의 변수에 접근하기 위해, 스크립트를 저장하는 배열
     public PipeTileScript[,] pipeTileScripts;
+    // 파이프 길 생성 시에, 길의 꺾이는 파이프의 위치 정보 모음
+    List<(int, int)> curvedPipePositions;
 
     void Start()
     {
@@ -117,7 +119,34 @@ public class PrisonPipePuzzleScript : MonoBehaviour
         return false;
     }
 
-    void Update()
+    // 성공 경로에 쓰일 꺾이는 파이프 묶음을 랜덤하게 결정하는 함수
+    List<(int, int)> GenerateCurvedPipePairs()
+    {
+        List<(int, int)> curvedPipePositions = new List<(int, int)>();
+        HashSet<int> usedXPositions = new HashSet<int>(); // 중복 방지용
+
+        for (int i = 0; i < 4; i++)
+        {
+            int x, y;
+            do
+            {
+                x = Random.Range(1, 9); // x 범위 : 1~8
+            } while (usedXPositions.Contains(x)); // 이미 존재하는 x면 다시 선택하러 반복
+            usedXPositions.Add(x);
+
+            y = i; // y는 0~3에서 순서대로 배치하여 y축 중복을 방지
+
+            // (x, y)와 (x, y + 1) 두 개 위치를 리스트에 추가
+            curvedPipePositions.Add((x, y));
+            curvedPipePositions.Add((x, y + 1));
+        }
+
+        return curvedPipePositions;
+    }
+
+    }
+
+    public void Update()
     {   
         // Z 키를 눌렀을 때 씬 닫기
         if (Input.GetKeyDown(KeyCode.Z))
