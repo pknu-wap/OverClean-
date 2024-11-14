@@ -8860,6 +8860,7 @@ MonoBehaviour:
   stageManager: {fileID: 1558506330}
   stageClear: 0
   MapClearPanel: {fileID: 264614285}
+  clearTimeText: {fileID: 2118808875}
 --- !u!61 &1393663721
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -67,11 +67,23 @@ public class GoalZone : MonoBehaviour
 
         // 시간을 정지하기 전에 남은 시간을 저장
         float finalTime = stageManager.remainTime;
-        
+
         if(MapClearPanel != null)
         {
             MapClearPanel.SetActive(true);
         }
+
+        // 시간 포맷으로 변환하여 텍스트 표시
+        if (clearTimeText != null)
+        {
+            int minutes = Mathf.FloorToInt(finalTime / 60F);
+            int seconds = Mathf.FloorToInt(finalTime % 60F);
+            int milliseconds = Mathf.FloorToInt((finalTime * 1000F) % 1000) / 10;
+            clearTimeText.text = string.Format("{0}:{1:00}:{2:00}", minutes, seconds, milliseconds);
+        }
+
+         // 게임 시간 정지
+        Time.timeScale = 0f;
 
          // 플레이어 이동 제한
         if (stageManager != null)
