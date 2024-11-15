@@ -26,21 +26,50 @@ public class PrisonPipePuzzleScript : MonoBehaviour
     // 파이프 길 생성 시에, 길의 꺾이는 파이프의 위치 정보 모음
     List<(int, int)> curvedPipePositions;
 
-    void Start()
+    public void Start()
     {
         pipeTileScripts = new PipeTileScript[gridWidth, gridHeight];
+        curvedPipePositions = GenerateCurvedPipePairs();
         CreatePipeGrid();
     }
 
-    void CreatePipeGrid()
+    public void CreatePipeGrid()
     {
+        // 꺾이는 파이프 (시작 및 종료 파이프 포함) 사이는 일자 파이프를 생성해야 함
+        // 일자 파이프를 만들어야 하는 길인지 확인하는 변수
+        bool IsPathBetweenCurvedPipes = true;
+        // 파이프 모양을 저장하기 위한 변수
+        int pipeShape;
+
         for (int y = 0; y < gridHeight; y++)
         {
             for (int x = 0; x < gridWidth; x++)
             {
-                // 랜덤한 파이프 프리팹 모양 선택
-                int randomShape = Random.Range(0, pipeShapes.Length);
-                GameObject pipeTile = Instantiate(pipeShapes[randomShape], pipeGrid.transform);
+                if (IsPathBetweenCurvedPipes || curvedPipePositions.Contains((x,y)))
+                {
+                    // 꺾이는 파이프가 생성되야 하는 좌표라면
+                    if (curvedPipePositions.Contains((x,y)))
+                    {
+                        // 이후론 일자 파이프만 생성할 필요 없기 때문에 false로 만들어줌
+                        // 다시 꺾이는 파이프를 만나면 true로 바꿔줌
+                        IsPathBetweenCurvedPipes = !IsPathBetweenCurvedPipes;
+                        // 파이프 모양 L자 또는 T자 중 랜덤으로 선택
+                        pipeShape = Random.value < 0.5f ? 1 : 2;
+                    }
+                    else
+                    {
+                        // 파이프 모양 일자 선택
+                        pipeShape = 0;
+                    }
+                }
+                else
+                {
+                    // 파이프 모양 랜덤으로 선택
+                    pipeShape = Random.Range(0, 3);
+                }
+
+                // 로직에 따라 변경된 파이프 프리팹 모양으로 인스턴스화
+                GameObject pipeTile = Instantiate(pipeShapes[pipeShape], pipeGrid.transform);
 
                 // 타일 위치 계산
                 UnityEngine.Vector3 tilePosition = new UnityEngine.Vector3(originXPosition + x * tileSize, originYPosition -y * tileSize, 0);
@@ -53,7 +82,7 @@ public class PrisonPipePuzzleScript : MonoBehaviour
                 PipeTileScript pipeTileScript = pipeTile.GetComponent<PipeTileScript>();
                 pipeTileScript.x = x;
                 pipeTileScript.y = y;
-                pipeTileScript.pipeShape = randomShape;
+                pipeTileScript.pipeShape = pipeShape;
                 // currentRotation은 실제 각도 (-90, -180 등)가 아니라 0,1,2,3으로 간편히 구분하도록 함
                 pipeTileScript.currentRotation = randomRotation / -90;
 
@@ -139,11 +168,10 @@ public class PrisonPipePuzzleScript : MonoBehaviour
             // (x, y)와 (x, y + 1) 두 개 위치를 리스트에 추가
             curvedPipePositions.Add((x, y));
             curvedPipePositions.Add((x, y + 1));
+            Debug.Log($"curvedPipe location : {x}, {y} / {x} , {y + 1}");
         }
 
         return curvedPipePositions;
-    }
-
     }
 
     public void Update()
