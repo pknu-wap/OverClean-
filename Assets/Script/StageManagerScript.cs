@@ -97,7 +97,7 @@ public class StageManager : MonoBehaviour
         }
         else if(pause && Input.GetKeyDown(KeyCode.Escape))
         {
-            OnBackToGameButtonClicked();
+            ClosePausePanel();
         }
         
     }
@@ -164,7 +164,7 @@ public class StageManager : MonoBehaviour
         isTimeOver = true;
     }
 
-    public void OnBackToGameButtonClicked()
+    public void ClosePausePanel()
     {
         Time.timeScale = 1;
         pause = false;
