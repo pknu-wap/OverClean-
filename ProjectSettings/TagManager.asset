@@ -15,6 +15,9 @@ TagManager:
   - Towel
   - CoverDestination
   - Block
+  - CheckGrid
+  - Book
+  - GoalZone
   layers:
   - Default
   - TransparentFX
