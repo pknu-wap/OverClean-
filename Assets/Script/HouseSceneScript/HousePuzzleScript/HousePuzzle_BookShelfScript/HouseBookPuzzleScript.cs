@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using ExitGames.Client.Photon.StructWrapping;
+using TMPro;
 
 
 public class HouseBookPuzzleScript : MonoBehaviour
@@ -29,6 +29,8 @@ public class HouseBookPuzzleScript : MonoBehaviour
     public Image xImage;
     // 책 목록 배열 리스트
     private string[] bookList = { "빨강", "주황", "노랑", "초록", "파랑", "보라", "검정" };
+    // 힌트 UI 텍스트 참조
+    public TMP_Text uiHintText;
 
 
     void Start()
@@ -43,7 +45,7 @@ public class HouseBookPuzzleScript : MonoBehaviour
             Debug.Log(book);
         }
         // 프리팹 x좌표 간격 계산
-        float step = (endX - startX) / prefabCount - 1;
+        float step = (endX - startX) / (prefabCount - 1);
         // 반복문으로 책, 체크 프리팹 생성
         for (int i = 0; i < prefabCount; i++)
         {
@@ -74,6 +76,15 @@ public class HouseBookPuzzleScript : MonoBehaviour
         // UI 이미지 비활성화
         oImage.gameObject.SetActive(false);
         xImage.gameObject.SetActive(false);
+
+        // UI 텍스트 초기화
+        uiHintText.text = string.Format(
+            bookList[0] + " 책은 " + bookList[2] + " 책의 왼쪽에 있습니다.\n\n" +
+            bookList[3] + " 책은 왼쪽 " + bookList[1] + " 책과 오른쪽 " + bookList[4] + " 책 사이에 있고 " + bookList[2] + " 책의 오른쪽에 있습니다.\n\n" +
+            bookList[5] + " 책은 " + bookList[4] + " 책 오른쪽이며 끝자리가 아닙니다.\n\n" +
+            bookList[1] + " 책은 양 끝자리가 아닙니다.\n\n" +
+            bookList[2] + " 책은 3번째 자리입니다."
+        );
     }
 
     // 배열 섞는 메서드
@@ -116,14 +127,14 @@ public class HouseBookPuzzleScript : MonoBehaviour
             // puzzlesuccess 호출
             PuzzleManager.instance.PuzzleSuccess();
             // 제거할 프리팹 없으니 바로 씬 닫기
-            SceneManager.UnloadSceneAsync("HouseBlockPuzzleScene");
+            SceneManager.UnloadSceneAsync("HouseBookPuzzleScene");
         }
         else
         {
             // 오답인 경우 X 이미지 표시 코루틴 실행
             yield return StartCoroutine(ShowImage(xImage));
             // 뚜껑 원위치
-            bookShelfCover.transform.position = bookShelfCover.GetComponent<HouseBlockCoverScript>().firstLocate;
+            bookShelfCover.transform.position = bookShelfCover.GetComponent<HouseBookCoverScript>().firstLocate;
         }
     }
 
