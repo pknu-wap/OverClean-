@@ -97,7 +97,10 @@ public class PrisonPipePuzzleScript : MonoBehaviour
     public bool IsPathConnectedToEnd()
     {
         bool[,] visited = new bool[gridWidth, gridHeight];
-        return DFS(0, 0, visited);
+        bool isStartPipeConnectedToLeft = pipeTileScripts[0, 0].connectableDirections[PipeTileScript.Direction.Left] == true;
+        bool isEndPipeConnectedToRight = pipeTileScripts[9, 4].connectableDirections[PipeTileScript.Direction.Right] == true;
+
+        return DFS(0, 0, visited) && isStartPipeConnectedToLeft && isEndPipeConnectedToRight;
     }
 
     // 특정 좌표의 파이프와 연결된 다른 파이프를 확인하는 함수
