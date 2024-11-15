@@ -39,6 +39,9 @@ public class StageManager : MonoBehaviour
     // PausePanel UI 컴포넌트를 연결할 변수
     public RectTransform PausePanelUI;
 
+    // PausePanel UI가 열렸는지 판단하는 변수 
+    public bool pause = false;
+
     void Start()
     { 
         // 상호작용 오브젝트 개수만큼 bool 배열 정의
@@ -84,11 +87,19 @@ public class StageManager : MonoBehaviour
             } 
         }
 
-        // 스페이스바로 상호작용
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if(!pause)
         {
-            OnEscButtonClicked();
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                pause = true;
+                OnEscButtonClicked();
+            }
         }
+        else if(pause && Input.GetKeyDown(KeyCode.Escape))
+        {
+            OnBackToGameButtonClicked();
+        }
+        
     }
 
     void UpdateTimerText()
@@ -156,6 +167,7 @@ public class StageManager : MonoBehaviour
     public void OnBackToGameButtonClicked()
     {
         Time.timeScale = 1;
+        pause = false;
         PausePanelUI.gameObject.SetActive(false);
     }
 
