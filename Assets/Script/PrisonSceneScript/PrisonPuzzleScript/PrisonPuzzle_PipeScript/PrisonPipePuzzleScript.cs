@@ -204,12 +204,17 @@ public class PrisonPipePuzzleScript : MonoBehaviour
 
     IEnumerator puzzleSolveCheck()
     {
-        if(IsPathConnectedToEnd())
+        // 연결 성공인지 확인
+        if (IsPathConnectedToEnd())
         {
             // 체크 이미지 표시 코루틴 실행
             yield return StartCoroutine(ShowImage(oImage));
-            // 퍼즐 해결 신호 전달
+            // 퍼즐 매니저에 퍼즐 성공 상태 전달
             puzzleSolved = true;
+        }
+        else
+        {
+            yield return StartCoroutine(ShowImage(xImage));
         }
     }
 
