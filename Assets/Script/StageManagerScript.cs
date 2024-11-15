@@ -155,11 +155,13 @@ public class StageManager : MonoBehaviour
 
     public void OnBackToGameButtonClicked()
     {
+        Time.timeScale = 1;
         PausePanelUI.gameObject.SetActive(false);
     }
 
     public void OnEscButtonClicked()
     {
+        Time.timeScale = 0;
         PausePanelUI.gameObject.SetActive(true);
     }
 
