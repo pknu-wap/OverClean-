@@ -162,4 +162,17 @@ public class StageManager : MonoBehaviour
     {
         PausePanelUI.gameObject.SetActive(true);
     }
+
+    public void OnBackToLobbyButtonClicked()
+{
+    if (NetworkingManager.Instance != null)
+    {
+        NetworkingManager.Instance.OnStartButtonClicked();
+    }
+    else
+    {
+        Debug.LogError("NetworkingManager instance is null.");
+    }
+}
+
 }
