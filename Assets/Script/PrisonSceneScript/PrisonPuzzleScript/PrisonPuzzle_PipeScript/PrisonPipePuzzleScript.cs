@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PrisonPipePuzzleScript : MonoBehaviour
 {
@@ -25,6 +26,17 @@ public class PrisonPipePuzzleScript : MonoBehaviour
     public PipeTileScript[,] pipeTileScripts;
     // 파이프 길 생성 시에, 길의 꺾이는 파이프의 위치 정보 모음
     List<(int, int)> curvedPipePositions;
+    // 퍼즐이 풀렸는지 정보를 받아올 변수(초기값 false)
+    public bool puzzleSolved = false;
+    // 체크 이미지를 표시하기 위한 UI 이미지
+    public Image oImage;
+
+    public void Awake()
+    {
+        oImage = GameObject.Find("CorrectAnswerImage").GetComponent<Image>();
+        // 초기에는 성공 이미지 숨김
+        oImage.gameObject.SetActive(false); 
+    }
 
     public void Start()
     {
