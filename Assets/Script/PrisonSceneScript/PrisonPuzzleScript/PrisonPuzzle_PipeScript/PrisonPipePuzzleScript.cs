@@ -189,6 +189,17 @@ public class PrisonPipePuzzleScript : MonoBehaviour
         return curvedPipePositions;
     }
 
+    IEnumerator ShowImage(Image image)
+    {
+        Debug.Log("성공 이미지가 표시되었습니다.");
+        // 이미지 표시
+        image.gameObject.SetActive(true);
+        // 0.5초 대기(코루틴이 매개변수 시간만큼 일시정지됨)
+        yield return new WaitForSeconds(0.5f); 
+        // 이미지 숨김
+        image.gameObject.SetActive(false); 
+    }
+
     public void Update()
     {   
         // Z 키를 눌렀을 때 씬 닫기
