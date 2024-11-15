@@ -189,6 +189,25 @@ public class PrisonPipePuzzleScript : MonoBehaviour
         return curvedPipePositions;
     }
 
+    // 퍼즐 성공 시 호출되는 함수
+    public void PuzzleSuccess()
+    {
+        Debug.Log("씬이 종료됩니다.");
+        PuzzleManager.instance.PuzzleSuccess();
+        ClosePuzzleScene();
+    }
+
+    IEnumerator puzzleSolveCheck()
+    {
+        if(IsPathConnectedToEnd())
+        {
+            // 체크 이미지 표시 코루틴 실행
+            yield return StartCoroutine(ShowImage(oImage));
+            // 퍼즐 해결 신호 전달
+            puzzleSolved = true;
+        }
+    }
+
     IEnumerator ShowImage(Image image)
     {
         Debug.Log("성공 이미지가 표시되었습니다.");
@@ -210,8 +229,13 @@ public class PrisonPipePuzzleScript : MonoBehaviour
         // L 키를 눌렀을 때 파이프 연결 확인
         if (Input.GetKeyDown(KeyCode.L))
         {
-            Debug.Log("keyon");
-            Debug.Log($"경로 연결 성공 여부 : {IsPathConnectedToEnd()}");
+            StartCoroutine(puzzleSolveCheck());
+            Debug.Log($"경로 연결 성공 여부 : {puzzleSolved}");
+        }
+        // 퍼즐이 해결됐다면
+        if (puzzleSolved)
+        {
+            PuzzleSuccess();
         }
     }
 
