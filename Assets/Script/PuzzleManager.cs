@@ -8,8 +8,10 @@ public class PuzzleManager : MonoBehaviour
     // 싱글톤 인스턴스
     public static PuzzleManager instance;
     // 플레이어를 참조해서 위치를 받아오기 위한 변수
-    public Transform playerLocation;
+    public Transform player1Location;
 
+    // 플레이어를 참조해서 위치를 받아오기 위한 변수
+    public Transform player2Location;
     // 맵 씬과 퍼즐 씬의 퍼즐 성공 여부를 연결하기 위한 변수
     public bool isPuzzleSuccess = false;
 
@@ -32,7 +34,8 @@ public class PuzzleManager : MonoBehaviour
 
     public void ClosePuzzleScene()
     {
-        playerLocation.GetComponent<PlayerManager>().canMove = true;
+        player1Location.GetComponent<PlayerManager>().canMove = true;
+        player2Location.GetComponent<PlayerManager>().canMove = true;
         isPuzzleOpen = false;
     }
 

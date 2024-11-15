@@ -7991,7 +7991,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dce8eb0d9932f6647a6232256997ec5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLocation: {fileID: 443638704}
+  player1Location: {fileID: 443638704}
+  player2Location: {fileID: 1279382552}
   isPuzzleSuccess: 0
   isPuzzleOpen: 0
 --- !u!1 &1341050849

@@ -12,7 +12,7 @@ public class PipeInteract : MonoBehaviour
     // 오브젝트의 인덱스(감옥 맵에서 0~7)
     public int objectIndex;
     // stagemanager를 참조해서 상호작용 여부를 제어하기 위한 변수
-    public StageManager stageManager;
+    public StageManager stageManager;   
     // 상호작용 구역을 참조하기 위한 변수
     public PipeInteractZone pipeInteractZone;
     // 상호작용 여부
