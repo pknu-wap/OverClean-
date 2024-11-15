@@ -36,6 +36,9 @@ public class StageManager : MonoBehaviour
     // Slider UI 컴포넌트를 연결할 변수 
     public Slider timeSlider;
 
+    // PausePanel UI 컴포넌트를 연결할 변수
+    public RectTransform PausePanelUI;
+
     void Start()
     { 
         // 상호작용 오브젝트 개수만큼 bool 배열 정의
@@ -142,5 +145,10 @@ public class StageManager : MonoBehaviour
         // 타임오버 로직 추가
         Debug.Log("타임오버");
         isTimeOver = true;
+    }
+
+    public void OnBackToGameButtonClicked()
+    {
+        PausePanelUI.gameObject.SetActive(false);
     }
 }

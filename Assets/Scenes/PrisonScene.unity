@@ -204,7 +204,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 9668800}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1558506330}
+        m_TargetAssemblyTypeName: StageManager, Assembly-CSharp
+        m_MethodName: OnBackToGameButtonClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &9668800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9085,6 +9097,7 @@ MonoBehaviour:
   isTimeOver: 0
   timerText: {fileID: 1359239812}
   timeSlider: {fileID: 1733002842}
+  PausePanelUI: {fileID: 1724208349}
 --- !u!4 &1558506331
 Transform:
   m_ObjectHideFlags: 0
