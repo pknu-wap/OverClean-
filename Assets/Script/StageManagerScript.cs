@@ -83,6 +83,12 @@ public class StageManager : MonoBehaviour
                 UpdateTimerText();
             } 
         }
+
+        // 스페이스바로 상호작용
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            OnEscButtonClicked();
+        }
     }
 
     void UpdateTimerText()
@@ -150,5 +156,10 @@ public class StageManager : MonoBehaviour
     public void OnBackToGameButtonClicked()
     {
         PausePanelUI.gameObject.SetActive(false);
+    }
+
+    public void OnEscButtonClicked()
+    {
+        PausePanelUI.gameObject.SetActive(true);
     }
 }
