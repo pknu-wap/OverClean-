@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -7607470266142371852}
   m_Layer: 0
   m_Name: GridCheckPrefab
-  m_TagString: Untagged
+  m_TagString: CheckGrid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

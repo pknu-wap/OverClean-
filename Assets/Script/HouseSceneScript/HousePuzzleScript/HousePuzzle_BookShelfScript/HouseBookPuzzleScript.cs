@@ -126,7 +126,18 @@ public class HouseBookPuzzleScript : MonoBehaviour
             yield return StartCoroutine(ShowImage(oImage));
             // puzzlesuccess 호출
             PuzzleManager.instance.PuzzleSuccess();
-            // 제거할 프리팹 없으니 바로 씬 닫기
+            // 퍼즐 씬에서 사용한 book 프리팹을 전부 찾아와 제거
+            GameObject[] destroyBook = GameObject.FindGameObjectsWithTag("Book");
+            for(int i = 0; i < destroyBook.Length; i++)
+            {
+                Destroy(destroyBook[i]);
+            }
+            // 퍼즐 씬에서 사용한 checkgrid 프리팹을 전부 찾아와 제거
+            GameObject[] destroyCheckGrid = GameObject.FindGameObjectsWithTag("CheckGrid");
+            for(int i = 0; i < destroyCheckGrid.Length; i++)
+            {
+                Destroy(destroyCheckGrid[i]);
+            }
             SceneManager.UnloadSceneAsync("HouseBookPuzzleScene");
         }
         else
