@@ -30,12 +30,17 @@ public class PrisonPipePuzzleScript : MonoBehaviour
     public bool puzzleSolved = false;
     // 체크 이미지를 표시하기 위한 UI 이미지
     public Image oImage;
+    // 틀렸을 때 표시하기 위한 UI 이미지
+    public Image xImage;
 
     public void Awake()
     {
+        // 이미지 참조
         oImage = GameObject.Find("CorrectAnswerImage").GetComponent<Image>();
-        // 초기에는 성공 이미지 숨김
+        xImage = GameObject.Find("WrongAnswerImage").GetComponent<Image>();
+        // 초기에는 이미지 숨김
         oImage.gameObject.SetActive(false); 
+        xImage.gameObject.SetActive(false); 
     }
 
     public void Start()
