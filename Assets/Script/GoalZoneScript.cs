@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GoalZone : MonoBehaviour
 {
@@ -13,6 +14,10 @@ public class GoalZone : MonoBehaviour
     public StageManager stageManager;    
     // 스테이지 클리어 여부를 stageManager에게 전달하기 위한 변수
     public bool stageClear = false;
+    // MapClearPanel UI를 참조할 변수
+    public GameObject MapClearPanel;
+    // 타이머 텍스트를 표시하기 위한 text ui 참조
+    public TMP_Text clearTimeText;
 
     // 플레이어가 구역에 들어왔을 때 처리
     void OnTriggerEnter2D(Collider2D other)
@@ -59,8 +64,33 @@ public class GoalZone : MonoBehaviour
         // 스테이지 클리어
         stageClear = true;
         Debug.Log("스테이지 클리어");
-        // 여기에 게임 클리어 처리 로직 추가
-        // UI를 띄우고 씬을 띄워야 하는데, 일단은 씬 불러오기로만 구현
-        SceneManager.LoadScene("MapChooseScene");
+
+        // 시간을 정지하기 전에 경과된 시간을 저장
+        float finalTime = stageManager.elapsedTime;
+
+        if(MapClearPanel != null)
+        {
+            MapClearPanel.SetActive(true);
+        }
+
+        // 시간 포맷으로 변환하여 텍스트 표시
+        if (clearTimeText != null)
+        {
+            int minutes = Mathf.FloorToInt(finalTime / 60F);
+            int seconds = Mathf.FloorToInt(finalTime % 60F);
+            int milliseconds = Mathf.FloorToInt((finalTime * 1000F) % 1000) / 10;
+            clearTimeText.text = string.Format("{0}:{1:00}:{2:00}", minutes, seconds, milliseconds);
+        }
+
+         // 게임 시간 정지
+        Time.timeScale = 0f;
+
+         // 플레이어 이동 제한
+        if (stageManager != null)
+        {
+            stageManager.SetPlayerMovement(false);
+        }
+
+        // SceneManager.LoadScene("MapChooseScene");
     }
 }

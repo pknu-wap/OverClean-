@@ -28,6 +28,8 @@ public class StageManager : MonoBehaviour
     public float limitTime;
     // 남은 시간
     public float remainTime;
+    // 경과 시간을 추적하는 변수
+    public float elapsedTime = 0f;
     // 타임오버 여부
     public bool isTimeOver = false;
     // 타이머 텍스트를 표시하기 위한 text ui 참조
@@ -61,6 +63,7 @@ public class StageManager : MonoBehaviour
         {
             // 시간을 점차적으로 감소
             remainTime -= Time.deltaTime;
+            elapsedTime += Time.deltaTime;
 
             // 슬라이더 업데이트
             if(timeSlider != null)
