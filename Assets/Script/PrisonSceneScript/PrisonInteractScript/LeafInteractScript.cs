@@ -23,8 +23,6 @@ public class LeafInteract : MonoBehaviour
     public GameObject prisonLeaf;
     // 낙엽을 참조해서 material을 조정하기 위한 spriterenderer 변수
     public SpriteRenderer sr;
-    // 퍼즐이 열려있는지 확인하기 위한 변수
-    private bool isPuzzleOpen = false;
     
     // 상호작용시 비활성화 되어있는 캔버스를 열기 위한 변수
     public RectTransform PuzzleUI;
@@ -58,18 +56,18 @@ public class LeafInteract : MonoBehaviour
             HideHighlight();
         }
         // 퍼즐이 열려 있을 때 퍼즐을 해결하면 상호작용 성공
-        if (isPuzzleOpen && PuzzleManager.instance.isPuzzleSuccess)
+        if (PuzzleManager.instance.isPuzzleOpen && PuzzleManager.instance.isPuzzleSuccess)
         {
             // 오브젝트 상호작용됨
             hasInteracted = true;
             // 퍼즐이 닫힘
-            isPuzzleOpen = false;
+            PuzzleManager.instance.isPuzzleOpen = false;
             // statemanager에게 상호작용되었다고 알림
             stageManager.ObjectInteract(objectIndex);
             // 퍼즐매니저의 퍼즐 성공여부를 초기화
             PuzzleManager.instance.isPuzzleSuccess = false;
             // 퍼즐이 성공했으므로 플레이어 이동 가능하게 설정
-            playerLocation.GetComponent<Player>().canMove = true;
+            playerLocation.GetComponent<PlayerManager>().canMove = true;
             // 상호작용 성공 시 낙엽 맵에서 삭제
             Destroy(prisonLeaf);
         }
@@ -78,15 +76,15 @@ public class LeafInteract : MonoBehaviour
     void Interact()
     {
         // 퍼즐이 열려 있지 않을 때만 Interact가 실행되었을 때 퍼즐씬이 불러와지도록 조건 추가
-        if (!isPuzzleOpen)
+        if (!PuzzleManager.instance.isPuzzleOpen)
         {
             PuzzleUI.gameObject.SetActive(true);
             // 씬매니저로 퍼즐씬 불러오기
             SceneManager.LoadScene("PrisonLeafPuzzleScene", LoadSceneMode.Additive);
             // 퍼즐 오픈 변수 true
-            isPuzzleOpen = true;
+            PuzzleManager.instance.isPuzzleOpen = true;
             // Player.cs의 canMove를 제어해 플레이어 이동 제한
-            playerLocation.GetComponent<Player>().canMove = false;
+            playerLocation.GetComponent<PlayerManager>().canMove = false;
         }
     }
 
