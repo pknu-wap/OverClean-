@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class PlayerManager : MonoBehaviour
 {
 	// 플레이어1의 입력 방향을 저장하는 벡터
 	public Vector2 inputVec1;

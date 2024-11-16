@@ -87,6 +87,11 @@ public class PrisonDustLeafPuzzleScript : MonoBehaviour
         // 더이상 씬을 열 필요가 없으니 씬 닫기. 중간에 UI 삽입을 위한 시간을 추가해도 될듯?
         ClosePuzzleScene();
     }
+    public void OnClosePuzzleButtonClicked()
+    {
+        PuzzleManager.instance.ClosePuzzleScene();
+        ClosePuzzleScene();
+    }
 
     // 씬 닫기 함수
     void ClosePuzzleScene()

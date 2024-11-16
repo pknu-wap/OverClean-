@@ -523,7 +523,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1602602501}
         m_TargetAssemblyTypeName: NetworkingManager, Assembly-CSharp
-        m_MethodName: OnStartButtonClicked
+        m_MethodName: LoadLobbyScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
