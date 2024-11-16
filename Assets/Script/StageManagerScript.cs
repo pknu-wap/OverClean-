@@ -20,8 +20,8 @@ public class StageManager : MonoBehaviour
     // 상호작용 완료된 오브젝트 개수
     public int interactCount = 0;
     // 플레이어를 관리하는 변수 추가
-    public Player player1;
-    public Player player2;
+    public PlayerManager player1;
+    public PlayerManager player2;
 
     // 타이머 관련 변수
     // 주어진 시간 - Inspector에서 설정 가능

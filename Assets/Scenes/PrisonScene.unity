@@ -959,7 +959,7 @@ Transform:
   m_GameObject: {fileID: 443638698}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.51, y: -5.63, z: -0.6}
+  m_LocalPosition: {x: -1.56, y: -4.86, z: -0.6}
   m_LocalScale: {x: 0.13, y: 0.13, z: 0.13}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -7342,13 +7342,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c133f29a21274b043ae3f19249b85dcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normalState: {fileID: 2100000, guid: 156e2e5d3e19cf743a21910567fd6e66, type: 2}
+  normalState: {fileID: 0}
   canInteractState: {fileID: 2100000, guid: 0e469783926eb7e4baeec88270a07c91, type: 2}
-  objectIndex: 2
+  objectIndex: 0
   stageManager: {fileID: 1558506330}
   pipeInteractZone: {fileID: 2054068919}
   hasInteracted: 0
-  floodWaterPrefab: {fileID: 4514021233988864339, guid: b9da7948c1f650844843685cc4e87959, type: 3}
+  floodWaterPrefab: {fileID: 0}
   sr: {fileID: 1136572491}
   PuzzleUI: {fileID: 1869929549}
 --- !u!212 &1136572491
@@ -8338,7 +8338,7 @@ Transform:
   m_GameObject: {fileID: 1279382546}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.9, y: -7.32, z: -0.6}
+  m_LocalPosition: {x: 0.49, y: -5.49, z: -0.6}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -8460,7 +8460,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dce8eb0d9932f6647a6232256997ec5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player1Location: {fileID: 443638704}
+  player2Location: {fileID: 1279382552}
   isPuzzleSuccess: 0
+  isPuzzleOpen: 0
 --- !u!1 &1341050849
 GameObject:
   m_ObjectHideFlags: 0
@@ -11212,4 +11215,3 @@ SceneRoots:
   - {fileID: 918718958}
   - {fileID: 1027870007}
   - {fileID: 1284700840}
-  - {fileID: 2080126693}

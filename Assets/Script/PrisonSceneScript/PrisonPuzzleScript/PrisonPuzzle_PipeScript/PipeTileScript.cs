@@ -4,41 +4,103 @@ using UnityEngine;
 
 public class PipeTileScript : MonoBehaviour
 {
-    // 회전 각도 (0, 90, 180, 270도로 제한)
-    private int currentRotation;
-
+    // currentRotation, pipeShape는 타일이 생성될 때 PrisonPipePuzzleScript.cs에서 정보를 받아 초기화됨
+    public int currentRotation;
+    public int pipeShape;
+    public int x, y;
+    // 방향 정보 설정
+    public enum Direction
+    {
+        Top, Right, Bottom, Left
+    }
+    // 연결 가능한 방향 정보 저장
+    public Dictionary<Direction, bool> connectableDirections = new Dictionary<Direction, bool>
+    {
+        { Direction.Top, false },
+        { Direction.Bottom, false },
+        { Direction.Left, false },
+        { Direction.Right, false }
+    };
     // 스프라이트 렌더러
     private SpriteRenderer spriteRenderer;
-
     public Camera puzzleCamera;
 
     void Start()
     {
-         // 초기 회전 각도
-        currentRotation = 0;
         spriteRenderer = GetComponent<SpriteRenderer>();
+        UpdateConnectableDirections();
 
+        // 파이프 타일에 마우스 클릭이 가능하도록 함
         if (puzzleCamera == null)
         {
             puzzleCamera = GameObject.FindGameObjectWithTag("PuzzleCamera").GetComponent<Camera>();
         }
     }
 
-    public void RotateTile()
+    public void RotatePipe()
     {
         // 파이프 타일이 기존 회전 각도를 유지한 상태에서 90도 회전
         transform.Rotate(0, 0, -90);
+        // 0,1,2,3 으로 회전 정보 구분
+        currentRotation = (currentRotation + 1) % 4;
+        // 회전 시 마다 연결 정보 변경
+        UpdateConnectableDirections();
     }
 
-    // 다른 타일과의 연결을 검사하는 함수 예시
-    public bool IsConnected(PipeTileScript otherTile)
+    private void UpdateConnectableDirections()
     {
-        // 구현할 내용: otherTile과의 방향 및 연결 상태 검사 로직
-        // 연결되어 있다고 가정
-        return true;
+        // 파이프 모양에 따른 연결 설정
+        switch (pipeShape)
+        {
+            // 일자 모양
+            case 0:
+                connectableDirections[(Direction)currentRotation] = true;
+                connectableDirections[(Direction)((currentRotation + 1) % 4)] = false;
+                connectableDirections[(Direction)((currentRotation + 2) % 4)] = true;
+                connectableDirections[(Direction)((currentRotation + 3) % 4)] = false;
+                break;
+            // L자 모양
+            case 1:
+                connectableDirections[(Direction)currentRotation] = true;
+                connectableDirections[(Direction)((currentRotation + 1) % 4)] = true;
+                connectableDirections[(Direction)((currentRotation + 2) % 4)] = false;
+                connectableDirections[(Direction)((currentRotation + 3) % 4)] = false;
+                break;
+            // T자 모양
+            case 2:
+                connectableDirections[(Direction)currentRotation] = true;
+                connectableDirections[(Direction)((currentRotation + 1) % 4)] = true;
+                connectableDirections[(Direction)((currentRotation + 2) % 4)] = true;
+                connectableDirections[(Direction)((currentRotation + 3) % 4)] = false;
+                break;
+            default:
+                break;
+        }
     }
 
-     private void OnMouseDownHandler()
+
+    // 인접한 파이프와 인자로 받은 방향으로 연결이 가능한지 확인
+    // 인접한 파이프의 스크립트를 받아와 connectableDirections에 접근
+    public bool IsConnectedTo(PipeTileScript otherPipe, Direction direction)
+    {
+        Direction oppositeDirection = GetOppositeDirection(direction);
+        return connectableDirections[direction] && otherPipe.connectableDirections[oppositeDirection];    
+    }
+
+    // 인자로 받은 방향의 반대 방향을 반환하는 함수 
+    private Direction GetOppositeDirection(Direction direction)
+    {
+        switch (direction)
+        {
+            case Direction.Top: return Direction.Bottom;
+            case Direction.Bottom: return Direction.Top;
+            case Direction.Left: return Direction.Right;
+            case Direction.Right: return Direction.Left;
+            default: return direction;
+        }
+    }
+
+    private void OnMouseDownHandler()
     {
         // 마우스 위치를 월드 좌표로 변환 (2D 평면에서의 위치만 사용)
         Vector3 mousePosition = puzzleCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -puzzleCamera.transform.position.z));
@@ -49,8 +111,9 @@ public class PipeTileScript : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
         if (hit.collider != null && hit.collider.gameObject == gameObject)
         {
-            RotateTile(); 
-            Debug.Log("회전함!");
+            RotatePipe();
+            Debug.Log($"x : {x}, y : {y}, pipeshape : {pipeShape} , currentRotation : {currentRotation}");
+            Debug.Log($"connectableDirections : {connectableDirections[Direction.Top]}, {connectableDirections[Direction.Right]}, {connectableDirections[Direction.Bottom]}, {connectableDirections[Direction.Left]}");
         }
     }
     
