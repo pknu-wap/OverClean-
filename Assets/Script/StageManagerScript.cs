@@ -184,7 +184,7 @@ public class StageManager : MonoBehaviour
 {
     if (NetworkingManager.Instance != null)
     {
-        NetworkingManager.Instance.OnStartButtonClicked();
+        NetworkingManager.Instance.LoadLobbyScene();
     }
     else
     {
