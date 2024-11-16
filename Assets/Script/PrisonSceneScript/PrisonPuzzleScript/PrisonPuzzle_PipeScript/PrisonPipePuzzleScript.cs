@@ -131,6 +131,13 @@ public class PrisonPipePuzzleScript : MonoBehaviour
             Debug.Log($"경로 연결 성공 여부 : {IsPathConnectedToEnd()}");
         }
     }
+    public void OnClosePuzzleButtonClicked()
+    {
+        
+        PuzzleManager.instance.ClosePuzzleScene();
+        ClosePuzzleScene();
+    }
+
 
     // 씬 닫기 함수
     void ClosePuzzleScene()
