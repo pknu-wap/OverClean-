@@ -81,7 +81,7 @@ public class WindowInteractScript : MonoBehaviour
             // 퍼즐매니저의 퍼즐 성공여부를 초기화
             PuzzleManager.instance.isPuzzleSuccess = false;
             // 퍼즐이 성공했으므로 플레이어 이동 가능하게 설정
-            playerLocation.GetComponent<Player>().canMove = true;
+            playerLocation.GetComponent<PlayerManager>().canMove = true;
         }
         // isMoving이면 창문을 이동시키는 애니메이션 함수 작동
         if (isMoving)
@@ -102,7 +102,7 @@ public class WindowInteractScript : MonoBehaviour
             // 퍼즐 오픈 변수 true
             isPuzzleOpen = true;
             // Player.cs의 canMove를 제어해 플레이어 이동 제한
-            playerLocation.GetComponent<Player>().canMove = false;
+            playerLocation.GetComponent<PlayerManager>().canMove = false;
        }
 
     }
