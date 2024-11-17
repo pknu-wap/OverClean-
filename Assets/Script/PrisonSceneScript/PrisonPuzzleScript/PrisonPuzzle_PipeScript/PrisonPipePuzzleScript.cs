@@ -248,6 +248,13 @@ public class PrisonPipePuzzleScript : MonoBehaviour
             PuzzleSuccess();
         }
     }
+    public void OnClosePuzzleButtonClicked()
+    {
+        
+        PuzzleManager.instance.ClosePuzzleScene();
+        ClosePuzzleScene();
+    }
+
 
     // 씬 닫기 함수
     void ClosePuzzleScene()

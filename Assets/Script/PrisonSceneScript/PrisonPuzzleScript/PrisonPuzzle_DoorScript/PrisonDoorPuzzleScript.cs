@@ -57,13 +57,6 @@ public class PrisonDoorPuzzleScript : MonoBehaviour
         {
             PuzzleSuccess();
         }
-
-        // X 키를 눌렀을 때 씬 닫기
-        // 추후 퍼즐 닫기 같은 버튼 UI와 연결..?
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            ClosePuzzleScene();
-        }
     }
 
     // 키 생성 함수
@@ -100,6 +93,12 @@ public class PrisonDoorPuzzleScript : MonoBehaviour
         // 퍼즐 매니저의 puzzlesuccess 호출
         PuzzleManager.instance.PuzzleSuccess();
         // 더이상 씬을 열 필요가 없으니 씬 닫기. 중간에 UI 삽입을 위한 시간을 추가해도 될듯?
+        ClosePuzzleScene();
+    }
+
+    public void OnClosePuzzleButtonClicked()
+    {
+        PuzzleManager.instance.ClosePuzzleScene();
         ClosePuzzleScene();
     }
 
