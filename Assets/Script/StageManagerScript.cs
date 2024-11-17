@@ -22,7 +22,8 @@ public class StageManager : MonoBehaviour
     // 플레이어를 관리하는 변수 추가
     public PlayerManager player1;
     public PlayerManager player2;
-
+    // 두꺼비집 퍼즐 완료 변수
+    public static bool fusePuzzleSolved = false;
     // 타이머 관련 변수
     // 주어진 시간 - Inspector에서 설정 가능
     public float limitTime;
