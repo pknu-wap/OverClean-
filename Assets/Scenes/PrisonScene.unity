@@ -1488,112 +1488,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 446665248}
   m_CullTransparentMesh: 1
---- !u!114 &504270776
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 443638698}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e841ed3096003d43996c5e22c3c132a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inputVec1: {x: 0, y: 0}
-  inputVec2: {x: 0, y: 0}
-  speed: 3
-  canMove: 1
-  playerID: 1
---- !u!95 &504270777
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 443638698}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 7b7318a908afa384da734fe0e97818f4, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
---- !u!60 &504270778
-PolygonCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 443638698}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 7.7933335, y: 9.54}
-    newSize: {x: 1, y: 1.1111112}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 2.6976385, y: -1.7058824}
-      - {x: 2.8594706, y: -1.9211638}
-      - {x: 3.2566943, y: -1.9066449}
-      - {x: 3.8966668, y: -1.3569613}
-      - {x: 3.8966668, y: -0.8436646}
-      - {x: 3.4747577, y: -0.618088}
-      - {x: 3.4499528, y: -0.123370774}
-      - {x: 1.7136097, y: 1.6907659}
-      - {x: 1.9900708, y: 3.3708758}
-      - {x: 1.1833334, y: 4.77}
-      - {x: -1.4566667, y: 4.77}
-      - {x: -1.8881161, y: 3.4275692}
-      - {x: -1.6164728, y: 1.7435051}
-      - {x: -3.5130026, y: -0.043096926}
-      - {x: -3.4994426, y: -0.5812464}
-      - {x: -3.8966668, y: -1.0269161}
-      - {x: -3.4038143, y: -1.8865536}
-      - {x: -2.7190273, y: -1.6456277}
-      - {x: -2.3166668, y: -4.77}
-      - {x: -0.48333335, y: -4.77}
-      - {x: -0.02518392, y: -3.4656467}
-      - {x: 0.47, y: -4.77}
-      - {x: 2.0766668, y: -4.77}
-  m_UseDelaunayMesh: 0
 --- !u!1 &611649856
 GameObject:
   m_ObjectHideFlags: 0
@@ -1643,7 +1537,7 @@ MonoBehaviour:
   canInteractState: {fileID: 2100000, guid: 0e469783926eb7e4baeec88270a07c91, type: 2}
   objectIndex: 4
   stageManager: {fileID: 1558506330}
-  playerLocation: {fileID: 443638704}
+  playerLocation: {fileID: 0}
   interactionDistance: 1
   hasInteracted: 0
   prisonDust: {fileID: 611649856}
@@ -6738,154 +6632,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &656080978
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 656080974}
-  m_CullTransparentMesh: 1
---- !u!1 &657919796
-GameObject:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 657919797}
-  - component: {fileID: 657919798}
-  m_Layer: 0
-  m_Name: cm
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &657919797
-Transform:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 657919796}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 967536097}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &657919798
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 657919796}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &720584652
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 720584653}
-  - component: {fileID: 720584655}
-  - component: {fileID: 720584654}
-  m_Layer: 5
-  m_Name: ClearText
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &720584653
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 720584652}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1880800311}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -150}
-  m_SizeDelta: {x: 500, y: 150}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &720584654
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 720584652}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FontData:
-    m_Font: {fileID: 12800000, guid: f6ec4bfd4af091140adf7671f1deb6d5, type: 3}
-    m_FontSize: 150
-    m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 1
-    m_MaxSize: 150
-    m_Alignment: 4
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: Clear!
---- !u!222 &720584655
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 720584652}
-  m_CullTransparentMesh: 1
+
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+
 --- !u!1 &798560044
 GameObject:
   m_ObjectHideFlags: 0
@@ -7451,7 +7209,7 @@ MonoBehaviour:
   canInteractState: {fileID: 2100000, guid: 0e469783926eb7e4baeec88270a07c91, type: 2}
   objectIndex: 3
   stageManager: {fileID: 1558506330}
-  playerLocation: {fileID: 443638704}
+  playerLocation: {fileID: 0}
   interactionDistance: 1
   hasInteracted: 0
   prisonDust: {fileID: 1020231855}
@@ -8006,7 +7764,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1186923509}
   m_CullTransparentMesh: 1
---- !u!1 &1199779635
+--- !u!1 &1250449260
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8014,42 +7772,48 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1199779636}
-  - component: {fileID: 1199779639}
-  - component: {fileID: 1199779637}
-  m_Layer: 0
-  m_Name: Player1Camera
-  m_TagString: MainCamera
+  - component: {fileID: 1250449261}
+  - component: {fileID: 1250449264}
+  - component: {fileID: 1250449263}
+  - component: {fileID: 1250449262}
+  m_Layer: 5
+  m_Name: Tutorial
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1199779636
-Transform:
+--- !u!224 &1250449261
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1199779635}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -7.6923075}
-  m_LocalScale: {x: 7.6923075, y: 7.6923075, z: 7.6923075}
+  m_GameObject: {fileID: 1250449260}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1490208179}
-  m_Father: {fileID: 443638704}
+  - {fileID: 1150927360}
+  - {fileID: 173938825}
+  m_Father: {fileID: 918718958}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1199779637
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1250449262
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1199779635}
+  m_GameObject: {fileID: 1250449260}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_ExcludedPropertiesInInspector:
@@ -8323,11 +8087,12 @@ MonoBehaviour:
   canInteractState: {fileID: 2100000, guid: 1a0517ea99bbc3e45bc921cbe1b5dec6, type: 2}
   objectIndex: 1
   stageManager: {fileID: 1558506330}
-  playerLocation: {fileID: 443638704}
+  playerLocations: []
   interactionDistance: 1.7
   hasInteracted: 0
   prisonDoor: {fileID: 1264324508}
   doorMoveSpeed: 1
+  isMoving: 0
   sr: {fileID: 1264324512}
   PuzzleUI: {fileID: 1869929549}
 --- !u!60 &1264324511
@@ -9611,50 +9376,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &1490208178
-GameObject:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1490208179}
-  - component: {fileID: 1490208180}
-  m_Layer: 0
-  m_Name: cm
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1490208179
-Transform:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1490208178}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1199779636}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1490208180
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1490208178}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1558506329
 GameObject:
   m_ObjectHideFlags: 0
@@ -9697,8 +9418,14 @@ MonoBehaviour:
   goalZoneColor: {r: 1, g: 1, b: 1, a: 0.50980395}
   interactionsCompleted: 
   interactCount: 0
-  player1: {fileID: 504270776}
-  player2: {fileID: 1279382548}
+  player1: {fileID: 0}
+  player2: {fileID: 0}
+  player1StartX: -11.05
+  player1StartY: 5.54
+  player1StartZ: -0.6
+  player2StartX: -5.73
+  player2StartY: 5.54
+  player2StartZ: -0.6
   limitTime: 550
   remainTime: 5
   elapsedTime: 0
@@ -9771,7 +9498,7 @@ MonoBehaviour:
   canInteractState: {fileID: 2100000, guid: 0e469783926eb7e4baeec88270a07c91, type: 2}
   objectIndex: 5
   stageManager: {fileID: 1558506330}
-  playerLocation: {fileID: 443638704}
+  playerLocation: {fileID: 0}
   interactionDistance: 1
   hasInteracted: 0
   prisonDust: {fileID: 1664822651}
@@ -10101,6 +9828,7 @@ GameObject:
   - component: {fileID: 1722749267}
   - component: {fileID: 1722749266}
   - component: {fileID: 1722749265}
+  - component: {fileID: 1722749268}
   m_Layer: 0
   m_Name: InteractDoorMatthew
   m_TagString: Untagged
@@ -10139,11 +9867,14 @@ MonoBehaviour:
   canInteractState: {fileID: 2100000, guid: 1a0517ea99bbc3e45bc921cbe1b5dec6, type: 2}
   objectIndex: 0
   stageManager: {fileID: 1558506330}
-  playerLocation: {fileID: 443638704}
+  playerLocations:
+  - {fileID: 6327062775560417399, guid: 72c51d265be538f4881b69c0a98e3ad7, type: 3}
+  - {fileID: 1601321832835029844, guid: 9b40634e33382274b8b9d36646c192ba, type: 3}
   interactionDistance: 1.7
   hasInteracted: 0
   prisonDoor: {fileID: 1722749263}
   doorMoveSpeed: 1
+  isMoving: 0
   sr: {fileID: 1722749267}
   PuzzleUI: {fileID: 1869929549}
 --- !u!60 &1722749266
@@ -10293,38 +10024,23 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1724208348}
+  m_GameObject: {fileID: 1722749263}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.22745098, g: 0.22745098, b: 0.22745098, a: 0.9607843}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &1724208351
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1724208348}
-  m_CullTransparentMesh: 1
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 3
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+
 --- !u!1 &1733002840
 GameObject:
   m_ObjectHideFlags: 0
@@ -10472,6 +10188,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &1805483185
+GameObject:
   m_FontData:
     m_Font: {fileID: 12800000, guid: f6ec4bfd4af091140adf7671f1deb6d5, type: 3}
     m_FontSize: 60
@@ -10492,8 +10210,44 @@ CanvasRenderer:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1736467118}
-  m_CullTransparentMesh: 1
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1805483186}
+  - component: {fileID: 1805483187}
+  m_Layer: 0
+  m_Name: CameraManger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1805483186
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1805483185}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.98985386, y: -0.23074383, z: 10.892544}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1805483187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1805483185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c39df765b18abb45b9c32c2eefb287e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1828352796
 GameObject:
   m_ObjectHideFlags: 0
@@ -11233,8 +10987,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 571ddf4b010892447982e7d4f47a3363, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  matthewTransform: {fileID: 443638704}
-  daveTransform: {fileID: 1279382552}
+  matthewTransform: {fileID: 0}
+  daveTransform: {fileID: 0}
 --- !u!61 &2035899697
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -11721,7 +11475,7 @@ MonoBehaviour:
   canInteractState: {fileID: 2100000, guid: 0e469783926eb7e4baeec88270a07c91, type: 2}
   objectIndex: 6
   stageManager: {fileID: 1558506330}
-  playerLocation: {fileID: 443638704}
+  playerLocation: {fileID: 0}
   interactionDistance: 1
   hasInteracted: 0
   prisonDust: {fileID: 2125304059}
@@ -11880,7 +11634,7 @@ MonoBehaviour:
   canInteractState: {fileID: 2100000, guid: 0e469783926eb7e4baeec88270a07c91, type: 2}
   objectIndex: 7
   stageManager: {fileID: 1558506330}
-  playerLocation: {fileID: 443638704}
+  playerLocation: {fileID: 0}
   interactionDistance: 1
   hasInteracted: 0
   prisonLeaf: {fileID: 2128404430}
@@ -11890,8 +11644,6 @@ MonoBehaviour:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 443638704}
-  - {fileID: 1279382552}
   - {fileID: 812403688}
   - {fileID: 1260188114}
   - {fileID: 1558506331}
@@ -11901,4 +11653,4 @@ SceneRoots:
   - {fileID: 918718958}
   - {fileID: 1027870007}
   - {fileID: 1284700840}
-  - {fileID: 2080126693}
+  - {fileID: 1805483186}
