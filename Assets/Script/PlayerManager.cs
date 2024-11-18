@@ -29,6 +29,8 @@ public class PlayerManager : MonoBehaviour
 	public int playerID;
 	void Start()
 	{
+		// Player Speed 초기화
+		speed = 2;
 		// Rigidbody2D 초기화
 		rigid = GetComponent<Rigidbody2D>();
 		// SpriterRenderer 초기화
@@ -48,14 +50,30 @@ public class PlayerManager : MonoBehaviour
 		{
 			inputVec1.x = Input.GetAxisRaw("Player1HorizontalKey");
 			inputVec1.y = Input.GetAxisRaw("Player1VerticalKey");
+			if(Input.GetKeyDown(KeyCode.LeftShift))
+        	{
+				speed = 4;
+        	}
+			else if (Input.GetKeyUp(KeyCode.LeftShift))
+        	{
+           		speed = 2; 
+        	}
 		}
 		else if(playerID == 2)
 		{
 			inputVec2.x = Input.GetAxisRaw("Player2HorizontalKey");
 			inputVec2.y = Input.GetAxisRaw("Player2VerticalKey");
+			if(Input.GetKeyDown(KeyCode.LeftShift))
+        	{
+				speed = 4;
+        	}
+			else if (Input.GetKeyUp(KeyCode.LeftShift))
+        	{
+           		speed = 2; 
+        	}
 		}
 
-
+	
 	}
     	// FixedUpdate는 물리 연산이 이루어지는 고정된 주기로 호출되므로,
     	// 물리적 이동은 여기서 처리하는 것이 적합하다.
