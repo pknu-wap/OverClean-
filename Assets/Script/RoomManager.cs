@@ -146,12 +146,15 @@ public class RoomManager : MonoBehaviourPunCallbacks
                     yield break;
                 }
             }
+             // 카운트다운 텍스트 업데이트
+            countdownText.text = $"{Mathf.CeilToInt(delay - checkTime)}";
+        
             checkTime += Time.deltaTime;
             yield return null;
         }
 
         // 카운트다운 종료 시 텍스트 초기화 및 게임 씬 로드
-        countdownText.text = "Starting the game...";
+        countdownText.text = "";
         PhotonNetwork.LoadLevel("PrisonScene");
     }
 
