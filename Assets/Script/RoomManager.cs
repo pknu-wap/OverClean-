@@ -141,6 +141,8 @@ public class RoomManager : MonoBehaviourPunCallbacks
             {
                 if (!player.CustomProperties.ContainsKey("Ready") || !(bool)player.CustomProperties["Ready"])
                 {
+                    // 준비 상태가 아닌 플레이어가 있으면 카운트다운 취소
+                    countdownText.text = ""; // 카운트다운 텍스트 지우기
                     yield break;
                 }
             }
