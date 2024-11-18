@@ -48,6 +48,9 @@ public class RoomManager : MonoBehaviourPunCallbacks
     // 카운트다운 텍스트 변수
 
     public Text countdownText; 
+
+    // CountDownPanel UI 컴포넌트를 연결할 변수
+    public RectTransform CountDownPanel;
     private void Start()
     {
         if (PhotonNetwork.InRoom)
@@ -117,6 +120,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
             // 모두 준비 상태일 때 5초 후에 게임 시작
             if (startGameCoroutine == null)
             {
+                CountDownPanel.gameObject.SetActive(true);
                 startGameCoroutine = StartCoroutine(StartGameAfterDelay(5));
             }
         }
@@ -125,6 +129,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
             // 한 명이라도 준비를 취소하면 코루틴을 중지
             if (startGameCoroutine != null)
             {
+                CountDownPanel.gameObject.SetActive(false);
                 StopCoroutine(startGameCoroutine);
                 startGameCoroutine = null;
             }

@@ -509,7 +509,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &324089183
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1989,6 +1989,7 @@ MonoBehaviour:
   daveReady: 0
   matthewReady: 0
   countdownText: {fileID: 1737307902}
+  CountDownPanel: {fileID: 324089183}
 --- !u!4 &1710354787
 Transform:
   m_ObjectHideFlags: 0
