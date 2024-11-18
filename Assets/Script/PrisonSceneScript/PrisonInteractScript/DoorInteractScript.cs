@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
 
 public class DoorInteract : MonoBehaviour
 {
@@ -13,8 +15,8 @@ public class DoorInteract : MonoBehaviour
     public int objectIndex;
     // stagemanager를 참조해서 상호작용 여부를 제어하기 위한 변수
     public StageManager stageManager;
-    // 플레이어를 참조해서 위치를 받아오기 위한 변수
-    public Transform playerLocation;
+    // 여러 플레이어 위치를 저장할 리스트
+    public List<Transform> playerLocations = new List<Transform>(); 
     // 상호작용 거리
     public float interactionDistance = 1.0f;
     // 상호작용 여부
@@ -26,18 +28,36 @@ public class DoorInteract : MonoBehaviour
     // 문 이동 속도
     public float doorMoveSpeed = 0.1f;
     // 문이 이동 중인지 여부
-    private bool isMoving = false;
+    public bool isMoving = false;
     // 문을 참조해서 material을 조정하기 위한 spriterenderer 변수
     public SpriteRenderer sr;
+    // 퍼즐이 열려있는지 확인하기 위한 변수
+    private bool isPuzzleOpen = false;
     
     // 상호작용시 비활성화 되어있는 캔버스를 열기 위한 변수
     public RectTransform PuzzleUI;
 
     void Awake()
     {
+        AddLocalPlayer();
+
         // sr을 getcomponent 메서드로 초기화
         sr = GetComponent<SpriteRenderer>();
     }
+    // 태그를 통해 로컬 플레이어(상호작용은 각각의 클라이언트 관점에서 자신의 캐릭터로만 할 수 있으므로) 할당
+void AddLocalPlayer()
+{
+    // 모든 PhotonView 객체 중 로컬 플레이어 소유 프리팹만 필터링
+    PhotonView[] photonViews = FindObjectsOfType<PhotonView>();
+    foreach (var photonView in photonViews)
+    {
+        // PhotonNetwork.Instantiate로 생성된 로컬 플레이어만 리스트에 추가
+        if (photonView.IsMine && photonView.gameObject.name.Contains("Player") && !playerLocations.Contains(photonView.transform))
+        {
+            playerLocations.Add(photonView.transform);
+        }
+    }
+}
     void Start()
     {
         // targetPosition 초기화
@@ -45,44 +65,53 @@ public class DoorInteract : MonoBehaviour
     }
     void Update()
     {
-        // 플레이어와 오브젝트 간 거리 계산
-        float distanceToPlayer = Vector3.Distance(transform.position, playerLocation.position);
+        bool canInteract = false;
 
-        // 테두리 생성
-        ShowHighlight();
-
-        // 상호작용 가능한 거리 안에 있고 상호작용하지 않았다면
-        if (distanceToPlayer <= interactionDistance && !hasInteracted)
+        // 모든 플레이어의 위치와 오브젝트 간 거리 계산
+        foreach (var playerLocation in playerLocations)
         {
-            // 스페이스바로 상호작용
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
+            float distanceToPlayer = Vector3.Distance(transform.position, playerLocation.position);
 
-                Interact();
+            // 상호작용 가능 거리 내에 있는 플레이어가 있는지 확인
+            if (distanceToPlayer <= interactionDistance && !hasInteracted)
+            {
+                canInteract = true;
+
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    Interact(playerLocation); // 특정 플레이어와 상호작용
+                    break;
+                }
             }
+        }
+
+        if (canInteract)
+        {
+            ShowHighlight();
         }
         else
         {
-            // 테두리 삭제
             HideHighlight();
         }
-        // 퍼즐이 열려 있을 때 퍼즐을 해결하면 상호작용 성공
-        if (PuzzleManager.instance.isPuzzleOpen && PuzzleManager.instance.isPuzzleSuccess)
+
+        if (isPuzzleOpen && PuzzleManager.instance.isPuzzleSuccess)
         {
-            // 오브젝트 상호작용됨
             hasInteracted = true;
-            // 퍼즐이 닫힘
-            PuzzleManager.instance.isPuzzleOpen = false;
-            // 문 열기 시작
+            isPuzzleOpen = false;
             isMoving = true;
-            // statemanager에게 상호작용되었다고 알림
             stageManager.ObjectInteract(objectIndex);
-            // 퍼즐매니저의 퍼즐 성공여부를 초기화
             PuzzleManager.instance.isPuzzleSuccess = false;
-            // 퍼즐이 성공했으므로 플레이어 이동 가능하게 설정
-            playerLocation.GetComponent<PlayerManager>().canMove = true;
+
+            foreach (var playerLocation in playerLocations)
+            {
+                playerLocation.GetComponent<PlayerManager>().canMove = true;
+            }
+            // 모든 클라이언트에서 isMoving을 시작
+            PhotonView photonView = GetComponent<PhotonView>();
+            // RPC 함수 호출
+            photonView.RPC("IsMovingStart", RpcTarget.All);
         }
-        // isMoving이면 문을 이동시키는 애니메이션 함수 작동
+
         if (isMoving)
         {
             MoveDoor();
@@ -90,7 +119,7 @@ public class DoorInteract : MonoBehaviour
     }
 
     // 상호작용 함수
-    void Interact()
+    void Interact(Transform playerLocation)
     {
         // 퍼즐이 열려 있지 않을 때만 Interact가 실행되었을 때 퍼즐씬이 불러와지도록 조건 추가
         if (!PuzzleManager.instance.isPuzzleOpen)
@@ -99,11 +128,19 @@ public class DoorInteract : MonoBehaviour
             // 씬매니저로 퍼즐씬 불러오기
             SceneManager.LoadScene("PrisonDoorPuzzleScene", LoadSceneMode.Additive);
             // 퍼즐 오픈 변수 true
-            PuzzleManager.instance.isPuzzleOpen = true;
-            // Player.cs의 canMove를 제어해 플레이어 이동 제한
+            isPuzzleOpen = true;
+            // 상호작용한 플레이어의 PlayerManager.cs를 역참조해 canMove를 false로 만들어 플레이어 이동 제한
             playerLocation.GetComponent<PlayerManager>().canMove = false;
        }
 
+    }
+
+    
+    [PunRPC]
+    // 모든 클라이언트에서 isMoving을 true로 설정(오브젝트에 PHOTON VIEW 컴포넌트 붙어 있어야함)
+    void IsMovingStart() 
+    {
+        isMoving = true;
     }
 
     // 문을 부드럽게 이동시키는 함수

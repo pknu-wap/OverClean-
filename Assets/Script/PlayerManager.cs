@@ -1,27 +1,44 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 using UnityEngine.SceneManagement; // 씬 관리를 위한 네임스페이스
 
 public class PlayerManager : MonoBehaviour
 {
-    public Vector2 inputVec1;
-    public Vector2 inputVec2;
+    public Vector2 inputVec;
     public float speed;
     public bool canMove = true;
 
-    Rigidbody2D rigid;
-    SpriteRenderer spriter;
-    Animator anim;
+    private Rigidbody2D rigid;
+    private Animator anim;
+    
     public int playerID;
+    private string characterName;
 
     // 현재 씬에서 달리기 기능을 활성화할지 여부를 제어하는 변수
     private bool allowRun = true;
 
     void Start()
     {
+        // 커스텀 프로퍼티의 캐릭터 이름값으로 플레이어 id 할당
+        if (photonView.IsMine)
+        {   
+            characterName = PhotonNetwork.LocalPlayer.CustomProperties["Character"].ToString();
+
+            if (characterName == "Dave")
+            {
+                playerID = 1;
+            }
+            else if (characterName == "Matthew")
+            {
+                playerID = 2;
+            }
+
+            Debug.Log("내 플레이어 ID: " + playerID + ", 캐릭터 이름: " + characterName);
+        }
+
         rigid = GetComponent<Rigidbody2D>();
-        spriter = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
 
         // 현재 씬 이름을 확인하고 속도와 달리기 기능 설정
@@ -41,86 +58,51 @@ public class PlayerManager : MonoBehaviour
 
     void Update()
     {
-        if (playerID == 1)
+        // 원격 플레이어일 경우 위치 및 방향 데이터를 수신하지 않음
+        if(!photonView.IsMine)
         {
-            inputVec1.x = Input.GetAxisRaw("Player1HorizontalKey");
-            inputVec1.y = Input.GetAxisRaw("Player1VerticalKey");
+            return;
+        }
 
-            // 달리기 기능이 허용된 경우만 처리
-            if (allowRun)
+        inputVec1.x = Input.GetAxisRaw("Player1HorizontalKey");
+        inputVec1.y = Input.GetAxisRaw("Player1VerticalKey");
+
+        // 달리기 기능이 허용된 경우만 처리
+        if (allowRun)
+        {
+            if (Input.GetKeyDown(KeyCode.LeftShift))
             {
-                if (Input.GetKeyDown(KeyCode.LeftShift))
-                {
-                    speed = 4; // 달리기 속도
-                }
-                else if (Input.GetKeyUp(KeyCode.LeftShift))
-                {
-                    speed = 2; // 기본 속도로 복구
-                }
+                speed = 4; // 달리기 속도
+            }
+            else if (Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                speed = 2; // 기본 속도로 복구
             }
         }
-        else if (playerID == 2)
-        {
-            inputVec2.x = Input.GetAxisRaw("Player2HorizontalKey");
-            inputVec2.y = Input.GetAxisRaw("Player2VerticalKey");
 
-            // 달리기 기능이 허용된 경우만 처리
-            if (allowRun)
-            {
-                if (Input.GetKeyDown(KeyCode.LeftShift))
-                {
-                    speed = 4; // 달리기 속도
-                }
-                else if (Input.GetKeyUp(KeyCode.LeftShift))
-                {
-                    speed = 2; // 기본 속도로 복구
-                }
-            }
-        }
+        anim.SetFloat("Speed", inputVec.magnitude);
+        UpdateAnimationDirection(CalculateDirection(inputVec));
     }
 
     void FixedUpdate()
     {
-        if (!canMove) return;
+        if (!photonView.IsMine || !canMove) return;
 
-        Vector2 nextVec = Vector2.zero;
-
-        if (playerID == 1)
-        {
-            nextVec = inputVec1.normalized * speed * Time.fixedDeltaTime;
-        }
-        else if (playerID == 2)
-        {
-            nextVec = inputVec2.normalized * speed * Time.fixedDeltaTime;
-        }
-
+        Vector2 nextVec = inputVec.normalized * speed * Time.fixedDeltaTime;
         rigid.MovePosition(rigid.position + nextVec);
     }
 
-    void LateUpdate()
+    private void UpdateAnimationDirection(int direction)
     {
-        if (playerID == 1)
-        {
-            anim.SetFloat("Speed", inputVec1.magnitude);
-            UpdateDirection(inputVec1);
-        }
-        else if (playerID == 2)
-        {
-            anim.SetFloat("Speed", inputVec2.magnitude);
-            UpdateDirection(inputVec2);
-        }
+        anim.SetInteger("Direction", direction);
     }
 
-    // 애니메이션 방향 업데이트 함수
-    private void UpdateDirection(Vector2 inputVec)
+    private int CalculateDirection(Vector2 inputVec)
     {
-        if (inputVec.y < 0)
-            anim.SetInteger("Direction", 0); // 정면
-        else if (inputVec.x > 0)
-            anim.SetInteger("Direction", 1); // 오른쪽
-        else if (inputVec.x < 0)
-            anim.SetInteger("Direction", 2); // 왼쪽
-        else if (inputVec.y > 0)
-            anim.SetInteger("Direction", 3); // 뒤쪽
+        if (inputVec.y < 0) return 0; 
+        else if (inputVec.x > 0) return 1; 
+        else if (inputVec.x < 0) return 2; 
+        else if (inputVec.y > 0) return 3; 
+        return -1; 
     }
 }
