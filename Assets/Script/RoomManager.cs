@@ -147,6 +147,9 @@ public class RoomManager : MonoBehaviourPunCallbacks
             checkTime += Time.deltaTime;
             yield return null;
         }
+
+        // 카운트다운 종료 시 텍스트 초기화 및 게임 씬 로드
+        countdownText.text = "Starting the game...";
         PhotonNetwork.LoadLevel("PrisonScene");
     }
 
