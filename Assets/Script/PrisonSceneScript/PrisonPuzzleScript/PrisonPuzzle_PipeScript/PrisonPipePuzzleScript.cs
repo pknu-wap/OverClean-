@@ -202,7 +202,7 @@ public class PrisonPipePuzzleScript : MonoBehaviour
         ClosePuzzleScene();
     }
 
-    IEnumerator puzzleSolveCheck()
+    public IEnumerator puzzleSolveCheck()
     {
         // 연결 성공인지 확인
         if (IsPathConnectedToEnd())
@@ -236,18 +236,20 @@ public class PrisonPipePuzzleScript : MonoBehaviour
         {
             ClosePuzzleScene();
         }
-        // L 키를 눌렀을 때 파이프 연결 확인
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            StartCoroutine(puzzleSolveCheck());
-            Debug.Log($"경로 연결 성공 여부 : {puzzleSolved}");
-        }
+        // // L 키를 눌렀을 때 파이프 연결 확인
+        // if (Input.GetKeyDown(KeyCode.L))
+        // {
+        //     StartCoroutine(puzzleSolveCheck());
+        //     Debug.Log($"경로 연결 성공 여부 : {puzzleSolved}");
+        // }
         // 퍼즐이 해결됐다면
         if (puzzleSolved)
         {
             PuzzleSuccess();
         }
     }
+    
+    // 뒤로가기 버튼 클릭에 사용되는 함수
     public void OnClosePuzzleButtonClicked()
     {
         PuzzleManager.instance.ClosePuzzleScene();
