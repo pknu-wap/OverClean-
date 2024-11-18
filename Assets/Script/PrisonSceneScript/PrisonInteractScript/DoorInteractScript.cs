@@ -31,8 +31,6 @@ public class DoorInteract : MonoBehaviour
     public bool isMoving = false;
     // 문을 참조해서 material을 조정하기 위한 spriterenderer 변수
     public SpriteRenderer sr;
-    // 퍼즐이 열려있는지 확인하기 위한 변수
-    private bool isPuzzleOpen = false;
     
     // 상호작용시 비활성화 되어있는 캔버스를 열기 위한 변수
     public RectTransform PuzzleUI;
@@ -122,7 +120,7 @@ void AddLocalPlayer()
     void Interact(Transform playerLocation)
     {
         // 퍼즐이 열려 있지 않을 때만 Interact가 실행되었을 때 퍼즐씬이 불러와지도록 조건 추가
-        if (!isPuzzleOpen)
+        if (!PuzzleManager.instance.isPuzzleOpen)
         {
             PuzzleUI.gameObject.SetActive(true);
             // 씬매니저로 퍼즐씬 불러오기

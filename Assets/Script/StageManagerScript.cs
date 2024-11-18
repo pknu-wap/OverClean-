@@ -73,6 +73,7 @@ public class StageManager : MonoBehaviour
         if (!isTimeOver && !goalZone.stageClear)
         {
             remainTime -= Time.deltaTime;
+            elapsedTime += Time.deltaTime;
 
             // 슬라이더 업데이트
             if (timeSlider != null)
@@ -88,6 +89,20 @@ public class StageManager : MonoBehaviour
                 UpdateTimerText();
             } 
         }
+
+        if(!pause)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                pause = true;
+                OnEscButtonClicked();
+            }
+        }
+        else if(pause && Input.GetKeyDown(KeyCode.Escape))
+        {
+            ClosePausePanel();
+        }
+        
     }
 
     void UpdateTimerText()
@@ -141,4 +156,30 @@ public class StageManager : MonoBehaviour
         Debug.Log("타임오버");
         isTimeOver = true;
     }
+
+    public void ClosePausePanel()
+    {
+        Time.timeScale = 1;
+        pause = false;
+        PausePanelUI.gameObject.SetActive(false);
+    }
+
+    public void OnEscButtonClicked()
+    {
+        Time.timeScale = 0;
+        PausePanelUI.gameObject.SetActive(true);
+    }
+
+    public void OnBackToLobbyButtonClicked()
+{
+    if (NetworkingManager.Instance != null)
+    {
+        NetworkingManager.Instance.LoadLobbyScene();
+    }
+    else
+    {
+        Debug.LogError("NetworkingManager instance is null.");
+    }
+}
+
 }
