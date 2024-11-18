@@ -13,6 +13,7 @@ public class StageManager : MonoBehaviour
     public Color goalZoneColor;
     public bool[] interactionsCompleted;
     public int interactCount = 0;
+    public static bool fusePuzzleSolved = false;
     
     // 플레이어 관리
     public PlayerManager player1;
@@ -27,9 +28,16 @@ public class StageManager : MonoBehaviour
     // 타이머 관련 변수
     public float limitTime;
     public float remainTime;
+    public float elapsedTime = 0f;
     public bool isTimeOver = false;
     public TMP_Text timerText;
     public Slider timeSlider;
+
+    // PausePanel UI 컴포넌트를 연결할 변수
+    public RectTransform PausePanelUI;
+
+    // PausePanel UI가 열렸는지 판단하는 변수 
+    public bool pause = false;
 
     void Awake()
     {
