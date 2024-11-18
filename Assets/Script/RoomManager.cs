@@ -45,7 +45,9 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     // 게임 시작 코루틴
     private Coroutine startGameCoroutine;
+    // 카운트다운 텍스트 변수
 
+    public Text countdownText; 
     private void Start()
     {
         if (PhotonNetwork.InRoom)
