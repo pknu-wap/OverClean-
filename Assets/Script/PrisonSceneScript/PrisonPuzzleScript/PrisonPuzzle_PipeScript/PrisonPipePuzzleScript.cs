@@ -250,8 +250,6 @@ public class PrisonPipePuzzleScript : MonoBehaviour
     }
     public void OnClosePuzzleButtonClicked()
     {
-        
-        PuzzleManager.instance.ClosePuzzleScene();
         ClosePuzzleScene();
     }
 
