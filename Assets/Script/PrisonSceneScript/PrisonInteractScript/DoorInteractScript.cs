@@ -122,7 +122,7 @@ void AddLocalPlayer()
     void Interact(Transform playerLocation)
     {
         // 퍼즐이 열려 있지 않을 때만 Interact가 실행되었을 때 퍼즐씬이 불러와지도록 조건 추가
-        if (!PuzzleManager.instance.isPuzzleOpen)
+        if (!isPuzzleOpen)
         {
             PuzzleUI.gameObject.SetActive(true);
             // 씬매니저로 퍼즐씬 불러오기
