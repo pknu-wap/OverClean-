@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class LayerAdjust : MonoBehaviour
 {
-    // 두 플레이어의 Transform을 참조할 변수
-    public Transform matthewTransform;
-    public Transform daveTransform;
 
     // 플레이어가 구역에 들어올 때
     private void OnTriggerEnter2D(Collider2D other)

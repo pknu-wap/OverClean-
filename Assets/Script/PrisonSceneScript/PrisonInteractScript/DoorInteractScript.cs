@@ -99,7 +99,7 @@ void AddLocalPlayer()
             hasInteracted = true;
             isPuzzleOpen = false;
             isMoving = true;
-            stageManager.ObjectInteract(objectIndex);
+            
             PuzzleManager.instance.isPuzzleSuccess = false;
 
             foreach (var playerLocation in playerLocations)
@@ -141,6 +141,8 @@ void AddLocalPlayer()
     void IsMovingStart() 
     {
         isMoving = true;
+        hasInteracted = true;
+        stageManager.ObjectInteract(objectIndex);
     }
 
     // 문을 부드럽게 이동시키는 함수
