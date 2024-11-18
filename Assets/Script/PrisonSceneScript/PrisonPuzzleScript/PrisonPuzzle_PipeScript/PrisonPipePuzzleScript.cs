@@ -212,10 +212,10 @@ public class PrisonPipePuzzleScript : MonoBehaviour
             // 퍼즐 매니저에 퍼즐 성공 상태 전달
             puzzleSolved = true;
         }
-        else
-        {
-            yield return StartCoroutine(ShowImage(xImage));
-        }
+        // else
+        // {
+        //     yield return StartCoroutine(ShowImage(xImage));
+        // }
     }
 
     IEnumerator ShowImage(Image image)
@@ -236,12 +236,6 @@ public class PrisonPipePuzzleScript : MonoBehaviour
         {
             ClosePuzzleScene();
         }
-        // // L 키를 눌렀을 때 파이프 연결 확인
-        // if (Input.GetKeyDown(KeyCode.L))
-        // {
-        //     StartCoroutine(puzzleSolveCheck());
-        //     Debug.Log($"경로 연결 성공 여부 : {puzzleSolved}");
-        // }
         // 퍼즐이 해결됐다면
         if (puzzleSolved)
         {
