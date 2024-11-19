@@ -96,9 +96,7 @@ void AddLocalPlayer()
 
         if (isPuzzleOpen && PuzzleManager.instance.isPuzzleSuccess)
         {
-            hasInteracted = true;
             isPuzzleOpen = false;
-            isMoving = true;
             
             PuzzleManager.instance.isPuzzleSuccess = false;
 
@@ -106,10 +104,10 @@ void AddLocalPlayer()
             {
                 playerLocation.GetComponent<PlayerManager>().canMove = true;
             }
-            // 모든 클라이언트에서 isMoving을 시작
+            // 모든 클라이언트에서 DoorInteractRPC을 시작
             PhotonView photonView = GetComponent<PhotonView>();
             // RPC 함수 호출
-            photonView.RPC("IsMovingStart", RpcTarget.All);
+            photonView.RPC("DoorInteractRPC", RpcTarget.All);
         }
 
         if (isMoving)
@@ -137,11 +135,14 @@ void AddLocalPlayer()
 
     
     [PunRPC]
-    // 모든 클라이언트에서 isMoving을 true로 설정(오브젝트에 PHOTON VIEW 컴포넌트 붙어 있어야함)
-    void IsMovingStart() 
+    // 문 상호작용이 완료됐을 때 모든 플레이어에게서 작동되어야 할 함수
+    void DoorInteractRPC() 
     {
+        // 문 이동
         isMoving = true;
+        // 상호작용 완료됨
         hasInteracted = true;
+        // 해당 오브젝트 인덱스 상호작용 완료를 stageManager에게 전달
         stageManager.ObjectInteract(objectIndex);
     }
 
