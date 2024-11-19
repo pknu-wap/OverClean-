@@ -45,19 +45,19 @@ public class DoorInteract : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
     }
     // 태그를 통해 로컬 플레이어(상호작용은 각각의 클라이언트 관점에서 자신의 캐릭터로만 할 수 있으므로) 할당
-void AddLocalPlayer()
-{
-    // 모든 PhotonView 객체 중 로컬 플레이어 소유 프리팹만 필터링
-    PhotonView[] photonViews = FindObjectsOfType<PhotonView>();
-    foreach (var photonView in photonViews)
+    void AddLocalPlayer()
     {
-        // PhotonNetwork.Instantiate로 생성된 로컬 플레이어만 리스트에 추가
-        if (photonView.IsMine && photonView.gameObject.name.Contains("Player") && !playerLocations.Contains(photonView.transform))
+        // 모든 PhotonView 객체 중 로컬 플레이어 소유 프리팹만 필터링
+        PhotonView[] photonViews = FindObjectsOfType<PhotonView>();
+        foreach (var photonView in photonViews)
         {
-            playerLocations.Add(photonView.transform);
+            // PhotonNetwork.Instantiate로 생성된 로컬 플레이어만 리스트에 추가
+            if (photonView.IsMine && photonView.gameObject.name.Contains("Player") && !playerLocations.Contains(photonView.transform))
+            {
+                playerLocations.Add(photonView.transform);
+            }
         }
     }
-}
     void Start()
     {
         // targetPosition 초기화
