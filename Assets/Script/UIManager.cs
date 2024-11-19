@@ -32,23 +32,17 @@ public class UIManager : MonoBehaviour
     private void Update()
     {
         // TutorialPanel이 열려있고, Pause가 비활성화 되어있을때, ESC 눌렀을때 TutorialPanel 닫히게 하고 싶음.
-        if(tutorialPanelOpen && !pause)
+        if(tutorialPanelOpen && !pause && Input.GetKeyDown(KeyCode.Escape))
         {
-            if(Input.GetKeyDown(KeyCode.Escape))
-            {
-                onTutorialCloseButtonClicked();
-            }
+            onTutorialCloseButtonClicked();
         }
-
-        if(!UIManager.instance.tutorialPanelOpen && pause)
+        // tutorialPanel이 닫혀있고, Pause가 비활성화 되었있을때, ESC를 누르면 일시정지 창이 나옴.
+        else if(!tutorialPanelOpen && !pause && Input.GetKeyDown(KeyCode.Escape))
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                pause = true;
-                OnEscButtonClicked();
-            }
+            OnEscButtonClicked();
         }
-        else if(!UIManager.instance.tutorialPanelOpen && pause && Input.GetKeyDown(KeyCode.Escape))
+        // tutorialPanel이 닫혀있고, Pause가 활성화 되어있을때, ESC를 누르면 일시정지 창이 닫힘.
+        else if(!tutorialPanelOpen && pause && Input.GetKeyDown(KeyCode.Escape))
         {
             ClosePausePanel();
         }
@@ -76,13 +70,14 @@ public class UIManager : MonoBehaviour
 
         public void ClosePausePanel()
     {
-        Time.timeScale = 1;
         pause = false;
+        Time.timeScale = 1;
         pausePanel.gameObject.SetActive(false);
     }
 
     public void OnEscButtonClicked()
     {
+        pause = true;
         Time.timeScale = 0;
         pausePanel.gameObject.SetActive(true);
     }
