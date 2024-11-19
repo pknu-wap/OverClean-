@@ -32,13 +32,6 @@ public class StageManager : MonoBehaviour
     public bool isTimeOver = false;
     public TMP_Text timerText;
     public Slider timeSlider;
-
-    // PausePanel UI 컴포넌트를 연결할 변수
-    public RectTransform PausePanelUI;
-
-    // PausePanel UI가 열렸는지 판단하는 변수 
-    public bool pause = false;
-
     void Awake()
     {
         // 플레이어 생성 및 할당
@@ -96,19 +89,6 @@ public class StageManager : MonoBehaviour
             } 
         }
 
-        if(!pause)
-        {
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                pause = true;
-                OnEscButtonClicked();
-            }
-        }
-        else if(pause && Input.GetKeyDown(KeyCode.Escape))
-        {
-            ClosePausePanel();
-        }
-        
     }
 
     void UpdateTimerText()
@@ -163,18 +143,6 @@ public class StageManager : MonoBehaviour
         isTimeOver = true;
     }
 
-    public void ClosePausePanel()
-    {
-        Time.timeScale = 1;
-        pause = false;
-        PausePanelUI.gameObject.SetActive(false);
-    }
-
-    public void OnEscButtonClicked()
-    {
-        Time.timeScale = 0;
-        PausePanelUI.gameObject.SetActive(true);
-    }
 
     public void OnBackToLobbyButtonClicked()
 {

@@ -18,6 +18,7 @@ public class PlayerManager : MonoBehaviour
 
     // 현재 씬에서 달리기 기능을 활성화할지 여부를 제어하는 변수
     private bool allowRun = true;
+     private PhotonView photonView; // Add this line to declare the PhotonView variable.
 
     void Start()
     {
@@ -64,8 +65,8 @@ public class PlayerManager : MonoBehaviour
             return;
         }
 
-        inputVec1.x = Input.GetAxisRaw("Player1HorizontalKey");
-        inputVec1.y = Input.GetAxisRaw("Player1VerticalKey");
+        inputVec.x = Input.GetAxisRaw("Player1HorizontalKey");
+        inputVec.y = Input.GetAxisRaw("Player1VerticalKey");
 
         // 달리기 기능이 허용된 경우만 처리
         if (allowRun)
