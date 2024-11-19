@@ -23,6 +23,8 @@ public class PipeInteract : MonoBehaviour
     private GameObject floodWaterInstance; 
     // 파이프를 참조해서 material을 조정하기 위한 spriterenderer 변수
     public SpriteRenderer sr;
+    // 퍼즐이 열려있는지 확인하기 위한 변수
+    private bool isPuzzleOpen = false;
 
     // 상호작용시 비활성화 되어있는 캔버스를 열기 위한 변수
     public RectTransform PuzzleUI;
@@ -56,12 +58,12 @@ public class PipeInteract : MonoBehaviour
             HideHighlight();
         }
         // 퍼즐이 열려 있을 때 퍼즐을 해결하면 상호작용 성공
-        if (PuzzleManager.instance.isPuzzleOpen && PuzzleManager.instance.isPuzzleSuccess)
+        if (isPuzzleOpen && PuzzleManager.instance.isPuzzleSuccess)
         {
             // 오브젝트 상호작용됨
             hasInteracted = true;
             // 퍼즐이 닫힘
-            PuzzleManager.instance.isPuzzleOpen = false;
+            isPuzzleOpen = false;
             // statemanager에게 상호작용되었다고 알림
             stageManager.ObjectInteract(objectIndex);
             // 퍼즐매니저의 퍼즐 성공여부를 초기화
@@ -77,13 +79,13 @@ public class PipeInteract : MonoBehaviour
     void Interact()
     {
         // 퍼즐이 열려 있지 않을 때만 Interact가 실행되었을 때 퍼즐씬이 불러와지도록 조건 추가
-        if (!PuzzleManager.instance.isPuzzleOpen)
+        if (!isPuzzleOpen)
         {
             PuzzleUI.gameObject.SetActive(true);
             // 씬매니저로 퍼즐씬 불러오기
             SceneManager.LoadScene("PrisonPipePuzzleScene", LoadSceneMode.Additive);
             // 퍼즐 오픈 변수 true
-            PuzzleManager.instance.isPuzzleOpen = true;
+            isPuzzleOpen = true;
             // 상호작용해서 퍼즐이 열리면 플레이어 1,2 둘 다 이동 제한
             stageManager.SetPlayerMovement(false);
         }
