@@ -5,10 +5,13 @@ using Photon.Pun;
 public class UIManager : MonoBehaviour
 {
     public Button switchButton;
-    public RectTransform TutorialPanel;
+    public RectTransform tutorialPanel;
+    public bool tutorialPanelOpen = true;
 
     private void Start()
     {
+        tutorialPanel.gameObject.SetActive(tutorialPanelOpen);
+        
         // NetworkingManager가 로드될 때까지 기다린 후, 버튼 이벤트 연결
         if (PhotonNetwork.IsConnected)
         {
@@ -26,11 +29,22 @@ public class UIManager : MonoBehaviour
 
     public void onTutorialOpenButtonClicked()
     {
-        TutorialPanel.gameObject.SetActive(true);   
+        if(tutorialPanelOpen == false)
+        {
+            tutorialPanelOpen = true;
+            tutorialPanel.gameObject.SetActive(tutorialPanelOpen);    
+        }
+        else if(tutorialPanelOpen == true)
+        {
+            tutorialPanelOpen = false;
+            tutorialPanel.gameObject.SetActive(tutorialPanelOpen);
+        }
+        
     }
 
     public void onTutorialCloseButtonClicked()
     {
-        TutorialPanel.gameObject.SetActive(false);
+        tutorialPanelOpen = false;
+        tutorialPanel.gameObject.SetActive(tutorialPanelOpen);
     }
 }
