@@ -79,7 +79,8 @@ public class DoorInteract : MonoBehaviour
 
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
-                    Interact(playerLocation); // 특정 플레이어와 상호작용
+                    // 특정 플레이어와 상호작용
+                    Interact(playerLocation); 
                     break;
                 }
             }
