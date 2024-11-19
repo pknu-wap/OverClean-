@@ -1,10 +1,11 @@
 using UnityEngine;
-using UnityEngine.UI; // UI 요소를 다루기 위해 필요
+using UnityEngine.UI;  
 using Photon.Pun;
 
 public class UIManager : MonoBehaviour
 {
-    public Button switchButton; // Inspector에서 버튼을 연결
+    public Button switchButton;
+    public RectTransform TutorialPanel;
 
     private void Start()
     {
@@ -21,5 +22,15 @@ public class UIManager : MonoBehaviour
             // Photon 서버에 연결되어 있지 않을 때의 처리 로직
             Debug.LogWarning("Photon 서버에 연결되어 있지 않음.");
         }
+    }
+
+    public void onTutorialOpenButtonClicked()
+    {
+        TutorialPanel.gameObject.SetActive(true);   
+    }
+
+    public void onTutorialCloseButtonClicked()
+    {
+        TutorialPanel.gameObject.SetActive(false);
     }
 }

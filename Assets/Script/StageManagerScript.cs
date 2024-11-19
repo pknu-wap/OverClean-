@@ -61,8 +61,6 @@ public class StageManager : MonoBehaviour
     
     void Start()
     { 
-        
-
         // 상호작용 오브젝트 개수만큼 bool 배열 정의
         interactionsCompleted = new bool[interactObject.Length];
         remainTime = limitTime;
