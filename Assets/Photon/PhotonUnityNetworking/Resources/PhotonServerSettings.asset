@@ -43,6 +43,13 @@ MonoBehaviour:
   - DoorInteractRPC
   - DustInteractRPC
   - LeafInteractRPC
+  - InteractRPC
+  - PipeClearRPC
+  - ApplyPuzzleState
+  - LoadPipePuzzleScene
+  - SyncPuzzleState
+  - RequestPuzzleState
+  - SetPuzzleReady
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
