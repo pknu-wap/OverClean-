@@ -45,12 +45,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     // 게임 시작 코루틴
     private Coroutine startGameCoroutine;
-    // 카운트다운 텍스트 변수
 
-    public Text countdownText; 
-
-    // CountDownPanel UI 컴포넌트를 연결할 변수
-    public RectTransform CountDownPanel;
     private void Start()
     {
         if (PhotonNetwork.InRoom)
@@ -120,7 +115,6 @@ public class RoomManager : MonoBehaviourPunCallbacks
             // 모두 준비 상태일 때 5초 후에 게임 시작
             if (startGameCoroutine == null)
             {
-                CountDownPanel.gameObject.SetActive(true);
                 startGameCoroutine = StartCoroutine(StartGameAfterDelay(5));
             }
         }
@@ -129,7 +123,6 @@ public class RoomManager : MonoBehaviourPunCallbacks
             // 한 명이라도 준비를 취소하면 코루틴을 중지
             if (startGameCoroutine != null)
             {
-                CountDownPanel.gameObject.SetActive(false);
                 StopCoroutine(startGameCoroutine);
                 startGameCoroutine = null;
             }
@@ -146,21 +139,13 @@ public class RoomManager : MonoBehaviourPunCallbacks
             {
                 if (!player.CustomProperties.ContainsKey("Ready") || !(bool)player.CustomProperties["Ready"])
                 {
-                    // 준비 상태가 아닌 플레이어가 있으면 카운트다운 취소
-                    countdownText.text = ""; // 카운트다운 텍스트 지우기
                     yield break;
                 }
             }
-             // 카운트다운 텍스트 업데이트
-            countdownText.text = $"{Mathf.CeilToInt(delay - checkTime)}";
-        
             checkTime += Time.deltaTime;
             yield return null;
         }
-
-        // 카운트다운 종료 시 텍스트 초기화 및 게임 씬 로드
-        countdownText.text = "";
-        PhotonNetwork.LoadLevel("PrisonScene");
+        SceneManager.LoadScene("PrisonScene");
     }
 
     public void ReadyUpDave()
