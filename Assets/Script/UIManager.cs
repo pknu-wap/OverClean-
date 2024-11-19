@@ -34,21 +34,21 @@ public class UIManager : MonoBehaviour
         // TutorialPanel이 열려있고, Pause가 비활성화 되어있을때, ESC 눌렀을때 TutorialPanel 닫히게 하고 싶음.
         if(tutorialPanelOpen && !pause && Input.GetKeyDown(KeyCode.Escape))
         {
-            onTutorialCloseButtonClicked();
+            CloseTutorialPanel();
         }
-        // tutorialPanel이 닫혀있고, Pause가 비활성화 되었있을때, ESC를 누르면 일시정지 창이 나옴.
+        // TutorialPanel이 닫혀있고, Pause가 비활성화 되었있을때, ESC를 누르면 일시정지 창이 나옴.
         else if(!tutorialPanelOpen && !pause && Input.GetKeyDown(KeyCode.Escape))
         {
-            OnEscButtonClicked();
+            OpenEscPanel();
         }
-        // tutorialPanel이 닫혀있고, Pause가 활성화 되어있을때, ESC를 누르면 일시정지 창이 닫힘.
+        // TutorialPanel이 닫혀있고, Pause가 활성화 되어있을때, ESC를 누르면 일시정지 창이 닫힘.
         else if(!tutorialPanelOpen && pause && Input.GetKeyDown(KeyCode.Escape))
         {
-            ClosePausePanel();
+            CloseEscPanel();
         }
         
     }
-    public void onTutorialOpenButtonClicked()
+    public void OpenTutorialPanel()
     {
         if(!tutorialPanelOpen)
         {
@@ -62,24 +62,24 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void onTutorialCloseButtonClicked()
+    public void CloseTutorialPanel()
     {
         tutorialPanelOpen = false;
         tutorialPanel.gameObject.SetActive(tutorialPanelOpen);
     }
 
-        public void ClosePausePanel()
-    {
-        pause = false;
-        Time.timeScale = 1;
-        pausePanel.gameObject.SetActive(false);
-    }
 
-    public void OnEscButtonClicked()
+    public void OpenEscPanel()
     {
         pause = true;
         Time.timeScale = 0;
         pausePanel.gameObject.SetActive(true);
     }
     
+    public void CloseEscPanel()
+    {
+        pause = false;
+        Time.timeScale = 1;
+        pausePanel.gameObject.SetActive(false);
+    }
 }
