@@ -17,9 +17,7 @@ public class DustInteract : MonoBehaviour
     // 여러 플레이어 위치를 저장할 리스트
     public List<Transform> playerLocations = new List<Transform>(); 
     // 상호작용 거리
-    public float interactionDistance = 1.0f;
-    // 상호작용 여부
-    public bool hasInteracted = false;
+    public float interactionDistance = 1.3f;
     // 먼지를 참조해서 material을 조정하기 위한 spriterenderer 변수
     public SpriteRenderer sr;
     // 퍼즐이 열려있는지 확인하기 위한 변수
@@ -58,7 +56,7 @@ public class DustInteract : MonoBehaviour
             float distanceToPlayer = Vector3.Distance(transform.position, playerLocation.position);
 
             // 상호작용 가능 거리 내에 있는 플레이어가 있는지 확인
-            if (distanceToPlayer <= interactionDistance && !hasInteracted)
+            if (distanceToPlayer <= interactionDistance)
             {
                 canInteract = true;
 
