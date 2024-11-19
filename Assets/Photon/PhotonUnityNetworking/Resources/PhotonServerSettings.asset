@@ -50,6 +50,7 @@ MonoBehaviour:
   - SyncPuzzleState
   - RequestPuzzleState
   - SetPuzzleReady
+  - ClosePuzzleScene
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
