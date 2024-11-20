@@ -141,4 +141,23 @@ public class UIManager : MonoBehaviour
         roomCodeInputPanel.gameObject.SetActive(roomCodeInputPanelOpen);
     }
     
+
+    // TitleScene -> StartButton
+    // MapClearPanel -> BackToLobbyButton
+    public void LoadLobbyScene()
+    {
+        SceneManager.LoadScene("LobbyScene");
+    } 
+    
+    // TitleScene -> ExitButton
+    public void OnExitButtonClicked()
+    {
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #else
+            Application.Quit();
+        #endif
+            Debug.Log("게임 종료");
+    }
+
 }

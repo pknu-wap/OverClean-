@@ -521,8 +521,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1602602501}
-        m_TargetAssemblyTypeName: NetworkingManager, Assembly-CSharp
+      - m_Target: {fileID: 1523826332}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: LoadLobbyScene
         m_Mode: 1
         m_Arguments:
@@ -1008,8 +1008,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1602602501}
-        m_TargetAssemblyTypeName: NetworkingManager, Assembly-CSharp
+      - m_Target: {fileID: 1523826332}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: OnExitButtonClicked
         m_Mode: 1
         m_Arguments:
@@ -1091,7 +1091,10 @@ MonoBehaviour:
   tutorialPanel: {fileID: 0}
   pausePanel: {fileID: 0}
   titleExitPanel: {fileID: 1928240746}
+  roomCodeInputPanel: {fileID: 0}
   tutorialPanelOpen: 1
+  titleExitPanelOpen: 0
+  roomCodeInputPanelOpen: 0
   pause: 0
 --- !u!4 &1523826333
 Transform:
