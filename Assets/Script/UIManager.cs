@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;  
+using UnityEngine.SceneManagement;
 using Photon.Pun;
 
 public class UIManager : MonoBehaviour
@@ -8,7 +9,9 @@ public class UIManager : MonoBehaviour
     public Button switchButton;
     public RectTransform tutorialPanel;
     public RectTransform pausePanel;
+    public RectTransform titleExitPanel;
     public bool tutorialPanelOpen = true;
+    public bool titleExitPanelOpen = false;
     public bool pause = false;
 
     private void Start()
@@ -81,5 +84,17 @@ public class UIManager : MonoBehaviour
         pause = false;
         Time.timeScale = 1;
         pausePanel.gameObject.SetActive(false);
+    }
+
+    public void OpenTitleExitPanel()
+    {
+        titleExitPanelOpen = true;
+        titleExitPanel.gameObject.SetActive(titleExitPanelOpen);
+    }
+
+    public void CloseTitleExitPanel()
+    {
+        titleExitPanelOpen = false;
+        titleExitPanel.gameObject.SetActive(false);
     }
 }
