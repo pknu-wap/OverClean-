@@ -1,5 +1,6 @@
 
-![OverClean](https://github.com/user-attachments/assets/a5b086fa-04ee-468c-a629-556297dc048d)
+<img src="https://github.com/user-attachments/assets/cb912dee-499c-4795-aaba-d51213e2c1c0"/>
+
 > 제한시간내에 집주인 몰래 (퍼즐을 풀어) 청소를 완료하라!
 > 
 <br><br/>
