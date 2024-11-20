@@ -34,20 +34,30 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        // TutorialPanel이 열려있고, Pause가 비활성화 되어있을때, ESC 눌렀을때 TutorialPanel 닫히게 하고 싶음.
-        if(tutorialPanelOpen && !pause && Input.GetKeyDown(KeyCode.Escape))
+        if(SceneManager.GetActiveScene().name == "PrisonScene" || SceneManager.GetActiveScene().name == "HouseScene")
         {
-            CloseTutorialPanel();
+            // TutorialPanel이 열려있고, Pause가 비활성화 되어있을때, ESC 눌렀을때 TutorialPanel 닫히게 하고 싶음.
+            if(tutorialPanelOpen && !pause && Input.GetKeyDown(KeyCode.Escape))
+            {
+                CloseTutorialPanel();
+            }
+            // TutorialPanel이 닫혀있고, Pause가 비활성화 되었있을때, ESC를 누르면 일시정지 창이 나옴.
+            else if(!tutorialPanelOpen && !pause && Input.GetKeyDown(KeyCode.Escape))
+            {
+                OpenEscPanel();
+            }
+            // TutorialPanel이 닫혀있고, Pause가 활성화 되어있을때, ESC를 누르면 일시정지 창이 닫힘.
+            else if(!tutorialPanelOpen && pause && Input.GetKeyDown(KeyCode.Escape))
+            {
+                CloseEscPanel();
+            }
         }
-        // TutorialPanel이 닫혀있고, Pause가 비활성화 되었있을때, ESC를 누르면 일시정지 창이 나옴.
-        else if(!tutorialPanelOpen && !pause && Input.GetKeyDown(KeyCode.Escape))
+        else if(SceneManager.GetActiveScene().name == "TitleScene")
         {
-            OpenEscPanel();
-        }
-        // TutorialPanel이 닫혀있고, Pause가 활성화 되어있을때, ESC를 누르면 일시정지 창이 닫힘.
-        else if(!tutorialPanelOpen && pause && Input.GetKeyDown(KeyCode.Escape))
-        {
-            CloseEscPanel();
+            if(titleExitPanelOpen && Input.GetKeyDown(KeyCode.Escape))
+            {
+                CloseTitleExitPanel();
+            }
         }
         
     }
