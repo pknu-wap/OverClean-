@@ -149,6 +149,12 @@ public class UIManager : MonoBehaviour
         SceneManager.LoadScene("LobbyScene");
     } 
     
+    // MapClearPanel -> ContinueButton
+    public void LoadMapChooseScene()
+    {
+        SceneManager.LoadScene("MapChooseScene");
+    }
+
     // TitleScene -> ExitButton
     public void OnExitButtonClicked()
     {

@@ -67,12 +67,6 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
         Debug.Log("Photon Master 서버에 연결되었습니다.");
         PhotonNetwork.JoinLobby();
     }
-    // PrisonMap에서 MapClear시 MapClearPanel에서 계속하기 버튼을 클릭 시 MapChoose 씬으로 이동
-    public void LoadMapChooseScene()
-    {
-        SceneManager.LoadScene("MapChooseScene");
-    }
-
     // 방 코드 생성 함수
     private string GenerateRoomCode()
     {
