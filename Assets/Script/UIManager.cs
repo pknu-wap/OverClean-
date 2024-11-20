@@ -114,4 +114,17 @@ public class UIManager : MonoBehaviour
         titleExitPanelOpen = false;
         titleExitPanel.gameObject.SetActive(false);
     }
+
+    public void OpenRoomCodeInputPanel()
+    {
+        roomCodeInputPanelOpen = true;
+        roomCodeInputPanel.gameObject.SetActive(roomCodeInputPanelOpen);
+    }
+
+    public void CloseRoomCodeInputPanel()
+    {
+        roomCodeInputPanelOpen = false;
+        roomCodeInputPanel.gameObject.SetActive(roomCodeInputPanelOpen);
+    }
+    
 }
