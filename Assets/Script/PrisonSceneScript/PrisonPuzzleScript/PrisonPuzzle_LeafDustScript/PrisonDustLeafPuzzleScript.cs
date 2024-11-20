@@ -89,6 +89,7 @@ public class PrisonDustLeafPuzzleScript : MonoBehaviour
     }
     public void OnClosePuzzleButtonClicked()
     {
+        PuzzleManager.instance.ClickPuzzleCloseButton();
         ClosePuzzleScene();
     }
 

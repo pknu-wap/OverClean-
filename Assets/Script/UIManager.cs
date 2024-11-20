@@ -29,7 +29,7 @@ public class UIManager : MonoBehaviour
         // NetworkingManager가 로드될 때까지 기다린 후, 버튼 이벤트 연결
         if (PhotonNetwork.IsConnected)
         {
-            if (NetworkingManager.Instance != null)
+            if (NetworkingManager.Instance != null && switchButton != null)
             {
                 switchButton.onClick.AddListener(NetworkingManager.Instance.SwitchPlayers);
             }

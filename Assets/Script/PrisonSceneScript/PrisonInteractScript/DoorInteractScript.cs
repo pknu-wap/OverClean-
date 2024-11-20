@@ -16,7 +16,7 @@ public class DoorInteract : MonoBehaviour
     // stagemanager를 참조해서 상호작용 여부를 제어하기 위한 변수
     public StageManager stageManager;
     // 여러 플레이어 위치를 저장할 리스트
-    public List<Transform> playerLocations = new List<Transform>(); 
+    public List<Transform> playerLocations = new List<Transform>();
     // 상호작용 거리
     public float interactionDistance = 1.0f;
     // 상호작용 여부
@@ -33,7 +33,7 @@ public class DoorInteract : MonoBehaviour
     public SpriteRenderer sr;
     // 퍼즐이 열려있는지 확인하기 위한 변수
     private bool isPuzzleOpen = false;
-    
+
     // 상호작용시 비활성화 되어있는 캔버스를 열기 위한 변수
     public RectTransform PuzzleUI;
 
@@ -80,7 +80,7 @@ public class DoorInteract : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
                     // 특정 플레이어와 상호작용
-                    Interact(playerLocation); 
+                    Interact(playerLocation);
                     break;
                 }
             }
@@ -95,22 +95,35 @@ public class DoorInteract : MonoBehaviour
             HideHighlight();
         }
 
-        if (isPuzzleOpen && PuzzleManager.instance.isPuzzleSuccess)
+        if (isPuzzleOpen)
         {
-            isPuzzleOpen = false;
-            
-            PuzzleManager.instance.isPuzzleSuccess = false;
-
-            foreach (var playerLocation in playerLocations)
+            if (PuzzleManager.instance.isPuzzleSuccess)
             {
-                playerLocation.GetComponent<PlayerManager>().canMove = true;
-            }
-            // 모든 클라이언트에서 DoorInteractRPC을 시작
-            PhotonView photonView = GetComponent<PhotonView>();
-            // RPC 함수 호출
-            photonView.RPC("DoorInteractRPC", RpcTarget.All);
-        }
+                isPuzzleOpen = false;
 
+                PuzzleManager.instance.isPuzzleSuccess = false;
+
+                foreach (var playerLocation in playerLocations)
+                {
+                    playerLocation.GetComponent<PlayerManager>().canMove = true;
+                }
+                // 모든 클라이언트에서 DoorInteractRPC을 시작
+                PhotonView photonView = GetComponent<PhotonView>();
+                // RPC 함수 호출
+                photonView.RPC("DoorInteractRPC", RpcTarget.All);
+            }
+            else if(PuzzleManager.instance.clickPuzzleCloseButton)
+            {
+                isPuzzleOpen = false;
+
+                PuzzleManager.instance.clickPuzzleCloseButton = false;
+
+                foreach (var playerLocation in playerLocations)
+                {
+                    playerLocation.GetComponent<PlayerManager>().canMove = true;
+                }
+            }
+        }
         if (isMoving)
         {
             MoveDoor();
@@ -130,14 +143,14 @@ public class DoorInteract : MonoBehaviour
             isPuzzleOpen = true;
             // 상호작용한 플레이어의 PlayerManager.cs를 역참조해 canMove를 false로 만들어 플레이어 이동 제한
             playerLocation.GetComponent<PlayerManager>().canMove = false;
-       }
+        }
 
     }
 
-    
+
     [PunRPC]
     // 문 상호작용이 완료됐을 때 모든 플레이어에게서 작동되어야 할 함수
-    void DoorInteractRPC() 
+    void DoorInteractRPC()
     {
         // 문 이동
         isMoving = true;
