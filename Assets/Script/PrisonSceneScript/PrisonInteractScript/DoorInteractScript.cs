@@ -96,20 +96,18 @@ void AddLocalPlayer()
 
         if (isPuzzleOpen && PuzzleManager.instance.isPuzzleSuccess)
         {
-            hasInteracted = true;
             isPuzzleOpen = false;
-            isMoving = true;
-            stageManager.ObjectInteract(objectIndex);
+            
             PuzzleManager.instance.isPuzzleSuccess = false;
 
             foreach (var playerLocation in playerLocations)
             {
                 playerLocation.GetComponent<PlayerManager>().canMove = true;
             }
-            // 모든 클라이언트에서 isMoving을 시작
+            // 모든 클라이언트에서 DoorInteractRPC을 시작
             PhotonView photonView = GetComponent<PhotonView>();
             // RPC 함수 호출
-            photonView.RPC("IsMovingStart", RpcTarget.All);
+            photonView.RPC("DoorInteractRPC", RpcTarget.All);
         }
 
         if (isMoving)
@@ -122,7 +120,7 @@ void AddLocalPlayer()
     void Interact(Transform playerLocation)
     {
         // 퍼즐이 열려 있지 않을 때만 Interact가 실행되었을 때 퍼즐씬이 불러와지도록 조건 추가
-        if (!PuzzleManager.instance.isPuzzleOpen)
+        if (!isPuzzleOpen)
         {
             PuzzleUI.gameObject.SetActive(true);
             // 씬매니저로 퍼즐씬 불러오기
@@ -137,10 +135,15 @@ void AddLocalPlayer()
 
     
     [PunRPC]
-    // 모든 클라이언트에서 isMoving을 true로 설정(오브젝트에 PHOTON VIEW 컴포넌트 붙어 있어야함)
-    void IsMovingStart() 
+    // 문 상호작용이 완료됐을 때 모든 플레이어에게서 작동되어야 할 함수
+    void DoorInteractRPC() 
     {
+        // 문 이동
         isMoving = true;
+        // 상호작용 완료됨
+        hasInteracted = true;
+        // 해당 오브젝트 인덱스 상호작용 완료를 stageManager에게 전달
+        stageManager.ObjectInteract(objectIndex);
     }
 
     // 문을 부드럽게 이동시키는 함수
