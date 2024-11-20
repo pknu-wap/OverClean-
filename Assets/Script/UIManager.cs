@@ -16,7 +16,14 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        tutorialPanel.gameObject.SetActive(tutorialPanelOpen);
+        if(SceneManager.GetActiveScene().name == "PrisonScene" || SceneManager.GetActiveScene().name == "HouseScene")
+        {
+            tutorialPanel.gameObject.SetActive(tutorialPanelOpen);
+        }
+        else 
+        {
+            return;
+        }
         // NetworkingManager가 로드될 때까지 기다린 후, 버튼 이벤트 연결
         if (PhotonNetwork.IsConnected)
         {
