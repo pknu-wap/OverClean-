@@ -117,7 +117,7 @@ public class UIManager : MonoBehaviour
 
     public void LoadMapChooseScene()
     {
-        SceneManager.LoadScene("MapChooseScene");
+        PhotonNetwork.LoadLevel("MapChooseScene"); 
     }
 
     // Title
