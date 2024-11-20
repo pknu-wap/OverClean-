@@ -1,6 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class PipeTileScript : MonoBehaviour
 {
@@ -8,6 +8,7 @@ public class PipeTileScript : MonoBehaviour
     public int currentRotation;
     public int pipeShape;
     public int x, y;
+    public string inactivePipeTile;
     // 방향 정보 설정
     public enum Direction
     {
@@ -112,7 +113,7 @@ public class PipeTileScript : MonoBehaviour
 
         // 현재 오브젝트에 마우스 클릭이 감지되었는지 확인
         RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
-        if (hit.collider != null && hit.collider.gameObject == gameObject)
+        if (hit.collider != null && hit.collider.gameObject == gameObject && PhotonNetwork.LocalPlayer.CustomProperties["Character"].ToString() == inactivePipeTile)
         {
             RotatePipe();
             StartCoroutine(pipePuzzleScript.puzzleSolveCheck());

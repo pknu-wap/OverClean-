@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -103,11 +101,11 @@ public class PrisonPipePuzzleScript : MonoBehaviourPun
                 GameObject pipeTile = Instantiate(pipeShapes[pipeShape], pipeGrid.transform);
 
                 // 타일 위치 계산
-                UnityEngine.Vector3 tilePosition = new UnityEngine.Vector3(originXPosition + x * tileSize, originYPosition - y * tileSize, 0);
+                Vector3 tilePosition = new Vector3(originXPosition + x * tileSize, originYPosition - y * tileSize, 0);
                 pipeTile.transform.localPosition = tilePosition;
                 // 0도, 90도, 180도, 270도 중 하나로 회전
                 int randomRotation = Random.Range(0, 4) * -90;
-                pipeTile.transform.localRotation = UnityEngine.Quaternion.Euler(0, 0, randomRotation);
+                pipeTile.transform.localRotation = Quaternion.Euler(0, 0, randomRotation);
 
                 // 각 파이프 타일의 스크립트에 파이프 모양, 좌표와 회전 정보를 전해줌
                 PipeTileScript pipeTileScript = pipeTile.GetComponent<PipeTileScript>();
@@ -117,13 +115,22 @@ public class PrisonPipePuzzleScript : MonoBehaviourPun
                 // currentRotation은 실제 각도 (-90, -180 등)가 아니라 0,1,2,3으로 간편히 구분하도록 함
                 pipeTileScript.currentRotation = randomRotation / -90;
 
+                // pipeTile의 위치에 따라 Dave, Matthew가 클릭 가능한 영역을 구분
+                if(x < 5)
+                {
+                    pipeTileScript.inactivePipeTile = "Dave";
+                }
+                else
+                {
+                    pipeTileScript.inactivePipeTile = "Matthew";
+                }
+
                 // 각 pipeTileScript를 배열에 저장
                 pipeTileScripts[x, y] = pipeTileScript;
                 Debug.Log($"location : {x}, {y} / pipeshape : {pipeTileScript.pipeShape} , currentRotation : {pipeTileScript.currentRotation}");
             }
         }
         // 상태 갱신
-        
         photonView.RPC("SetPuzzleReady", RpcTarget.OthersBuffered, true);
         Debug.Log("SetPuzzleReady 호출완료");
     }
@@ -196,6 +203,16 @@ public class PrisonPipePuzzleScript : MonoBehaviourPun
                 pipeTileScript.y = y; // 현재 타일의 y 좌표
                 pipeTileScript.pipeShape = shapes[index]; // 파이프 모양
                 pipeTileScript.currentRotation = (int)(rotations[index] / -90); // 회전 정보 저장
+
+                // pipeTile의 위치에 따라 Dave, Matthew가 클릭 가능한 영역을 구분
+                if (x < 5)
+                {
+                    pipeTileScript.inactivePipeTile = "Dave";
+                }
+                else
+                {
+                    pipeTileScript.inactivePipeTile = "Matthew";
+                }
 
                 // 생성된 타일을 배열에 저장
                 pipeTileScripts[x, y] = pipeTileScript;

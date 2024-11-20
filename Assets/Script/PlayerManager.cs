@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement; // 씬 관리를 위한 네임스페이스
 using Photon.Pun;
@@ -18,7 +16,7 @@ public class PlayerManager : MonoBehaviour
 
     // 현재 씬에서 달리기 기능을 활성화할지 여부를 제어하는 변수
     private bool allowRun = true;
-     private PhotonView photonView;
+    private PhotonView photonView;
 
     void Start()
     {
