@@ -1,5 +1,5 @@
 
-<img src="https://github.com/user-attachments/assets/cb912dee-499c-4795-aaba-d51213e2c1c0"/>
+![Cover](https://github.com/user-attachments/assets/fc7cd149-134b-44f4-b619-f0bd7726d08e)
 
 > 제한시간내에 집주인 몰래 (퍼즐을 풀어) 청소를 완료하라!
 > 
