@@ -57,7 +57,7 @@ public class PrisonPipePuzzleScript : MonoBehaviourPun
         // 마스터 클라이언트만 퍼즐 생성
         if (PhotonNetwork.IsMasterClient)
         {
-            Debug.Log(PhotonNetwork.LocalPlayer.CustomProperties["Character"].ToString() + "가 생성");
+            Debug.Log(PhotonNetwork.LocalPlayer.CustomProperties["Character"].ToString() + "가 MasterClient로써 퍼즐 생성.");
             curvedPipePositions = GenerateCurvedPipePairs();
             // 퍼즐 생성
             CreatePipeGrid();
@@ -156,7 +156,7 @@ public class PrisonPipePuzzleScript : MonoBehaviourPun
         // 다른 클라이언트로 초기 생성된 퍼즐 상태 전송
         photonView.RPC("ApplyPuzzleState", RpcTarget.OthersBuffered, pipeShapesArray, pipePositions, pipeRotations);
 
-        Debug.Log("퍼즐 상태 전송 완료");
+        Debug.Log("MasterClient에서 파이프 타일 위치 / 회전 / 모양 정보 전송 완료");
     }
 
 
@@ -167,13 +167,13 @@ public class PrisonPipePuzzleScript : MonoBehaviourPun
         // 파이프 상태 배열 초기화
         pipeTileScripts = new PipeTileScript[gridWidth, gridHeight];
         // 전달받은 위치와 회전 정보를 사용하여 퍼즐 상태를 동기화
-        if (positions != null && rotations != null)
+        if (positions != null && rotations != null && shapes != null)
         {
-            Debug.Log("정보 전달됨");
+            Debug.Log("MasterClient가 아닌 쪽에서 파이프 타일 위치 / 회전 / 모양 정보 수신 완료");
         }
         else
         {
-            Debug.Log("비상@@@@@@");
+            Debug.Log("누락된 정보 발생");
         }
 
         // 전달받은 모양, 위치, 회전 정보를 사용하여 퍼즐 상태를 동기화
