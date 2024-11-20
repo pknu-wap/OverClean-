@@ -335,6 +335,14 @@ public class RoomManager : MonoBehaviourPunCallbacks
                 daveReadyText.text = (bool)PhotonNetwork.LocalPlayer.CustomProperties["Ready"] ? "Ready!" : "";
             }
         }
+        // 전부 레디 - 시작 후 5초 대기 중일 때 누군가 방을 나간다면
+        if (startGameCoroutine != null)
+        {
+            // 게임시작 코루틴 중지
+            CountDownPanel.gameObject.SetActive(false);
+            StopCoroutine(startGameCoroutine);
+            startGameCoroutine = null;
+        }
         // 매튜를 흑백처리
         matthewImage.sprite = matthewBWImage;
     }
