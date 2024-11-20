@@ -99,22 +99,25 @@ public class PrisonPipePuzzleScript : MonoBehaviourPun
                     pipeShape = Random.Range(0, 3);
                 }
 
-                int viewID = x + y * gridWidth + 100;
-
+                // 로직에 따라 변경된 파이프 프리팹 모양으로 인스턴스화
                 GameObject pipeTile = Instantiate(pipeShapes[pipeShape], pipeGrid.transform);
 
-                pipeTile.transform.localPosition = new Vector3(originXPosition + x * tileSize, originYPosition - y * tileSize, 0);
-                pipeTile.transform.localRotation = Quaternion.Euler(0, 0, Random.Range(0, 4) * -90);
+                // 타일 위치 계산
+                UnityEngine.Vector3 tilePosition = new UnityEngine.Vector3(originXPosition + x * tileSize, originYPosition - y * tileSize, 0);
+                pipeTile.transform.localPosition = tilePosition;
+                // 0도, 90도, 180도, 270도 중 하나로 회전
+                int randomRotation = Random.Range(0, 4) * -90;
+                pipeTile.transform.localRotation = UnityEngine.Quaternion.Euler(0, 0, randomRotation);
 
-                // PhotonView 설정
+                int viewID = x + y * gridWidth + 100;
                 PhotonView photonView = pipeTile.GetComponent<PhotonView>();
                 photonView.ViewID = viewID;
 
+                // 각 파이프 타일의 스크립트에 파이프 모양, 좌표와 회전 정보를 전해줌
                 PipeTileScript pipeTileScript = pipeTile.GetComponent<PipeTileScript>();
                 pipeTileScript.x = x;
                 pipeTileScript.y = y;
                 pipeTileScript.pipeShape = pipeShape;
-                pipeTileScripts[x, y] = pipeTileScript;
 
                 // pipeTile의 위치에 따라 Dave, Matthew가 클릭 가능한 영역을 구분
                 if (x < 5)
@@ -126,11 +129,15 @@ public class PrisonPipePuzzleScript : MonoBehaviourPun
                     pipeTileScript.inactivePipeTile = "Matthew";
                 }
 
+
+                // currentRotation은 실제 각도 (-90, -180 등)가 아니라 0,1,2,3으로 간편히 구분하도록 함
+                pipeTileScript.currentRotation = randomRotation / -90;
+
                 // 각 pipeTileScript를 배열에 저장
                 pipeTileScripts[x, y] = pipeTileScript;
                 Debug.Log($"location : {x}, {y} / pipeshape : {pipeTileScript.pipeShape} , currentRotation : {pipeTileScript.currentRotation}");
             }
-        }             
+        }
         photonView.RPC("SetMasterPuzzleReady", RpcTarget.All, true);
         Debug.Log("SetMasterPuzzleReady 호출완료");
     }
@@ -189,7 +196,6 @@ public class PrisonPipePuzzleScript : MonoBehaviourPun
             for (int x = 0; x < gridWidth; x++)
             {
                 int index = y * gridWidth + x;
-
                 int viewID = x + y * gridWidth + 100;
 
                 // 파이프 모양에 맞는 프리팹 생성
@@ -238,7 +244,7 @@ public class PrisonPipePuzzleScript : MonoBehaviourPun
     [PunRPC]
     public void SetElsePuzzleReady(bool readyState)
     {
-        isElsePuzzleReady = readyState;   
+        isElsePuzzleReady = readyState;
     }
 
     [PunRPC]
@@ -344,39 +350,51 @@ public class PrisonPipePuzzleScript : MonoBehaviourPun
         photonView.RPC("ClosePuzzleScene", RpcTarget.All);
     }
 
-    public IEnumerator puzzleSolveCheck()
+    [PunRPC]
+    public IEnumerator PuzzleSolveCheck()
     {
-        // 연결 성공인지 확인
-        if (IsPathConnectedToEnd())
+        if (PhotonNetwork.IsMasterClient)
         {
-            // 체크 이미지 표시 코루틴 실행
-            yield return StartCoroutine(ShowImage(oImage));
-            // 퍼즐 매니저에 퍼즐 성공 상태 전달
-            puzzleSolved = true;
+            // MasterClient에서 연결 확인
+            if (IsPathConnectedToEnd())
+            {
+                Debug.Log("퍼즐 완성 확인!");
+
+                // 성공 이미지 표시
+                photonView.RPC("ShowImage", RpcTarget.All);
+
+                // 퍼즐 성공 상태 전파
+                photonView.RPC("PuzzleSolved", RpcTarget.All);
+            }
         }
-        // else
-        // {
-        //     yield return StartCoroutine(ShowImage(xImage));
-        // }
+        yield return null;
     }
 
-    IEnumerator ShowImage(Image image)
+    [PunRPC]
+    public void PuzzleSolved()
+    {
+        Debug.Log("퍼즐 성공!");
+        puzzleSolved = true;
+    }
+
+    [PunRPC]
+    public IEnumerator ShowImage()
     {
         Debug.Log("성공 이미지가 표시되었습니다.");
         // 이미지 표시
-        image.gameObject.SetActive(true);
+        oImage.gameObject.SetActive(true);
         // 0.5초 대기(코루틴이 매개변수 시간만큼 일시정지됨)
         yield return new WaitForSeconds(0.5f);
         // 이미지 숨김
-        image.gameObject.SetActive(false);
+        oImage.gameObject.SetActive(false);
     }
 
     public void Update()
     {
-        if(isMasterPuzzleReady && PhotonNetwork.IsMasterClient && !isElsePuzzleReady)
+        if (isMasterPuzzleReady && PhotonNetwork.IsMasterClient && !isElsePuzzleReady)
         {
             photonView.RPC("SetMasterPuzzleReady", RpcTarget.All, true);
-        }   
+        }
         // 퍼즐 상태가 준비된 경우, 마스터 클라이언트에 상태 요청
         if (isMasterPuzzleReady && !PhotonNetwork.IsMasterClient && !isElsePuzzleReady)
         {

@@ -92,7 +92,7 @@ public class PipeTileScript : MonoBehaviour
     public bool IsConnectedTo(PipeTileScript otherPipe, Direction direction)
     {
         Direction oppositeDirection = GetOppositeDirection(direction);
-        return connectableDirections[direction] && otherPipe.connectableDirections[oppositeDirection];    
+        return connectableDirections[direction] && otherPipe.connectableDirections[oppositeDirection];
     }
 
     // 인자로 받은 방향의 반대 방향을 반환하는 함수 
@@ -108,6 +108,16 @@ public class PipeTileScript : MonoBehaviour
         }
     }
 
+    [PunRPC]
+    public void TriggerPuzzleSolveCheck()
+    {
+        // MasterClient에서만 퍼즐 검증
+        if (PhotonNetwork.IsMasterClient)
+        {
+            StartCoroutine(pipePuzzleScript.PuzzleSolveCheck());
+        }
+    }
+
     private void OnMouseDownHandler()
     {
         // 마우스 위치를 월드 좌표로 변환 (2D 평면에서의 위치만 사용)
@@ -120,13 +130,13 @@ public class PipeTileScript : MonoBehaviour
         if (hit.collider != null && hit.collider.gameObject == gameObject && PhotonNetwork.LocalPlayer.CustomProperties["Character"].ToString() == inactivePipeTile)
         {
             photonView.RPC("RotatePipe", RpcTarget.All);
-            StartCoroutine(pipePuzzleScript.puzzleSolveCheck());
+            photonView.RPC("TriggerPuzzleSolveCheck", RpcTarget.All);
             Debug.Log($"경로 연결 성공 여부 : {pipePuzzleScript.puzzleSolved}");
             Debug.Log($"x : {x}, y : {y}, pipeshape : {pipeShape} , currentRotation : {currentRotation}");
             Debug.Log($"connectableDirections : {connectableDirections[Direction.Top]}, {connectableDirections[Direction.Right]}, {connectableDirections[Direction.Bottom]}, {connectableDirections[Direction.Left]}");
         }
     }
-    
+
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
