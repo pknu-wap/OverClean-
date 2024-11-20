@@ -43,6 +43,9 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public bool daveReady = false;
     public bool matthewReady = false;
 
+    // 스위칭 버튼
+    public Button switchButton;
+
     // 게임 시작 코루틴
     private Coroutine startGameCoroutine;
     // 카운트다운 텍스트 변수
@@ -53,6 +56,8 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public RectTransform CountDownPanel;
     private void Start()
     {
+        // 스위칭 버튼 로직 할당
+        switchButton.onClick.AddListener(NetworkingManager.Instance.SwitchPlayers);
         if (PhotonNetwork.InRoom)
         {
             // 방에 입장 시 방 코드 표시
