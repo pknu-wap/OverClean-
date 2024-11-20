@@ -36,8 +36,10 @@ public class PrisonPipePuzzleScript : MonoBehaviourPun
     private float[] pipeRotations;
     // 각 파이프 모양 정보 저장
     private int[] pipeShapesArray;
-    // 퍼즐 초기화 완료 상태
-    public bool isPuzzleReady = false;
+    // 마스터 클라이언트 퍼즐 초기화 완료 상태
+    public bool isMasterPuzzleReady = false;
+    // 나머지 클라이언트 퍼즐 초기화 완료 상태
+    public bool isElsePuzzleReady = false;
 
     public void Awake()
     {
@@ -128,10 +130,9 @@ public class PrisonPipePuzzleScript : MonoBehaviourPun
                 pipeTileScripts[x, y] = pipeTileScript;
                 Debug.Log($"location : {x}, {y} / pipeshape : {pipeTileScript.pipeShape} , currentRotation : {pipeTileScript.currentRotation}");
             }
-        }
-        // 상태 갱신
-        photonView.RPC("SetPuzzleReady", RpcTarget.OthersBuffered, true);
-        Debug.Log("SetPuzzleReady 호출완료");
+        }             
+        photonView.RPC("SetMasterPuzzleReady", RpcTarget.All, true);
+        Debug.Log("SetMasterPuzzleReady 호출완료");
     }
 
     [PunRPC]
@@ -158,7 +159,6 @@ public class PrisonPipePuzzleScript : MonoBehaviourPun
                 pipeShapesArray[index] = pipeTileScripts[x, y].pipeShape;
             }
         }
-
         // 다른 클라이언트로 초기 생성된 퍼즐 상태 전송
         photonView.RPC("ApplyPuzzleState", RpcTarget.OthersBuffered, pipeShapesArray, pipePositions, pipeRotations);
 
@@ -180,6 +180,7 @@ public class PrisonPipePuzzleScript : MonoBehaviourPun
         else
         {
             Debug.Log("누락된 정보 발생");
+            return;
         }
 
         // 전달받은 모양, 위치, 회전 정보를 사용하여 퍼즐 상태를 동기화
@@ -223,16 +224,21 @@ public class PrisonPipePuzzleScript : MonoBehaviourPun
                 pipeTileScripts[x, y] = pipeTileScript;
             }
         }
-
+        photonView.RPC("SetElsePuzzleReady", RpcTarget.All, true);
         // 퍼즐 동기화 완료
         Debug.Log("퍼즐 상태 동기화 완료");
     }
 
     [PunRPC]
-    public void SetPuzzleReady(bool isReady)
+    public void SetMasterPuzzleReady(bool readyState)
     {
-        // 퍼즐 준비 상태 업데이트
-        isPuzzleReady = isReady;
+        isMasterPuzzleReady = readyState;
+    }
+
+    [PunRPC]
+    public void SetElsePuzzleReady(bool readyState)
+    {
+        isElsePuzzleReady = readyState;   
     }
 
     [PunRPC]
@@ -329,10 +335,12 @@ public class PrisonPipePuzzleScript : MonoBehaviourPun
         return curvedPipePositions;
     }
 
+    [PunRPC]
     // 퍼즐 성공 시 호출되는 함수
     public void PuzzleSuccess()
     {
         Debug.Log("성공, 씬이 종료됩니다.");
+        PuzzleManager.instance.PuzzleSuccess();
         photonView.RPC("ClosePuzzleScene", RpcTarget.All);
     }
 
@@ -365,28 +373,28 @@ public class PrisonPipePuzzleScript : MonoBehaviourPun
 
     public void Update()
     {
-        // 퍼즐 상태가 준비된 경우, 마스터 클라이언트에 상태 요청
-        if (isPuzzleReady && !PhotonNetwork.IsMasterClient)
+        if(isMasterPuzzleReady && PhotonNetwork.IsMasterClient && !isElsePuzzleReady)
         {
+            photonView.RPC("SetMasterPuzzleReady", RpcTarget.All, true);
+        }   
+        // 퍼즐 상태가 준비된 경우, 마스터 클라이언트에 상태 요청
+        if (isMasterPuzzleReady && !PhotonNetwork.IsMasterClient && !isElsePuzzleReady)
+        {
+            Debug.Log(PhotonNetwork.LocalPlayer.CustomProperties["Character"].ToString() + "가 퍼즐 달라고 요청 중");
             // 퍼즐 상태 요청
             photonView.RPC("RequestPuzzleState", RpcTarget.MasterClient);
-            // 요청 후 상태 초기화
-            isPuzzleReady = false;
-        }
-        // Z 키를 눌렀을 때 씬 닫기
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            ClosePuzzleScene();
+            isElsePuzzleReady = true;
         }
         // 퍼즐이 해결됐다면
         if (puzzleSolved)
         {
-            PuzzleSuccess();
+            photonView.RPC("PuzzleSuccess", RpcTarget.All);
         }
     }
 
     public void OnClosePuzzleButtonClicked()
     {
+        PuzzleManager.instance.ClickPuzzleCloseButton();
         // 한쪽에서 닫으면 둘 다 닫히도록 설정
         photonView.RPC("ClosePuzzleScene", RpcTarget.All);
     }
@@ -395,7 +403,6 @@ public class PrisonPipePuzzleScript : MonoBehaviourPun
     // 씬 닫기 함수
     void ClosePuzzleScene()
     {
-        PuzzleManager.instance.PuzzleSuccess();
         // 현재 씬 닫기
         SceneManager.UnloadSceneAsync("PrisonPipePuzzleScene");
         Debug.Log("씬이 닫혔습니다.");
