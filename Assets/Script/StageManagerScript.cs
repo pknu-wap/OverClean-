@@ -143,17 +143,4 @@ public class StageManager : MonoBehaviour
         isTimeOver = true;
     }
 
-
-    public void OnBackToLobbyButtonClicked()
-{
-    if (NetworkingManager.Instance != null)
-    {
-        NetworkingManager.Instance.LoadLobbyScene();
-    }
-    else
-    {
-        Debug.LogError("NetworkingManager instance is null.");
-    }
-}
-
 }

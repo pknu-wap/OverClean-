@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;  
+using UnityEngine.SceneManagement;
 using Photon.Pun;
 
 public class UIManager : MonoBehaviour
@@ -8,12 +9,23 @@ public class UIManager : MonoBehaviour
     public Button switchButton;
     public RectTransform tutorialPanel;
     public RectTransform pausePanel;
+    public RectTransform titleExitPanel;
+    public RectTransform roomCodeInputPanel;
     public bool tutorialPanelOpen = true;
+    public bool titleExitPanelOpen = false;
+    public bool roomCodeInputPanelOpen = false;
     public bool pause = false;
 
     private void Start()
     {
-        tutorialPanel.gameObject.SetActive(tutorialPanelOpen);
+        if(SceneManager.GetActiveScene().name == "PrisonScene" || SceneManager.GetActiveScene().name == "HouseScene")
+        {
+            tutorialPanel.gameObject.SetActive(tutorialPanelOpen);
+        }
+        else 
+        {
+            return;
+        }
         // NetworkingManager가 로드될 때까지 기다린 후, 버튼 이벤트 연결
         if (PhotonNetwork.IsConnected)
         {
@@ -31,23 +43,44 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        // TutorialPanel이 열려있고, Pause가 비활성화 되어있을때, ESC 눌렀을때 TutorialPanel 닫히게 하고 싶음.
-        if(tutorialPanelOpen && !pause && Input.GetKeyDown(KeyCode.Escape))
+        if(SceneManager.GetActiveScene().name == "PrisonScene" || SceneManager.GetActiveScene().name == "HouseScene")
         {
-            CloseTutorialPanel();
+            if(tutorialPanelOpen && !pause && Input.GetKeyDown(KeyCode.Escape))
+            {
+                CloseTutorialPanel();
+            }
+            else if(!tutorialPanelOpen && !pause && Input.GetKeyDown(KeyCode.Escape))
+            {
+                OpenEscPanel();
+            }
+            else if(!tutorialPanelOpen && pause && Input.GetKeyDown(KeyCode.Escape))
+            {
+                CloseEscPanel();
+            }
         }
-        // TutorialPanel이 닫혀있고, Pause가 비활성화 되었있을때, ESC를 누르면 일시정지 창이 나옴.
-        else if(!tutorialPanelOpen && !pause && Input.GetKeyDown(KeyCode.Escape))
+        else if(SceneManager.GetActiveScene().name == "TitleScene")
         {
-            OpenEscPanel();
+            if(titleExitPanelOpen && Input.GetKeyDown(KeyCode.Escape))
+            {
+                CloseTitleExitPanel();
+            }
         }
-        // TutorialPanel이 닫혀있고, Pause가 활성화 되어있을때, ESC를 누르면 일시정지 창이 닫힘.
-        else if(!tutorialPanelOpen && pause && Input.GetKeyDown(KeyCode.Escape))
+        else if(SceneManager.GetActiveScene().name == "LobbyScene")
         {
-            CloseEscPanel();
+            if(!roomCodeInputPanelOpen && Input.GetKeyDown(KeyCode.Escape))
+            {
+                SceneManager.LoadScene("TitleScene");
+            }
+            else if(roomCodeInputPanelOpen && Input.GetKeyDown(KeyCode.Escape))
+            {
+                CloseRoomCodeInputPanel();
+            }
+            
         }
         
     }
+
+    // Prison & House
     public void OpenTutorialPanel()
     {
         if(!tutorialPanelOpen)
@@ -68,7 +101,6 @@ public class UIManager : MonoBehaviour
         tutorialPanel.gameObject.SetActive(tutorialPanelOpen);
     }
 
-
     public void OpenEscPanel()
     {
         pause = true;
@@ -82,4 +114,54 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 1;
         pausePanel.gameObject.SetActive(false);
     }
+
+    public void LoadMapChooseScene()
+    {
+        PhotonNetwork.LoadLevel("MapChooseScene"); 
+    }
+
+    // Title
+    public void OpenTitleExitPanel()
+    {
+        titleExitPanelOpen = true;
+        titleExitPanel.gameObject.SetActive(titleExitPanelOpen);
+    }
+
+    public void CloseTitleExitPanel()
+    {
+        titleExitPanelOpen = false;
+        titleExitPanel.gameObject.SetActive(false);
+    }
+
+    public void OnExitButtonClicked()
+    {
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #else
+            Application.Quit();
+        #endif
+            Debug.Log("게임 종료");
+    }
+    
+    // Lobby
+    public void OpenRoomCodeInputPanel()
+    {
+        roomCodeInputPanelOpen = true;
+        roomCodeInputPanel.gameObject.SetActive(roomCodeInputPanelOpen);
+    }
+
+    public void CloseRoomCodeInputPanel()
+    {
+        roomCodeInputPanelOpen = false;
+        roomCodeInputPanel.gameObject.SetActive(roomCodeInputPanelOpen);
+    }
+    
+
+    // TitleScene -> StartButton
+    // MapClearPanel -> BackToLobbyButton
+    public void LoadLobbyScene()
+    {
+        SceneManager.LoadScene("LobbyScene");
+    } 
+
 }
