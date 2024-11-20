@@ -67,32 +67,6 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
         Debug.Log("Photon Master 서버에 연결되었습니다.");
         PhotonNetwork.JoinLobby();
     }
-
-    // TitleScene에서 Start 버튼 클릭 시 GameLobby 씬으로 이동
-    // PrisonMap에서 MapClear시 MapClearPanel에서 로비로 이동하기 버튼 클릭 시 GameLobby 씬으로 이동
-    public void LoadLobbyScene()
-    {
-        SceneManager.LoadScene("LobbyScene");
-    }
-
-    // PrisonMap에서 MapClear시 MapClearPanel에서 계속하기 버튼을 클릭 시 MapChoose 씬으로 이동
-    public void LoadMapChooseScene()
-    {
-        SceneManager.LoadScene("MapChooseScene");
-    }
-
-    // Exit 버튼 클릭 시 게임 종료
-    public void OnExitButtonClicked()
-    {
-        // 에디터와 프로그램 실행을 구분.
-        #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-        #else
-            // 어플리케이션 종료
-            Application.Quit();
-        #endif
-            Debug.Log("게임 종료");
-    }
     // 방 코드 생성 함수
     private string GenerateRoomCode()
     {
