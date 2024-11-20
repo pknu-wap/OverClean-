@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Numerics;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Photon.Pun;
 
-public class PrisonPipePuzzleScript : MonoBehaviour
+public class PrisonPipePuzzleScript : MonoBehaviourPun
 {
     // Grid Layout Group을 포함한 빈 오브젝트
     public GameObject pipeGrid;
@@ -32,6 +32,14 @@ public class PrisonPipePuzzleScript : MonoBehaviour
     public Image oImage;
     // 틀렸을 때 표시하기 위한 UI 이미지
     public Image xImage;
+    // 각 파이프의 위치를 저장
+    private Vector3[] pipePositions;
+    // 각 파이프의 회전 정보를 저장
+    private float[] pipeRotations;
+    // 각 파이프 모양 정보 저장
+    private int[] pipeShapesArray;
+    // 퍼즐 초기화 완료 상태
+    public bool isPuzzleReady = false;
 
     public void Awake()
     {
@@ -39,15 +47,21 @@ public class PrisonPipePuzzleScript : MonoBehaviour
         oImage = GameObject.Find("CorrectAnswerImage").GetComponent<Image>();
         xImage = GameObject.Find("WrongAnswerImage").GetComponent<Image>();
         // 초기에는 이미지 숨김
-        oImage.gameObject.SetActive(false); 
-        xImage.gameObject.SetActive(false); 
+        oImage.gameObject.SetActive(false);
+        xImage.gameObject.SetActive(false);
     }
 
     public void Start()
     {
         pipeTileScripts = new PipeTileScript[gridWidth, gridHeight];
-        curvedPipePositions = GenerateCurvedPipePairs();
-        CreatePipeGrid();
+        // 마스터 클라이언트만 퍼즐 생성
+        if (PhotonNetwork.IsMasterClient)
+        {
+            Debug.Log(PhotonNetwork.LocalPlayer.CustomProperties["Character"].ToString() + "가 MasterClient로써 퍼즐 생성.");
+            curvedPipePositions = GenerateCurvedPipePairs();
+            // 퍼즐 생성
+            CreatePipeGrid();
+        }
     }
 
     public void CreatePipeGrid()
@@ -62,10 +76,10 @@ public class PrisonPipePuzzleScript : MonoBehaviour
         {
             for (int x = 0; x < gridWidth; x++)
             {
-                if (IsPathBetweenCurvedPipes || curvedPipePositions.Contains((x,y)))
+                if (IsPathBetweenCurvedPipes || curvedPipePositions.Contains((x, y)))
                 {
                     // 꺾이는 파이프가 생성되야 하는 좌표라면
-                    if (curvedPipePositions.Contains((x,y)))
+                    if (curvedPipePositions.Contains((x, y)))
                     {
                         // 이후론 일자 파이프만 생성할 필요 없기 때문에 false로 만들어줌
                         // 다시 꺾이는 파이프를 만나면 true로 바꿔줌
@@ -89,7 +103,7 @@ public class PrisonPipePuzzleScript : MonoBehaviour
                 GameObject pipeTile = Instantiate(pipeShapes[pipeShape], pipeGrid.transform);
 
                 // 타일 위치 계산
-                UnityEngine.Vector3 tilePosition = new UnityEngine.Vector3(originXPosition + x * tileSize, originYPosition -y * tileSize, 0);
+                UnityEngine.Vector3 tilePosition = new UnityEngine.Vector3(originXPosition + x * tileSize, originYPosition - y * tileSize, 0);
                 pipeTile.transform.localPosition = tilePosition;
                 // 0도, 90도, 180도, 270도 중 하나로 회전
                 int randomRotation = Random.Range(0, 4) * -90;
@@ -107,6 +121,105 @@ public class PrisonPipePuzzleScript : MonoBehaviour
                 pipeTileScripts[x, y] = pipeTileScript;
                 Debug.Log($"location : {x}, {y} / pipeshape : {pipeTileScript.pipeShape} , currentRotation : {pipeTileScript.currentRotation}");
             }
+        }
+        // 상태 갱신
+        
+        photonView.RPC("SetPuzzleReady", RpcTarget.OthersBuffered, true);
+        Debug.Log("SetPuzzleReady 호출완료");
+    }
+
+    [PunRPC]
+    public void SyncPuzzleState()
+    {
+        // 퍼즐 전체 타일 수 계산 (가로 x 세로)
+        int pipeCount = gridWidth * gridHeight;
+
+        // 각 타일의 데이터를 저장할 배열 초기화
+        pipePositions = new Vector3[pipeCount];
+        pipeRotations = new float[pipeCount];
+        pipeShapesArray = new int[pipeCount];
+
+        // 타일 정보를 배열에 저장
+        for (int y = 0; y < gridHeight; y++)
+        {
+            for (int x = 0; x < gridWidth; x++)
+            {
+                int index = y * gridWidth + x;
+
+                // 타일 위치, 회전, 모양 정보 저장
+                pipePositions[index] = pipeTileScripts[x, y].transform.localPosition;
+                pipeRotations[index] = pipeTileScripts[x, y].transform.localRotation.eulerAngles.z;
+                pipeShapesArray[index] = pipeTileScripts[x, y].pipeShape;
+            }
+        }
+
+        // 다른 클라이언트로 초기 생성된 퍼즐 상태 전송
+        photonView.RPC("ApplyPuzzleState", RpcTarget.OthersBuffered, pipeShapesArray, pipePositions, pipeRotations);
+
+        Debug.Log("MasterClient에서 파이프 타일 위치 / 회전 / 모양 정보 전송 완료");
+    }
+
+
+
+    [PunRPC]
+    public void ApplyPuzzleState(int[] shapes, Vector3[] positions, float[] rotations)
+    {
+        // 파이프 상태 배열 초기화
+        pipeTileScripts = new PipeTileScript[gridWidth, gridHeight];
+        // 전달받은 위치와 회전 정보를 사용하여 퍼즐 상태를 동기화
+        if (positions != null && rotations != null && shapes != null)
+        {
+            Debug.Log("MasterClient가 아닌 쪽에서 파이프 타일 위치 / 회전 / 모양 정보 수신 완료");
+        }
+        else
+        {
+            Debug.Log("누락된 정보 발생");
+        }
+
+        // 전달받은 모양, 위치, 회전 정보를 사용하여 퍼즐 상태를 동기화
+        for (int y = 0; y < gridHeight; y++)
+        {
+            for (int x = 0; x < gridWidth; x++)
+            {
+                int index = y * gridWidth + x;
+
+                // 파이프 모양에 맞는 프리팹 생성
+                GameObject pipeTile = Instantiate(pipeShapes[shapes[index]], pipeGrid.transform);
+
+                // 타일 위치 및 회전 적용
+                pipeTile.transform.localPosition = positions[index];
+                pipeTile.transform.localRotation = Quaternion.Euler(0, 0, rotations[index]);
+
+                // 프리팹에 속성 할당
+                PipeTileScript pipeTileScript = pipeTile.GetComponent<PipeTileScript>();
+                pipeTileScript.x = x; // 현재 타일의 x 좌표
+                pipeTileScript.y = y; // 현재 타일의 y 좌표
+                pipeTileScript.pipeShape = shapes[index]; // 파이프 모양
+                pipeTileScript.currentRotation = (int)(rotations[index] / -90); // 회전 정보 저장
+
+                // 생성된 타일을 배열에 저장
+                pipeTileScripts[x, y] = pipeTileScript;
+            }
+        }
+
+        // 퍼즐 동기화 완료
+        Debug.Log("퍼즐 상태 동기화 완료");
+    }
+
+    [PunRPC]
+    public void SetPuzzleReady(bool isReady)
+    {
+        // 퍼즐 준비 상태 업데이트
+        isPuzzleReady = isReady;
+    }
+
+    [PunRPC]
+    public void RequestPuzzleState()
+    {
+        // 상태 요청 처리 (MasterClient가 호출)
+        if (PhotonNetwork.IsMasterClient)
+        {
+            SyncPuzzleState();
         }
     }
 
@@ -132,7 +245,7 @@ public class PrisonPipePuzzleScript : MonoBehaviour
         // 중복 탐색을 방지하기 위해, 해당 좌표에 방문했음을 표시
         visited[x, y] = true;
         PipeTileScript currentPipe = pipeTileScripts[x, y];
-        
+
         // 각 방향에 대해 연결 확인 및 DFS 재귀 호출
         foreach (var direction in currentPipe.connectableDirections)
         {
@@ -197,9 +310,8 @@ public class PrisonPipePuzzleScript : MonoBehaviour
     // 퍼즐 성공 시 호출되는 함수
     public void PuzzleSuccess()
     {
-        Debug.Log("씬이 종료됩니다.");
-        PuzzleManager.instance.PuzzleSuccess();
-        ClosePuzzleScene();
+        Debug.Log("성공, 씬이 종료됩니다.");
+        photonView.RPC("ClosePuzzleScene", RpcTarget.All);
     }
 
     IEnumerator puzzleSolveCheck()
@@ -224,13 +336,21 @@ public class PrisonPipePuzzleScript : MonoBehaviour
         // 이미지 표시
         image.gameObject.SetActive(true);
         // 0.5초 대기(코루틴이 매개변수 시간만큼 일시정지됨)
-        yield return new WaitForSeconds(0.5f); 
+        yield return new WaitForSeconds(0.5f);
         // 이미지 숨김
-        image.gameObject.SetActive(false); 
+        image.gameObject.SetActive(false);
     }
 
     public void Update()
-    {   
+    {
+        // 퍼즐 상태가 준비된 경우, 마스터 클라이언트에 상태 요청
+        if (isPuzzleReady && !PhotonNetwork.IsMasterClient)
+        {
+            // 퍼즐 상태 요청
+            photonView.RPC("RequestPuzzleState", RpcTarget.MasterClient);
+            // 요청 후 상태 초기화
+            isPuzzleReady = false;
+        }
         // Z 키를 눌렀을 때 씬 닫기
         if (Input.GetKeyDown(KeyCode.Z))
         {
@@ -248,15 +368,18 @@ public class PrisonPipePuzzleScript : MonoBehaviour
             PuzzleSuccess();
         }
     }
+
     public void OnClosePuzzleButtonClicked()
     {
-        ClosePuzzleScene();
+        // 한쪽에서 닫으면 둘 다 닫히도록 설정
+        photonView.RPC("ClosePuzzleScene", RpcTarget.All);
     }
 
-
+    [PunRPC]
     // 씬 닫기 함수
     void ClosePuzzleScene()
     {
+        PuzzleManager.instance.PuzzleSuccess();
         // 현재 씬 닫기
         SceneManager.UnloadSceneAsync("PrisonPipePuzzleScene");
         Debug.Log("씬이 닫혔습니다.");
