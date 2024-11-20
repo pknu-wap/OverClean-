@@ -350,6 +350,8 @@ public class RoomManager : MonoBehaviourPunCallbacks
         }
         // 매튜를 흑백처리
         matthewImage.sprite = matthewBWImage;
+        // 매튜가 레디한 채로 나가면 not ready 메세지로 갱신되지 않음. 따로 처리
+        matthewReadyText.text = "Not Ready";
     }
 
     // Back 버튼 클릭 시 호출되는 함수
