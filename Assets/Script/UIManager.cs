@@ -79,6 +79,8 @@ public class UIManager : MonoBehaviour
         }
         
     }
+
+    // Prison & House
     public void OpenTutorialPanel()
     {
         if(!tutorialPanelOpen)
@@ -99,7 +101,6 @@ public class UIManager : MonoBehaviour
         tutorialPanel.gameObject.SetActive(tutorialPanelOpen);
     }
 
-
     public void OpenEscPanel()
     {
         pause = true;
@@ -114,6 +115,12 @@ public class UIManager : MonoBehaviour
         pausePanel.gameObject.SetActive(false);
     }
 
+    public void LoadMapChooseScene()
+    {
+        SceneManager.LoadScene("MapChooseScene");
+    }
+
+    // Title
     public void OpenTitleExitPanel()
     {
         titleExitPanelOpen = true;
@@ -126,6 +133,17 @@ public class UIManager : MonoBehaviour
         titleExitPanel.gameObject.SetActive(false);
     }
 
+    public void OnExitButtonClicked()
+    {
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #else
+            Application.Quit();
+        #endif
+            Debug.Log("게임 종료");
+    }
+    
+    // Lobby
     public void OpenRoomCodeInputPanel()
     {
         roomCodeInputPanelOpen = true;
@@ -145,22 +163,5 @@ public class UIManager : MonoBehaviour
     {
         SceneManager.LoadScene("LobbyScene");
     } 
-    
-    // MapClearPanel -> ContinueButton
-    public void LoadMapChooseScene()
-    {
-        SceneManager.LoadScene("MapChooseScene");
-    }
-
-    // TitleScene -> ExitButton
-    public void OnExitButtonClicked()
-    {
-        #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-        #else
-            Application.Quit();
-        #endif
-            Debug.Log("게임 종료");
-    }
 
 }
