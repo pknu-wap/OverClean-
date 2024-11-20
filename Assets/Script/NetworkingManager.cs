@@ -196,6 +196,7 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
     // 플레이어 전환을 처리하는 함수
     public void SwitchPlayers()
     {
+        Debug.Log("스위칭 로직 시작");
         var localPlayer = PhotonNetwork.LocalPlayer;
         string localCharacter = localPlayer.CustomProperties["Character"].ToString();
 

@@ -6,7 +6,6 @@ using Photon.Pun;
 public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
-    public Button switchButton;
     public RectTransform tutorialPanel;
     public RectTransform pausePanel;
     public RectTransform titleExitPanel;
@@ -16,6 +15,20 @@ public class UIManager : MonoBehaviour
     public bool roomCodeInputPanelOpen = false;
     public bool pause = false;
 
+     private void Awake()
+    {
+        // 싱글톤 패턴 구현: UIManager가 중복되지 않도록 설정
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+            // 씬 전환 시에도 파괴되지 않도록 설정
+            DontDestroyOnLoad(gameObject);
+        }
+    }
     private void Start()
     {
         if(SceneManager.GetActiveScene().name == "PrisonScene" || SceneManager.GetActiveScene().name == "HouseScene")
@@ -25,19 +38,6 @@ public class UIManager : MonoBehaviour
         else 
         {
             return;
-        }
-        // NetworkingManager가 로드될 때까지 기다린 후, 버튼 이벤트 연결
-        if (PhotonNetwork.IsConnected)
-        {
-            if (NetworkingManager.Instance != null && switchButton != null)
-            {
-                switchButton.onClick.AddListener(NetworkingManager.Instance.SwitchPlayers);
-            }
-        }
-        else
-        {
-            // Photon 서버에 연결되어 있지 않을 때의 처리 로직
-            Debug.LogWarning("Photon 서버에 연결되어 있지 않음.");
         }
     }
 
