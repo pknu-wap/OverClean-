@@ -361,10 +361,7 @@ public class PrisonPipePuzzleScript : MonoBehaviourPun
                 Debug.Log("퍼즐 완성 확인!");
 
                 // 성공 이미지 표시
-                photonView.RPC("ShowImage", RpcTarget.All);
-
-                // 퍼즐 성공 상태 전파
-                photonView.RPC("PuzzleSolved", RpcTarget.All);
+                photonView.RPC("ShowImageTrigger", RpcTarget.All);
             }
         }
         yield return null;
@@ -378,6 +375,11 @@ public class PrisonPipePuzzleScript : MonoBehaviourPun
     }
 
     [PunRPC]
+    public void ShowImageTrigger()
+    {
+        StartCoroutine(ShowImage());
+    }
+
     public IEnumerator ShowImage()
     {
         Debug.Log("성공 이미지가 표시되었습니다.");
@@ -385,8 +387,11 @@ public class PrisonPipePuzzleScript : MonoBehaviourPun
         oImage.gameObject.SetActive(true);
         // 0.5초 대기(코루틴이 매개변수 시간만큼 일시정지됨)
         yield return new WaitForSeconds(0.5f);
+        
         // 이미지 숨김
         oImage.gameObject.SetActive(false);
+        // 퍼즐 성공 상태 전파
+        photonView.RPC("PuzzleSolved", RpcTarget.All);
     }
 
     public void Update()
