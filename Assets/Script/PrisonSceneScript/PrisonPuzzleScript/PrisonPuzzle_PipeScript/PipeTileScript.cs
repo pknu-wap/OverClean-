@@ -8,6 +8,7 @@ public class PipeTileScript : MonoBehaviour
     public int currentRotation;
     public int pipeShape;
     public int x, y;
+    public PhotonView photonView;
     public string inactivePipeTile;
     // 방향 정보 설정
     public enum Direction
@@ -32,6 +33,7 @@ public class PipeTileScript : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         // PrisonPipePuzzleScript 참조 설정
         pipePuzzleScript = FindObjectOfType<PrisonPipePuzzleScript>();
+        photonView = GetComponent<PhotonView>();
         UpdateConnectableDirections();
 
         // 파이프 타일에 마우스 클릭이 가능하도록 함
@@ -41,6 +43,7 @@ public class PipeTileScript : MonoBehaviour
         }
     }
 
+    [PunRPC]
     public void RotatePipe()
     {
         // 파이프 타일이 기존 회전 각도를 유지한 상태에서 90도 회전
@@ -48,9 +51,10 @@ public class PipeTileScript : MonoBehaviour
         // 0,1,2,3 으로 회전 정보 구분
         currentRotation = (currentRotation + 1) % 4;
         // 회전 시 마다 연결 정보 변경
-        UpdateConnectableDirections();
+        photonView.RPC("UpdateConnectableDirections", RpcTarget.All);
     }
 
+    [PunRPC]
     private void UpdateConnectableDirections()
     {
         // 파이프 모양에 따른 연결 설정
@@ -115,7 +119,7 @@ public class PipeTileScript : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
         if (hit.collider != null && hit.collider.gameObject == gameObject && PhotonNetwork.LocalPlayer.CustomProperties["Character"].ToString() == inactivePipeTile)
         {
-            RotatePipe();
+            photonView.RPC("RotatePipe", RpcTarget.All);
             StartCoroutine(pipePuzzleScript.puzzleSolveCheck());
             Debug.Log($"경로 연결 성공 여부 : {pipePuzzleScript.puzzleSolved}");
             Debug.Log($"x : {x}, y : {y}, pipeshape : {pipeShape} , currentRotation : {currentRotation}");

@@ -51,6 +51,8 @@ MonoBehaviour:
   - RequestPuzzleState
   - SetPuzzleReady
   - ClosePuzzleScene
+  - RotatePipe
+  - UpdateConnectableDirections
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
