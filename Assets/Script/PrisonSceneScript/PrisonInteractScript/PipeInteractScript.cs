@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
 
-public class PipeInteract : MonoBehaviour
+public class PipeInteract : MonoBehaviourPun
 {
     // 테두리 없는 상태
     public Material normalState;
@@ -28,9 +29,10 @@ public class PipeInteract : MonoBehaviour
 
     // 상호작용시 비활성화 되어있는 캔버스를 열기 위한 변수
     public RectTransform PuzzleUI;
+
     void Start()
     {
-        if(!hasInteracted)
+        if (!hasInteracted)
         {
             //물 생성
             ShowWater();
@@ -47,48 +49,57 @@ public class PipeInteract : MonoBehaviour
             // 테두리 생성
             ShowHighlight(); 
             // 스페이스바로 상호작용
-            if (Input.GetKeyDown(KeyCode.Space)) 
+            if (Input.GetKeyDown(KeyCode.Space))
             {
-                Interact(); 
+                // 모든 플레이어가 씬 로드 시작
+                photonView.RPC("LoadPipePuzzleScene", RpcTarget.AllBuffered);
             }
         }
-        else 
+        else
         {
             // 테두리 삭제
             HideHighlight();
         }
+
         // 퍼즐이 열려 있을 때 퍼즐을 해결하면 상호작용 성공
         if (isPuzzleOpen && PuzzleManager.instance.isPuzzleSuccess)
         {
-            // 오브젝트 상호작용됨
-            hasInteracted = true;
             // 퍼즐이 닫힘
             isPuzzleOpen = false;
-            // statemanager에게 상호작용되었다고 알림
-            stageManager.ObjectInteract(objectIndex);
             // 퍼즐매니저의 퍼즐 성공여부를 초기화
             PuzzleManager.instance.isPuzzleSuccess = false;
-            // 퍼즐이 성공했으므로 플레이어 이동 가능하게 설정
-            stageManager.SetPlayerMovement(true);
-            // 상호작용 성공 시 물 숨기기
-            Destroy(floodWaterInstance);
+            // 상호작용을 동기화 
+            photonView.RPC("PipeClearRPC", RpcTarget.All);
         }
     }
 
-    // 상호작용 함수
-    void Interact()
+    [PunRPC]
+    void LoadPipePuzzleScene()
     {
-        // 퍼즐이 열려 있지 않을 때만 Interact가 실행되었을 때 퍼즐씬이 불러와지도록 조건 추가
-        if (!isPuzzleOpen)
+        PuzzleUI.gameObject.SetActive(true);
+        // Additive로 씬 로드
+        SceneManager.LoadSceneAsync("PrisonPipePuzzleScene", LoadSceneMode.Additive);
+        isPuzzleOpen = true;
+    }
+
+    [PunRPC]
+    void PipeClearRPC()
+    {
+        /*if(SceneManager.GetSceneByName("PrisonPipePuzzleScene").isLoaded)
         {
-            PuzzleUI.gameObject.SetActive(true);
-            // 씬매니저로 퍼즐씬 불러오기
-            SceneManager.LoadScene("PrisonPipePuzzleScene", LoadSceneMode.Additive);
-            // 퍼즐 오픈 변수 true
-            isPuzzleOpen = true;
-            // 상호작용해서 퍼즐이 열리면 플레이어 1,2 둘 다 이동 제한
-            stageManager.SetPlayerMovement(false);
-        }
+            // 파이프 퍼즐 씬 닫기
+            SceneManager.UnloadSceneAsync("PrisonPipePuzzleScene");
+        }*/
+        // 오브젝트 상호작용됨
+        hasInteracted = true;
+        // statemanager에게 상호작용되었다고 알림
+        stageManager.ObjectInteract(objectIndex);
+        // 퍼즐매니저의 퍼즐 성공여부를 초기화
+        PuzzleManager.instance.isPuzzleSuccess = false;
+        // 퍼즐이 성공했으므로 플레이어 이동 가능하게 설정
+        stageManager.SetPlayerMovement(true);
+        // 상호작용 성공 시 물 숨기기
+        Destroy(floodWaterInstance);
     }
 
     // 테두리 생성 및 표시
@@ -109,7 +120,7 @@ public class PipeInteract : MonoBehaviour
     void ShowWater()
     {
         // 물이 없다면
-        if(floodWaterInstance == null)
+        if (floodWaterInstance == null)
         {
             // 물 프리팹 이미지 생성
             floodWaterInstance = Instantiate(floodWaterPrefab, new Vector3(-1.25f, -3.19f, -0.57f), Quaternion.identity);
