@@ -24,10 +24,13 @@ public class PipeTileScript : MonoBehaviour
     // 스프라이트 렌더러
     private SpriteRenderer spriteRenderer;
     public Camera puzzleCamera;
+    public PrisonPipePuzzleScript pipePuzzleScript;
 
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        // PrisonPipePuzzleScript 참조 설정
+        pipePuzzleScript = FindObjectOfType<PrisonPipePuzzleScript>();
         UpdateConnectableDirections();
 
         // 파이프 타일에 마우스 클릭이 가능하도록 함
@@ -112,6 +115,8 @@ public class PipeTileScript : MonoBehaviour
         if (hit.collider != null && hit.collider.gameObject == gameObject)
         {
             RotatePipe();
+            StartCoroutine(pipePuzzleScript.puzzleSolveCheck());
+            Debug.Log($"경로 연결 성공 여부 : {pipePuzzleScript.puzzleSolved}");
             Debug.Log($"x : {x}, y : {y}, pipeshape : {pipeShape} , currentRotation : {currentRotation}");
             Debug.Log($"connectableDirections : {connectableDirections[Direction.Top]}, {connectableDirections[Direction.Right]}, {connectableDirections[Direction.Bottom]}, {connectableDirections[Direction.Left]}");
         }
