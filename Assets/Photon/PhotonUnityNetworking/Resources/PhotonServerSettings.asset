@@ -57,6 +57,11 @@ MonoBehaviour:
   - SetMasterPuzzleReady
   - RotatePipe
   - UpdateConnectableDirections
+  - PuzzleSolveCheck
+  - PuzzleSolved
+  - ShowImage
+  - TriggerPuzzleSolveCheck
+  - ShowImageTrigger
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
