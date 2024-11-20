@@ -96,6 +96,11 @@ public class RoomManager : MonoBehaviourPunCallbacks
     private void CheckAllPlayersReady()
     {
         bool allReady = true;
+        // 현재 룸의 플레이어 카운트가 MaxPlayers(2)가 아니라면 return
+        if(PhotonNetwork.CurrentRoom.PlayerCount != PhotonNetwork.CurrentRoom.MaxPlayers)
+        {
+            return;
+        }
 
         foreach (Photon.Realtime.Player player in PhotonNetwork.PlayerList)
         {
