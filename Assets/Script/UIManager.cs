@@ -10,8 +10,10 @@ public class UIManager : MonoBehaviour
     public RectTransform tutorialPanel;
     public RectTransform pausePanel;
     public RectTransform titleExitPanel;
+    public RectTransform roomCodeInputPanel;
     public bool tutorialPanelOpen = true;
     public bool titleExitPanelOpen = false;
+    public bool roomCodeInputPanelOpen = false;
     public bool pause = false;
 
     private void Start()
@@ -65,6 +67,18 @@ public class UIManager : MonoBehaviour
             {
                 CloseTitleExitPanel();
             }
+        }
+        else if(SceneManager.GetActiveScene().name == "LobbyScene")
+        {
+            if(!roomCodeInputPanelOpen && Input.GetKeyDown(KeyCode.Escape))
+            {
+                SceneManager.LoadScene("TitleScene");
+            }
+            else if(roomCodeInputPanelOpen && Input.GetKeyDown(KeyCode.Escape))
+            {
+                CloseRoomCodeInputPanel();
+            }
+            
         }
         
     }
