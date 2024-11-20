@@ -18,7 +18,7 @@ public class PlayerManager : MonoBehaviour
 
     // 현재 씬에서 달리기 기능을 활성화할지 여부를 제어하는 변수
     private bool allowRun = true;
-    private PhotonView photonView;
+     private PhotonView photonView;
 
     void Start()
     {
