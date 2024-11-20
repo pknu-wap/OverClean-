@@ -523,6 +523,7 @@ GameObject:
   m_Component:
   - component: {fileID: 548593209}
   - component: {fileID: 548593210}
+  - component: {fileID: 548593211}
   m_Layer: 0
   m_Name: PipeGameManager
   m_TagString: Untagged
@@ -565,6 +566,28 @@ MonoBehaviour:
   puzzleSolved: 0
   oImage: {fileID: 391158329}
   xImage: {fileID: 1918507791}
+--- !u!114 &548593211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 548593207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 500
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &576152281
 GameObject:
   m_ObjectHideFlags: 0
@@ -838,6 +861,7 @@ GameObject:
   - component: {fileID: 1507231582}
   - component: {fileID: 1507231583}
   - component: {fileID: 1507231584}
+  - component: {fileID: 1507231585}
   m_Layer: 6
   m_Name: PipeGrid
   m_TagString: Untagged
@@ -905,6 +929,28 @@ MonoBehaviour:
   x: 0
   y: 0
   puzzleCamera: {fileID: 0}
+--- !u!114 &1507231585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1507231581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 501
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1918507789
 GameObject:
   m_ObjectHideFlags: 0

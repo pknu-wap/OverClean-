@@ -100,7 +100,7 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
         // 랜덤 코드 생성하고 중복 확인하기
         do
         {
-            roomCode = UnityEngine.Random.Range(1000000, 9999999).ToString();
+            roomCode = Random.Range(1000000, 9999999).ToString();
         } while (existingRoomCodes.Contains(roomCode));
 
         // 생성된 코드는 여기 저장
@@ -143,7 +143,7 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
     }
 
     // 방 입장 시 캐릭터 할당
-    private void AssignCharacterToPlayer(Photon.Realtime.Player player)
+    private void AssignCharacterToPlayer(Player player)
     {
         string assignedCharacter;
         if (PhotonNetwork.PlayerList.Length == 1)
@@ -207,7 +207,7 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
     }
 
     // 플레이어가 방에서 나갈 때 호출
-    public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
+    public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         Debug.Log(otherPlayer.NickName + "이(가) 방을 나갔습니다.");
         // 추가 로직이 필요한 경우 여기에 구현
@@ -258,10 +258,4 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
             roomManager.UpdateCharacterImages();
         }
     }
-
-    
-
-
-
-
 }

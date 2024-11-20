@@ -62,7 +62,7 @@ EditorBuildSettings:
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
     path: Assets/Scenes/PrisonScene.unity
-    guid: cf54137fe7390d142a3ac040c59fd2f7
+    guid: f3df592c0dd6f0d43846c849d4102e03
   - enabled: 1
     path: Assets/Scenes/PuzzleScene/PrisonPuzzleScene/PrisonLeafPuzzleScene.unity
     guid: 59a6782481914fe47a3d8f841b627a65
