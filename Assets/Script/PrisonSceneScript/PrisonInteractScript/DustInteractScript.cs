@@ -15,14 +15,14 @@ public class DustInteract : MonoBehaviour
     // stagemanager를 참조해서 상호작용 여부를 제어하기 위한 변수
     public StageManager stageManager;
     // 여러 플레이어 위치를 저장할 리스트
-    public List<Transform> playerLocations = new List<Transform>(); 
+    public List<Transform> playerLocations = new List<Transform>();
     // 상호작용 거리
     public float interactionDistance = 1.3f;
     // 먼지를 참조해서 material을 조정하기 위한 spriterenderer 변수
     public SpriteRenderer sr;
     // 퍼즐이 열려있는지 확인하기 위한 변수
     private bool isPuzzleOpen = false;
-    
+
     // 상호작용시 비활성화 되어있는 캔버스를 열기 위한 변수
     public RectTransform PuzzleUI;
 
@@ -63,7 +63,7 @@ public class DustInteract : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
                     // 특정 플레이어와 상호작용
-                    Interact(playerLocation); 
+                    Interact(playerLocation);
                     break;
                 }
             }
@@ -78,22 +78,35 @@ public class DustInteract : MonoBehaviour
             HideHighlight();
         }
         // 퍼즐이 열려 있을 때 퍼즐을 해결하면 상호작용 성공
-        if (isPuzzleOpen && PuzzleManager.instance.isPuzzleSuccess)
+        if (isPuzzleOpen)
         {
-            // 퍼즐이 닫힘
-            isPuzzleOpen = false;
-            // 퍼즐매니저의 퍼즐 성공여부를 초기화
-            PuzzleManager.instance.isPuzzleSuccess = false;
-            foreach (var playerLocation in playerLocations)
+            if (PuzzleManager.instance.isPuzzleSuccess)
             {
-                playerLocation.GetComponent<PlayerManager>().canMove = true;
-            }
+                // 퍼즐이 닫힘
+                isPuzzleOpen = false;
+                // 퍼즐매니저의 퍼즐 성공여부를 초기화
+                PuzzleManager.instance.isPuzzleSuccess = false;
+                foreach (var playerLocation in playerLocations)
+                {
+                    playerLocation.GetComponent<PlayerManager>().canMove = true;
+                }
 
-            // 모든 클라이언트에서 DustInteractRPC을 시작
-            PhotonView photonView = GetComponent<PhotonView>();
-            // RPC 함수 호출
-            photonView.RPC("DustInteractRPC", RpcTarget.All);
-            
+                // 모든 클라이언트에서 DustInteractRPC을 시작
+                PhotonView photonView = GetComponent<PhotonView>();
+                // RPC 함수 호출
+                photonView.RPC("DustInteractRPC", RpcTarget.All);
+            }
+            else if (PuzzleManager.instance.clickPuzzleCloseButton)
+            {
+                isPuzzleOpen = false;
+
+                PuzzleManager.instance.clickPuzzleCloseButton = false;
+
+                foreach (var playerLocation in playerLocations)
+                {
+                    playerLocation.GetComponent<PlayerManager>().canMove = true;
+                }
+            }
         }
     }
 
@@ -114,7 +127,7 @@ public class DustInteract : MonoBehaviour
     }
 
     [PunRPC]
-    void DustInteractRPC() 
+    void DustInteractRPC()
     {
         // 어차피 오브젝트가 파괴되므로 hasInteracted 불필요
         // hasInteracted = true;
@@ -123,7 +136,7 @@ public class DustInteract : MonoBehaviour
         // 상호작용 성공 시 먼지 맵에서 삭제
         Destroy(gameObject);
     }
-    
+
     // 테두리 생성 및 표시
     void ShowHighlight()
     {

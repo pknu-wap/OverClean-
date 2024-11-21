@@ -1645,6 +1645,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPuzzleSuccess: 0
+  clickPuzzleCloseButton: 0
 --- !u!4 &484074271
 Transform:
   m_ObjectHideFlags: 0
@@ -4444,6 +4445,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPuzzleSuccess: 0
+  clickPuzzleCloseButton: 0
 --- !u!114 &1330489277
 MonoBehaviour:
   m_ObjectHideFlags: 0
