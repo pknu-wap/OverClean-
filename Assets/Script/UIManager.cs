@@ -5,7 +5,6 @@ using Photon.Pun;
 
 public class UIManager : MonoBehaviour
 {
-    public static UIManager instance;
     public RectTransform tutorialPanel;
     public RectTransform pausePanel;
     public RectTransform titleExitPanel;
@@ -15,29 +14,13 @@ public class UIManager : MonoBehaviour
     public bool roomCodeInputPanelOpen = false;
     public bool pause = false;
 
-     private void Awake()
-    {
-        // 싱글톤 패턴 구현: UIManager가 중복되지 않도록 설정
-        if (instance != null && instance != this)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            instance = this;
-            // 씬 전환 시에도 파괴되지 않도록 설정
-            DontDestroyOnLoad(gameObject);
-        }
-    }
+    // 기존에 있던 싱글톤 패턴을 해제하고 씬마다의 UiManager에게 공통 스크립트를 부여, 해당 씬에 있는 버튼만 사용하게 합니다
+    // 앞으로 추가되는 버튼들도 이곳에 추가 / 할당한 후 사용하되, 절대 그 씬에 존재하지 않는 버튼을 사용하는 로직을 추가하지 마세요! 바로 오류납니다
     private void Start()
     {
         if(SceneManager.GetActiveScene().name == "PrisonScene" || SceneManager.GetActiveScene().name == "HouseScene")
         {
             tutorialPanel.gameObject.SetActive(tutorialPanelOpen);
-        }
-        else 
-        {
-            return;
         }
     }
 
