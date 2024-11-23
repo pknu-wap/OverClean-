@@ -14,7 +14,7 @@ OverClean은 **<OverCooked!>** 의 컨셉, 플레이 방식에 많은 영향을 
 ### 태그
 `협동` `2인 협동` `멀티 플레이어` `퍼즐` `캐주얼` `픽셀아트`
 
-<br><br/>
+<br><br>
 
 ## 🛒협업 툴
 <div> 
@@ -23,10 +23,9 @@ OverClean은 **<OverCooked!>** 의 컨셉, 플레이 방식에 많은 영향을 
   <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
   <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">
   <img src="https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white">
-  <br>
 </div>
 
-<br/><br/>
+<br><br>
 ## 🎵 Contributors
 
 <table>
@@ -64,12 +63,12 @@ OverClean은 **<OverCooked!>** 의 컨셉, 플레이 방식에 많은 영향을 
   </tr>
 </table>
         
-<br/><br/>
+<br><br>
         
 ## ⚽ 그라운드 룰
 <img width="476" alt="image" src="https://github.com/user-attachments/assets/8ba55c14-f195-44ee-9032-ee15afad6727">
 
-<br/><br/>
+<br><br>
 
 ## 📅 개발 일정
 <img width="1109" alt="image" src="https://github.com/user-attachments/assets/0c2a870e-a483-4383-aa34-b171f8a28662">
