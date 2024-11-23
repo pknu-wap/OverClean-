@@ -35,6 +35,7 @@ OverClean은 **<OverCooked!>** 의 컨셉, 플레이 방식에 많은 영향을 
     <td align="center"><b>개발</b></td>
     <td align="center"><b>개발</b></td>
     <td align="center"><b>디자인</b></td>
+    <td align="center"><b>매니저</b></td>
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/dohyeondol1"><img src="https://avatars.githubusercontent.com/u/102894803?v=4" width="100px;" alt=""/>
@@ -42,6 +43,7 @@ OverClean은 **<OverCooked!>** 의 컨셉, 플레이 방식에 많은 영향을 
     <td align="center"><a href="https://github.com/hyeokbini"><img src="https://avatars.githubusercontent.com/u/137269496?v=4" width="100px;" alt=""/>
     <td align="center"><a href="https://github.com/acastracity"><img src="https://avatars.githubusercontent.com/u/122096432?v=4" width="100px;" alt=""/>
     <td align="center"><a href="https://www.instagram.com/ye_l05?igsh=MW0zcjgzaWlvbTFtNg%3D%3D&utm_source=qr"><img src="https://avatars.githubusercontent.com/u/165008035?v=4" width="100px;" alt=""/>
+    <td align="center"><a href="https://github.com/gjsk132"><img src="https://avatars.githubusercontent.com/u/113815454?v=4" width="100px;" alt=""/>
   </tr>
     <tr>
     <td align="center"><a href="https://github.com/dohyeondol1" title="Code">도현석</a></td>
@@ -49,6 +51,7 @@ OverClean은 **<OverCooked!>** 의 컨셉, 플레이 방식에 많은 영향을 
     <td align="center"><a href="https://github.com/hyeokbini" title="Code">고혁빈</a></td>
     <td align="center"><a href="https://github.com/acastracity" title="Code">박준우</a></td>
     <td align="center"><a href="https://www.instagram.com/ye_l05?igsh=MW0zcjgzaWlvbTFtNg%3D%3D&utm_source=qr" title="Code">이예은</a></td>
+    <td align="center"><a href="https://github.com/gjsk132" title="Code">허나영</a></td>
   </tr>
   <tr>
     <td align="center"><b>네트워크 기능 구현</b></td>
@@ -56,18 +59,7 @@ OverClean은 **<OverCooked!>** 의 컨셉, 플레이 방식에 많은 영향을 
     <td align="center"><b>맵 & 오브젝트 구현</b></td>
     <td align="center"><b>퍼즐 구현</b></td>
     <td align="center"><b>디자인</b></td>
-  </tr>
-</table>
-<br/><br/>
-
-⭐ Special Thanks
----
-<table>
-  <tr>
-    <td align="center"><a href="https://github.com/gjsk132"><img src="https://avatars.githubusercontent.com/u/113815454?v=4" width="100px;" alt=""/>
-  </tr>
-    <tr>
-    <td align="center"><a href="https://github.com/gjsk132" title="Code">허나영</a></td>
+    <td align="center"><b>기획 및 디자인</b></td>
   </tr>
 </table>
         
