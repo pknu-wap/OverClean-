@@ -21,7 +21,7 @@ public class LobbyManager : MonoBehaviour
     }
 
     // QuickMatch 버튼 클릭 시 호출
-    private void OnQuickMatch()
+    public void OnQuickMatch()
     {
         // 랜덤 매칭
         if (PhotonNetwork.IsConnectedAndReady)
@@ -36,7 +36,7 @@ public class LobbyManager : MonoBehaviour
     }
 
     // 방 생성 버튼 클릭 시 호출
-    private void OnMakeRoom()
+    public void OnMakeRoom()
     {
         // NetworkingManager를 통해 방 생성 요청하기
         NetworkingManager.Instance.CreateRoom();
