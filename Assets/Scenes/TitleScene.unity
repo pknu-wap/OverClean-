@@ -1069,7 +1069,7 @@ GameObject:
   - component: {fileID: 1523826333}
   - component: {fileID: 1523826332}
   m_Layer: 0
-  m_Name: UIManager
+  m_Name: TitleUIManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1087,7 +1087,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f76658be6961f941815513e93e7639f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  switchButton: {fileID: 0}
   tutorialPanel: {fileID: 0}
   pausePanel: {fileID: 0}
   titleExitPanel: {fileID: 1928240746}
@@ -1410,6 +1409,6 @@ SceneRoots:
   m_Roots:
   - {fileID: 1706471177}
   - {fileID: 20954841}
+  - {fileID: 1523826333}
   - {fileID: 1207521632}
   - {fileID: 1602602502}
-  - {fileID: 1523826333}
