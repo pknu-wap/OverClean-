@@ -18,17 +18,8 @@ OverClean은 **<OverCooked!>** 의 컨셉, 플레이 방식에 많은 영향을 
 
 ## 🛒협업 툴
 <div> 
-  <img src="https://img.shields.io/badge/unity-ffffff?style=for-the-badge&logo=unity&logoColor=black"> 
-  <br>
-  
-  <img src="https://img.shields.io/badge/C_Sharp-512bd4?style=for-the-badge&logo=csharp&logoColor=white">
-  <img src="https://img.shields.io/badge/Visual_Studio_Code-0?&style=for-the-badge&logo=visualstudiocode&logoColor=white&color=007ACC"/>
-  <br>
-  
   <img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white">
   <img src="https://img.shields.io/badge/discord-5865f2?style=for-the-badge&logo=discord&logoColor=white">
-  <br>
-  
   <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
   <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">
   <br>
