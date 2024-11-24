@@ -2,9 +2,13 @@ using UnityEngine;
 using UnityEngine.UI;  
 using UnityEngine.SceneManagement;
 using Photon.Pun;
+using Unity.VisualScripting;
+using UnityEditor.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
+    // 스테이지 매니저 참조
+    public StageManager stageManager;
     public RectTransform tutorialPanel;
     
     // 버튼이 있는 일시정지 창 -> 로비로 돌아가기, 게임으로 돌아가기
@@ -21,12 +25,13 @@ public class UIManager : MonoBehaviour
     private PhotonView photonView;
 
     // 일시정지를 시작한 플레이어 ID 초기화 한거 같던데
-    private int pausedByPlayerId = -1;   
+    public int pausedByPlayerId = -1;   
 
     // 기존에 있던 싱글톤 패턴을 해제하고 씬마다의 UiManager에게 공통 스크립트를 부여, 해당 씬에 있는 버튼만 사용하게 합니다
     // 앞으로 추가되는 버튼들도 이곳에 추가 / 할당한 후 사용하되, 절대 그 씬에 존재하지 않는 버튼을 사용하는 로직을 추가하지 마세요! 바로 오류납니다
     private void Start()
     {
+        stageManager = FindObjectOfType<StageManager>();
         photonView = GetComponent<PhotonView>();
         if(SceneManager.GetActiveScene().name == "PrisonScene" || SceneManager.GetActiveScene().name == "HouseScene")
         {
@@ -96,58 +101,52 @@ public class UIManager : MonoBehaviour
         tutorialPanel.gameObject.SetActive(tutorialPanelOpen);
     }
 
+    public void ClosePausePanel()
+    {
+        // 모든 클라이언트에 상태 동기화
+        photonView.RPC("UpdatePauseState", RpcTarget.All, pausedByPlayerId, false);
+    }
+
     [PunRPC]
     void UpdatePauseState(int actorNumber, bool pauseState)
     {
-        // 얘가 지금 하고 있는건가? 
+        // 일시정지 상태 동기화
         isPaused = pauseState;
-        // 
         if (pauseState)
         {
             // 모든 플레이어에서 시간 멈춤
-            Time.timeScale = 0;
+            stageManager.isPaused = true;
+            // 모든 플레이어 이동 제한
+            stageManager.SetPlayerMovement(false);
             // pausedByPlayerId 모든 클라이언트에서 재설정
             pausedByPlayerId = actorNumber;
             // 일시정지가 활성화된 경우
-            if(PhotonNetwork.LocalPlayer.ActorNumber == actorNumber)
+            if (PhotonNetwork.LocalPlayer.ActorNumber == actorNumber)
             {
                 // 자신이 일시정지를 시작한 경우
                 pausePanel.gameObject.SetActive(true);
                 pauseTextPanel.gameObject.SetActive(false);
             }
-            if(PhotonNetwork.LocalPlayer.ActorNumber != actorNumber)
+            else
             {
                 // 다른 플레이어가 일시정지를 시작한 경우
                 pausePanel.gameObject.SetActive(false);
                 pauseTextPanel.gameObject.SetActive(true);
             }
         }
-        else
+        else if(!pauseState)
         {
-            Time.timeScale = 1;
-            if (PhotonNetwork.LocalPlayer.ActorNumber == actorNumber)
-            {
-                // 자신이 일시정지를 시작한 경우
-                pausePanel.gameObject.SetActive(false);
-                pauseTextPanel.gameObject.SetActive(false);
-            }
-            if(PhotonNetwork.LocalPlayer.ActorNumber != actorNumber)
-            {
-                // 다른 플레이어가 일시정지를 시작한 경우
-                pausePanel.gameObject.SetActive(false);
-                pauseTextPanel.gameObject.SetActive(false);
-            }
+            // 일시정지 해제
+            stageManager.isPaused = false;
+            // 이동 활성화
+            stageManager.SetPlayerMovement(true);
+            // pausedByPlayerId 모든 클라이언트에서 재설정
+            pausedByPlayerId = -1;
+            // 다른 플레이어가 일시정지를 시작한 경우
+            pausePanel.gameObject.SetActive(false);
+            pauseTextPanel.gameObject.SetActive(false);
         }
         
-    }
-
-public void ClosePausePanel()
-    {
-        if(isPaused && pausedByPlayerId == PhotonNetwork.LocalPlayer.ActorNumber)
-        {
-            // 모든 클라이언트에 상태 동기화
-            photonView.RPC("UpdatePauseState", RpcTarget.All, pausedByPlayerId, false);
-        }
     }
 
     public void LoadMapChooseScene()

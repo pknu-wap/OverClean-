@@ -222,6 +222,7 @@ MonoBehaviour:
   isTimeOver: 0
   timerText: {fileID: 287990715}
   timeSlider: {fileID: 1598678161}
+  isPaused: 0
 --- !u!4 &33556874
 Transform:
   m_ObjectHideFlags: 0
@@ -644,6 +645,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f76658be6961f941815513e93e7639f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageManager: {fileID: 33556873}
   tutorialPanel: {fileID: 2146890597}
   pausePanel: {fileID: 1041156428}
   pauseTextPanel: {fileID: 664677910}
@@ -653,6 +655,7 @@ MonoBehaviour:
   titleExitPanelOpen: 0
   roomCodeInputPanelOpen: 0
   isPaused: 0
+  pausedByPlayerId: -1
 --- !u!114 &148467860
 MonoBehaviour:
   m_ObjectHideFlags: 0

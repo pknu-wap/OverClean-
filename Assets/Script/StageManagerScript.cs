@@ -32,6 +32,7 @@ public class StageManager : MonoBehaviour
     public bool isTimeOver = false;
     public TMP_Text timerText;
     public Slider timeSlider;
+    public bool isPaused;
     void Awake()
     {
         // 플레이어 생성 및 할당
@@ -69,7 +70,7 @@ public class StageManager : MonoBehaviour
     void Update()
     {
         // 타임오버 및 스테이지 클리어 체크
-        if (!isTimeOver && !goalZone.stageClear)
+        if (!isTimeOver && !goalZone.stageClear && !isPaused)
         {
             remainTime -= Time.deltaTime;
             elapsedTime += Time.deltaTime;
