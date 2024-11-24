@@ -7,16 +7,10 @@ public class PuzzleManager : MonoBehaviour
 {
     // 싱글톤 인스턴스
     public static PuzzleManager instance;
-    // 플레이어를 참조해서 위치를 받아오기 위한 변수
-    public Transform player1Location;
-
-    // 플레이어를 참조해서 위치를 받아오기 위한 변수
-    public Transform player2Location;
     // 맵 씬과 퍼즐 씬의 퍼즐 성공 여부를 연결하기 위한 변수
     public bool isPuzzleSuccess = false;
-
-    // 퍼즐이 열려있는지 확인하기 위한 변수
-    public bool isPuzzleOpen = false;
+    // 뒤로가기 버튼 상태 전달 변수
+    public bool clickPuzzleCloseButton = false;
 
     private void Awake()
     {
@@ -32,16 +26,15 @@ public class PuzzleManager : MonoBehaviour
         }
     }
 
-    public void ClosePuzzleScene()
-    {
-        player1Location.GetComponent<PlayerManager>().canMove = true;
-        player2Location.GetComponent<PlayerManager>().canMove = true;
-        isPuzzleOpen = false;
-    }
-
     // 퍼즐 성공 시 호출되는 함수
     public void PuzzleSuccess()
     {
         isPuzzleSuccess = true;
+    }
+
+    // 퍼즐 씬 뒤로가기 버튼 눌렀을 때 호출되는 함수
+    public void ClickPuzzleCloseButton()
+    {
+        clickPuzzleCloseButton = true;
     }
 }

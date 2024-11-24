@@ -40,6 +40,28 @@ MonoBehaviour:
   - Fire
   - RespawnSpaceship
   - IsMovingStart
+  - DoorInteractRPC
+  - DustInteractRPC
+  - LeafInteractRPC
+  - InteractRPC
+  - PipeClearRPC
+  - ApplyPuzzleState
+  - LoadPipePuzzleScene
+  - SyncPuzzleState
+  - RequestPuzzleState
+  - SetPuzzleReady
+  - ClosePuzzleScene
+  - PuzzleSuccess
+  - PipeCloseRPC
+  - SetElsePuzzleReady
+  - SetMasterPuzzleReady
+  - RotatePipe
+  - UpdateConnectableDirections
+  - PuzzleSolveCheck
+  - PuzzleSolved
+  - ShowImage
+  - TriggerPuzzleSolveCheck
+  - ShowImageTrigger
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

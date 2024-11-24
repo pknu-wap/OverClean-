@@ -89,7 +89,6 @@ public class PrisonDoorPuzzleScript : MonoBehaviour
     // 퍼즐 성공 시 호출되는 함수
     public void PuzzleSuccess()
     {
-        Debug.Log("씬이 종료됩니다.");
         // 퍼즐 매니저의 puzzlesuccess 호출
         PuzzleManager.instance.PuzzleSuccess();
         // 더이상 씬을 열 필요가 없으니 씬 닫기. 중간에 UI 삽입을 위한 시간을 추가해도 될듯?
@@ -98,7 +97,7 @@ public class PrisonDoorPuzzleScript : MonoBehaviour
 
     public void OnClosePuzzleButtonClicked()
     {
-        PuzzleManager.instance.ClosePuzzleScene();
+        PuzzleManager.instance.ClickPuzzleCloseButton();
         ClosePuzzleScene();
     }
 

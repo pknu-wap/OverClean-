@@ -43,6 +43,9 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public bool daveReady = false;
     public bool matthewReady = false;
 
+    // 스위칭 버튼
+    public Button switchButton;
+
     // 게임 시작 코루틴
     private Coroutine startGameCoroutine;
     // 카운트다운 텍스트 변수
@@ -53,6 +56,8 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public RectTransform CountDownPanel;
     private void Start()
     {
+        // 스위칭 버튼 로직 할당
+        switchButton.onClick.AddListener(NetworkingManager.Instance.SwitchPlayers);
         if (PhotonNetwork.InRoom)
         {
             // 방에 입장 시 방 코드 표시
@@ -96,6 +101,11 @@ public class RoomManager : MonoBehaviourPunCallbacks
     private void CheckAllPlayersReady()
     {
         bool allReady = true;
+        // 현재 룸의 플레이어 카운트가 MaxPlayers(2)가 아니라면 return
+        if(PhotonNetwork.CurrentRoom.PlayerCount != PhotonNetwork.CurrentRoom.MaxPlayers)
+        {
+            return;
+        }
 
         foreach (Photon.Realtime.Player player in PhotonNetwork.PlayerList)
         {
@@ -335,8 +345,18 @@ public class RoomManager : MonoBehaviourPunCallbacks
                 daveReadyText.text = (bool)PhotonNetwork.LocalPlayer.CustomProperties["Ready"] ? "Ready!" : "";
             }
         }
+        // 전부 레디 - 시작 후 5초 대기 중일 때 누군가 방을 나간다면
+        if (startGameCoroutine != null)
+        {
+            // 게임시작 코루틴 중지
+            CountDownPanel.gameObject.SetActive(false);
+            StopCoroutine(startGameCoroutine);
+            startGameCoroutine = null;
+        }
         // 매튜를 흑백처리
         matthewImage.sprite = matthewBWImage;
+        // 매튜가 레디한 채로 나가면 not ready 메세지로 갱신되지 않음. 따로 처리
+        matthewReadyText.text = "Not Ready";
     }
 
     // Back 버튼 클릭 시 호출되는 함수

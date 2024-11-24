@@ -1988,6 +1988,7 @@ MonoBehaviour:
   matthewReadyButton: {fileID: 1528054315}
   daveReady: 0
   matthewReady: 0
+  switchButton: {fileID: 1488611163}
   countdownText: {fileID: 1737307902}
   CountDownPanel: {fileID: 324089183}
 --- !u!4 &1710354787
@@ -2597,7 +2598,7 @@ GameObject:
   - component: {fileID: 2031633106}
   - component: {fileID: 2031633105}
   m_Layer: 0
-  m_Name: UIManager
+  m_Name: RoomUIManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2615,7 +2616,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f76658be6961f941815513e93e7639f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  switchButton: {fileID: 1488611163}
+  tutorialPanel: {fileID: 0}
+  pausePanel: {fileID: 0}
+  titleExitPanel: {fileID: 0}
+  roomCodeInputPanel: {fileID: 0}
+  tutorialPanelOpen: 1
+  titleExitPanelOpen: 0
+  roomCodeInputPanelOpen: 0
+  pause: 0
 --- !u!4 &2031633106
 Transform:
   m_ObjectHideFlags: 0
