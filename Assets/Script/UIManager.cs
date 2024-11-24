@@ -197,5 +197,15 @@ public class UIManager : MonoBehaviour
     {
         PhotonNetwork.LoadLevel("LobbyScene"); 
     } 
+    
+    [PunRPC]
+    public void ExitAndGotoLobbySceneButtonClick()
+    {
+        photonView.RPC("ExitAndGotoLobbyScene", RpcTarget.All);
+    }
 
+    public void ExitAndGotoLobbyScene()
+    {
+        PhotonNetwork.LoadLevel("LobbyScene"); 
+    }
 }

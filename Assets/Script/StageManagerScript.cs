@@ -35,6 +35,7 @@ public class StageManager : MonoBehaviour
     public bool isPaused;
     void Awake()
     {
+        goalZone = FindAnyObjectByType<GoalZone>();
         // 플레이어 생성 및 할당
         if (PhotonNetwork.IsConnected)
         {

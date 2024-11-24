@@ -13,6 +13,10 @@ public class LobbyManager : MonoBehaviour
 
     private void Start()
     {
+        if (PhotonNetwork.InRoom)
+        {
+            NetworkingManager.Instance.LeaveRoom();
+        }
         // 버튼 클릭 이벤트 설정
         QuickMatchButton.onClick.AddListener(OnQuickMatch);
         MakeRoomButton.onClick.AddListener(OnMakeRoom);
