@@ -82,8 +82,7 @@ public class GoalZone : MonoBehaviour
             clearTimeText.text = string.Format("{0}:{1:00}:{2:00}", minutes, seconds, milliseconds);
         }
 
-         // 게임 시간 정지
-        Time.timeScale = 0f;
+        stageManager.isPaused = true;
 
          // 플레이어 이동 제한
         if (stageManager != null)
