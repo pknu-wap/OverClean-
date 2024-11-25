@@ -646,14 +646,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stageManager: {fileID: 33556873}
-  tutorialPanel: {fileID: 2146890597}
-  pausePanel: {fileID: 1041156428}
-  pauseTextPanel: {fileID: 664677910}
-  titleExitPanel: {fileID: 0}
-  roomCodeInputPanel: {fileID: 0}
+  tutorialPanel: {fileID: 2146890594}
+  pausePanel: {fileID: 1041156427}
+  pauseTextPanel: {fileID: 664677909}
   tutorialPanelOpen: 1
-  titleExitPanelOpen: 0
-  roomCodeInputPanelOpen: 0
   isPaused: 0
   pausedByPlayerId: -1
 --- !u!114 &148467860

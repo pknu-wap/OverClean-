@@ -389,8 +389,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1523826332}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+      - m_Target: {fileID: 1523826334}
+        m_TargetAssemblyTypeName: TitleUIManager, Assembly-CSharp
         m_MethodName: CloseTitleExitPanel
         m_Mode: 1
         m_Arguments:
@@ -521,8 +521,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1523826332}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+      - m_Target: {fileID: 1523826334}
+        m_TargetAssemblyTypeName: TitleUIManager, Assembly-CSharp
         m_MethodName: LoadLobbyScene
         m_Mode: 1
         m_Arguments:
@@ -1017,8 +1017,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1523826332}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+      - m_Target: {fileID: 1523826334}
+        m_TargetAssemblyTypeName: TitleUIManager, Assembly-CSharp
         m_MethodName: OpenTitleExitPanel
         m_Mode: 1
         m_Arguments:
@@ -1150,8 +1150,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1523826332}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+      - m_Target: {fileID: 1523826334}
+        m_TargetAssemblyTypeName: TitleUIManager, Assembly-CSharp
         m_MethodName: OnExitButtonClicked
         m_Mode: 1
         m_Arguments:
@@ -1209,7 +1209,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1523826333}
-  - component: {fileID: 1523826332}
+  - component: {fileID: 1523826334}
   m_Layer: 0
   m_Name: TitleUIManager
   m_TagString: Untagged
@@ -1217,29 +1217,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1523826332
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1523826331}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f76658be6961f941815513e93e7639f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stageManager: {fileID: 0}
-  tutorialPanel: {fileID: 0}
-  pausePanel: {fileID: 0}
-  pauseTextPanel: {fileID: 0}
-  titleExitPanel: {fileID: 1928240746}
-  roomCodeInputPanel: {fileID: 0}
-  tutorialPanelOpen: 1
-  titleExitPanelOpen: 0
-  roomCodeInputPanelOpen: 0
-  isPaused: 0
-  pausedByPlayerId: -1
 --- !u!4 &1523826333
 Transform:
   m_ObjectHideFlags: 0
@@ -1255,6 +1232,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1523826334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1523826331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0bd9630571d5ef49be43ef895e66aa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  titleExitPanel: {fileID: 1928240745}
+  titleExitPanelOpen: 0
 --- !u!1 &1602602500
 GameObject:
   m_ObjectHideFlags: 0
