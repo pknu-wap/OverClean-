@@ -602,6 +602,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bgm: {fileID: 903381190}
+  defaultMusic: {fileID: 8300000, guid: 43a73393dba56d54192c1e8260310d72, type: 3}
+  prisonMusic: {fileID: 8300000, guid: 8321c4cc093789440a9fbae40ad1b83f, type: 3}
 --- !u!4 &903381189
 Transform:
   m_ObjectHideFlags: 0
