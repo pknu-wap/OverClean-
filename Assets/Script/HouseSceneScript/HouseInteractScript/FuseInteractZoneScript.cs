@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using ExitGames.Client.Photon.StructWrapping;
 using UnityEngine;
 
-public class FuseInteractZoneScript : MonoBehaviour
+public class FuseInteractZone : MonoBehaviour
 {
     // 플레이어가 들어왔는지 확인하기 위한 변수
     public bool isPlayer1In = false;
