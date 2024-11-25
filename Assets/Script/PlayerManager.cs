@@ -59,7 +59,7 @@ public class PlayerManager : MonoBehaviour
     void Update()
     {
         // 원격 플레이어일 경우 위치 및 방향 데이터를 수신하지 않음
-        if(!photonView.IsMine)
+        if(!photonView.IsMine || !canMove)
         {
             return;
         }
@@ -86,7 +86,7 @@ public class PlayerManager : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!photonView.IsMine || !canMove) return;
+        if (!photonView.IsMine) return;
 
         Vector2 nextVec = inputVec.normalized * speed * Time.fixedDeltaTime;
         rigid.MovePosition(rigid.position + nextVec);
