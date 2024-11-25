@@ -94,7 +94,7 @@ public class BlockInteractScript : MonoBehaviour
                 // 모든 클라이언트에서 DoorInteractRPC을 시작
                 PhotonView photonView = GetComponent<PhotonView>();
                 // RPC 함수 호출
-                photonView.RPC("DustInteractRPC", RpcTarget.All);
+                photonView.RPC("BlockInteractRPC", RpcTarget.All);
             }
             else if(PuzzleManager.instance.clickPuzzleCloseButton)
             {
@@ -128,7 +128,7 @@ public class BlockInteractScript : MonoBehaviour
     }
 
     [PunRPC]
-    void DustInteractRPC()
+    void BlockInteractRPC()
     {
         // 상호작용 완료됨
         hasInteracted = true;
