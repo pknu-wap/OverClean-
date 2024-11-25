@@ -25,6 +25,10 @@ public class PrisonUIManager : MonoBehaviour
 
     private void Update()
     {
+        if(Input.GetKeyDown(KeyCode.Z))
+        {
+            SceneManager.LoadScene("HouseScene");
+        }
         if(tutorialPanelOpen && !isPaused && Input.GetKeyDown(KeyCode.Escape))
             {
                 CloseTutorialPanel();
