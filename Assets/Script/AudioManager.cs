@@ -22,6 +22,7 @@ public class AudioManager : MonoBehaviour
     }
     void Start()
     {
+        bgm.loop = true;
         bgm.Play();
     }
 }
