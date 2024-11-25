@@ -1,9 +1,6 @@
-using UnityEngine;
-using UnityEngine.UI;  
+using UnityEngine;  
 using UnityEngine.SceneManagement;
 using Photon.Pun;
-using Unity.VisualScripting;
-using UnityEditor.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
