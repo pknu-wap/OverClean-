@@ -10,7 +10,7 @@ public class BlockInteractScript : MonoBehaviour
     public Material normalState;
     // 테두리 있는 상태
     public Material canInteractState;
-    // 오브젝트의 인덱스(감옥 맵에서 0~7)
+    // 오브젝트의 인덱스
     public int objectIndex;
     // stagemanager를 참조해서 상호작용 여부를 제어하기 위한 변수
     public StageManager stageManager;
@@ -131,10 +131,10 @@ public class BlockInteractScript : MonoBehaviour
     [PunRPC]
     void DustInteractRPC()
     {
+        // 상호작용 완료됨
+        hasInteracted = true;
         // 해당 오브젝트 인덱스 상호작용 완료를 stageManager에게 전달
         stageManager.ObjectInteract(objectIndex);
-        // 상호작용 성공 시 먼지 맵에서 삭제
-        Destroy(gameObject);
     }
 
     // 테두리 생성 및 표시
