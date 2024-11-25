@@ -9,7 +9,7 @@ public class StageManager : MonoBehaviour
 {
     // 오브젝트 관련 변수
     public GameObject[] interactObject; 
-    public GoalZone goalZone;
+    public GoalZoneScript goalZone;
     public Color goalZoneColor;
     public bool[] interactionsCompleted;
     public int interactCount = 0;
@@ -35,7 +35,7 @@ public class StageManager : MonoBehaviour
     public bool isPaused;
     void Awake()
     {
-        goalZone = FindAnyObjectByType<GoalZone>();
+        goalZone = FindAnyObjectByType<GoalZoneScript>();
         // 플레이어 생성 및 할당
         if (PhotonNetwork.IsConnected)
         {
