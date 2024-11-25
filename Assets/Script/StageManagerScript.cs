@@ -145,4 +145,11 @@ public class StageManager : MonoBehaviour
         isTimeOver = true;
     }
 
+    // 새 씬에 들어가기 전 기존 캐릭터 프리팹 파괴
+    public void DestroyPlayerPrefab()
+    {
+        Destroy(player1.gameObject);
+        Destroy(player2.gameObject);
+    }
+
 }

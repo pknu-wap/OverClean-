@@ -27,7 +27,7 @@ public class PrisonUIManager : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Z))
         {
-            SceneManager.LoadScene("HouseScene");
+            photonView.RPC("LoadHouseScene", RpcTarget.All, pausedByPlayerId, true);
         }
         if(tutorialPanelOpen && !isPaused && Input.GetKeyDown(KeyCode.Escape))
             {
@@ -43,6 +43,14 @@ public class PrisonUIManager : MonoBehaviour
                 pausedByPlayerId = PhotonNetwork.LocalPlayer.ActorNumber;
                 photonView.RPC("UpdatePauseState", RpcTarget.All, pausedByPlayerId, false);
             }
+    }
+
+    // 임시 테스트용 하우스씬 로드
+    [PunRPC]
+    public void LoadHouseScene()
+    {
+        stageManager.DestroyPlayerPrefab();
+        SceneManager.LoadScene("HouseScene");
     }
 
     public void OpenTutorialPanel()
