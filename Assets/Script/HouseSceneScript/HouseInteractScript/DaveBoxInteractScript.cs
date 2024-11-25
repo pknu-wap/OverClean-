@@ -29,6 +29,7 @@ public class DaveBoxInteractScript : MonoBehaviour
 
     void Start()
     {
+        // 데이브 위치 할당
         playerLocation = GameObject.FindGameObjectWithTag("Player1").GetComponent<Transform>();
         // sr을 getcomponent 메서드로 초기화
         sr = GetComponent<SpriteRenderer>();

@@ -52,7 +52,6 @@ public class BlockInteractScript : MonoBehaviour
     void Update()
     {
         bool canInteract = false;
-        // 플레이어와 오브젝트 간 거리 계산
         // 모든 플레이어의 위치와 오브젝트 간 거리 계산
         foreach (var playerLocation in playerLocations)
         {
