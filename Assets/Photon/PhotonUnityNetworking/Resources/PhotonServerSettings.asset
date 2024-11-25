@@ -67,6 +67,14 @@ MonoBehaviour:
   - ExitAndGotoLobbyScene
   - LoadHouseScene
   - DestroyPlayerPrefabRPC
+  - BookInteractRPC
+  - BlockInteractRPC
+  - FinalDoorInteractRPC
+  - HoldingEndRPC
+  - HoldingStartRPC
+  - ShelfInteractRPC
+  - SinkInteractRPC
+  - WindowInteractRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
