@@ -13,10 +13,8 @@ public class UIManager : MonoBehaviour
 
     // 버튼이 없는 일시정지 창 "일시정지됨"
     public RectTransform pauseTextPanel;
-    public RectTransform titleExitPanel;
     public RectTransform roomCodeInputPanel;
     public bool tutorialPanelOpen = true;
-    public bool titleExitPanelOpen = false;
     public bool roomCodeInputPanelOpen = false;
     public bool isPaused = false;
     private PhotonView photonView;
@@ -53,13 +51,6 @@ public class UIManager : MonoBehaviour
             {
                 pausedByPlayerId = PhotonNetwork.LocalPlayer.ActorNumber;
                 photonView.RPC("UpdatePauseState", RpcTarget.All, pausedByPlayerId, false);
-            }
-        }
-        else if(SceneManager.GetActiveScene().name == "TitleScene")
-        {
-            if(titleExitPanelOpen && Input.GetKeyDown(KeyCode.Escape))
-            {
-                CloseTitleExitPanel();
             }
         }
         else if(SceneManager.GetActiveScene().name == "LobbyScene")
@@ -149,29 +140,6 @@ public class UIManager : MonoBehaviour
     public void LoadMapChooseScene()
     {
         PhotonNetwork.LoadLevel("MapChooseScene"); 
-    }
-
-    // Title
-    public void OpenTitleExitPanel()
-    {
-        titleExitPanelOpen = true;
-        titleExitPanel.gameObject.SetActive(titleExitPanelOpen);
-    }
-
-    public void CloseTitleExitPanel()
-    {
-        titleExitPanelOpen = false;
-        titleExitPanel.gameObject.SetActive(false);
-    }
-
-    public void OnExitButtonClicked()
-    {
-        #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-        #else
-            Application.Quit();
-        #endif
-            Debug.Log("게임 종료");
     }
     
     // Lobby
