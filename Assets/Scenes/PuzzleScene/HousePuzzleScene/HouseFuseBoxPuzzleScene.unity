@@ -180,7 +180,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 7482667652216324306, guid: fdee3a0df83ab5d4896a6e4eaa80b18c, type: 3}
   m_Color: {r: 0.383811, g: 0.55426836, b: 0.7075472, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -662,7 +662,6 @@ MonoBehaviour:
   - {fileID: 736992735}
   - {fileID: 705575837}
   - {fileID: 170449925}
-  fuseAngleList: []
   clearCheckButton: {fileID: 1128087029}
   oImage: {fileID: 1800328269}
   xImage: {fileID: 872185269}
@@ -2540,7 +2539,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1583759363

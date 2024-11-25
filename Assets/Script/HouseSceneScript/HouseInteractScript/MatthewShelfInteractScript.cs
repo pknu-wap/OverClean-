@@ -32,19 +32,33 @@ public class MatthewShelfInteractScript : MonoBehaviour
     
     // 상호작용시 비활성화 되어있는 캔버스를 열기 위한 변수
     public RectTransform PuzzleUI;
+    // 현재 클라이언트가 매튜인지(디폴트 false)
+    public bool matthewIsMe = false;
 
     void Start()
     {
-        playerLocation = stageManager.player2.GetComponent<Transform>();
+        AddLocalPlayer();
         // sr을 getcomponent 메서드로 초기화
         sr = GetComponent<SpriteRenderer>();
     }
+
+    void AddLocalPlayer()
+    {
+        PhotonView[] photonViews = FindObjectsOfType<PhotonView>();
+        foreach (var photonView in photonViews)
+        {
+            if (photonView.gameObject.tag == "Player2")
+            {
+                playerLocation = photonView.transform;
+            }
+        }
+    }
+
     void Update()
     {
-        // 매튜 위치 할당
         if(playerLocation == null)
         {
-            playerLocation = GameObject.FindGameObjectWithTag("Player2").GetComponent<Transform>();
+            AddLocalPlayer();
             return;
         }
         // 플레이어와 오브젝트 간 거리 계산

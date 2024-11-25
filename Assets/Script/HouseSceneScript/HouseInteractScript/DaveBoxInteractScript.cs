@@ -12,7 +12,7 @@ public class DaveBoxInteractScript : MonoBehaviour
     public Material canInteractState;
     // stagemanager를 참조해서 상호작용 여부를 제어하기 위한 변수
     public StageManager stageManager;
-    // 플레이어를 참조해서 위치를 받아오기 위한 변수(데이브)
+    // 플레이어 위치를 저장할 변수
     public Transform playerLocation;
     // 들 수 있는 거리
     public float canHoldDistance = 2.0f;
@@ -31,19 +31,30 @@ public class DaveBoxInteractScript : MonoBehaviour
 
     void Start()
     {
-        playerLocation = stageManager.player1.GetComponent<Transform>();
+        AddLocalPlayer();
         // sr을 getcomponent 메서드로 초기화
         sr = GetComponent<SpriteRenderer>();
     }
+
+    void AddLocalPlayer()
+    {
+        PhotonView[] photonViews = FindObjectsOfType<PhotonView>();
+        foreach (var photonView in photonViews)
+        {
+            if (photonView.gameObject.tag == "Player1")
+            {
+                playerLocation = photonView.transform;
+            }
+        }
+    }
+
     void Update()
     {
-        // 매튜 위치 할당
         if(playerLocation == null)
         {
-            playerLocation = GameObject.FindGameObjectWithTag("Player1").GetComponent<Transform>();
+            AddLocalPlayer();
             return;
         }
-        // 만약 박스를 성공적으로 뒀다면 더이상 상호작용 x
         if (boxInteractEnd)
         {
             return;
