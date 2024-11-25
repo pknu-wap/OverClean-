@@ -11,6 +11,13 @@ TagManager:
   - Lock
   - Dust
   - Leaf
+  - Sponge
+  - Towel
+  - CoverDestination
+  - Block
+  - CheckGrid
+  - Book
+  - GoalZone
   layers:
   - Default
   - TransparentFX

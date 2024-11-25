@@ -43,11 +43,21 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public bool daveReady = false;
     public bool matthewReady = false;
 
+    // 스위칭 버튼
+    public Button switchButton;
+
     // 게임 시작 코루틴
     private Coroutine startGameCoroutine;
+    // 카운트다운 텍스트 변수
 
+    public Text countdownText; 
+
+    // CountDownPanel UI 컴포넌트를 연결할 변수
+    public RectTransform CountDownPanel;
     private void Start()
     {
+        // 스위칭 버튼 로직 할당
+        switchButton.onClick.AddListener(NetworkingManager.Instance.SwitchPlayers);
         if (PhotonNetwork.InRoom)
         {
             // 방에 입장 시 방 코드 표시
@@ -91,6 +101,11 @@ public class RoomManager : MonoBehaviourPunCallbacks
     private void CheckAllPlayersReady()
     {
         bool allReady = true;
+        // 현재 룸의 플레이어 카운트가 MaxPlayers(2)가 아니라면 return
+        if(PhotonNetwork.CurrentRoom.PlayerCount != PhotonNetwork.CurrentRoom.MaxPlayers)
+        {
+            return;
+        }
 
         foreach (Photon.Realtime.Player player in PhotonNetwork.PlayerList)
         {
@@ -115,6 +130,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
             // 모두 준비 상태일 때 5초 후에 게임 시작
             if (startGameCoroutine == null)
             {
+                CountDownPanel.gameObject.SetActive(true);
                 startGameCoroutine = StartCoroutine(StartGameAfterDelay(5));
             }
         }
@@ -123,6 +139,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
             // 한 명이라도 준비를 취소하면 코루틴을 중지
             if (startGameCoroutine != null)
             {
+                CountDownPanel.gameObject.SetActive(false);
                 StopCoroutine(startGameCoroutine);
                 startGameCoroutine = null;
             }
@@ -139,13 +156,21 @@ public class RoomManager : MonoBehaviourPunCallbacks
             {
                 if (!player.CustomProperties.ContainsKey("Ready") || !(bool)player.CustomProperties["Ready"])
                 {
+                    // 준비 상태가 아닌 플레이어가 있으면 카운트다운 취소
+                    countdownText.text = ""; // 카운트다운 텍스트 지우기
                     yield break;
                 }
             }
+             // 카운트다운 텍스트 업데이트
+            countdownText.text = $"{Mathf.CeilToInt(delay - checkTime)}";
+        
             checkTime += Time.deltaTime;
             yield return null;
         }
-        SceneManager.LoadScene("PrisonScene");
+
+        // 카운트다운 종료 시 텍스트 초기화 및 게임 씬 로드
+        countdownText.text = "";
+        PhotonNetwork.LoadLevel("PrisonScene");
     }
 
     public void ReadyUpDave()
@@ -320,8 +345,18 @@ public class RoomManager : MonoBehaviourPunCallbacks
                 daveReadyText.text = (bool)PhotonNetwork.LocalPlayer.CustomProperties["Ready"] ? "Ready!" : "";
             }
         }
+        // 전부 레디 - 시작 후 5초 대기 중일 때 누군가 방을 나간다면
+        if (startGameCoroutine != null)
+        {
+            // 게임시작 코루틴 중지
+            CountDownPanel.gameObject.SetActive(false);
+            StopCoroutine(startGameCoroutine);
+            startGameCoroutine = null;
+        }
         // 매튜를 흑백처리
         matthewImage.sprite = matthewBWImage;
+        // 매튜가 레디한 채로 나가면 not ready 메세지로 갱신되지 않음. 따로 처리
+        matthewReadyText.text = "Not Ready";
     }
 
     // Back 버튼 클릭 시 호출되는 함수
