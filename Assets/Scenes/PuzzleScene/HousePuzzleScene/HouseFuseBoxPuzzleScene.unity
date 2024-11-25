@@ -218,6 +218,7 @@ GameObject:
   - component: {fileID: 170449927}
   - component: {fileID: 170449929}
   - component: {fileID: 170449928}
+  - component: {fileID: 170449930}
   m_Layer: 0
   m_Name: Fuse4
   m_TagString: Untagged
@@ -368,6 +369,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isConnect: 0
   rotationSpeed: 150
+--- !u!114 &170449930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 170449925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 403
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &308444860
 GameObject:
   m_ObjectHideFlags: 0
@@ -380,6 +403,7 @@ GameObject:
   - component: {fileID: 308444862}
   - component: {fileID: 308444864}
   - component: {fileID: 308444863}
+  - component: {fileID: 308444865}
   m_Layer: 0
   m_Name: Fuse1
   m_TagString: Untagged
@@ -530,6 +554,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isConnect: 0
   rotationSpeed: 45
+--- !u!114 &308444865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 308444860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 400
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &548593207
 GameObject:
   m_ObjectHideFlags: 0
@@ -1026,6 +1072,7 @@ GameObject:
   - component: {fileID: 705575839}
   - component: {fileID: 705575841}
   - component: {fileID: 705575840}
+  - component: {fileID: 705575842}
   m_Layer: 0
   m_Name: Fuse3
   m_TagString: Untagged
@@ -1176,6 +1223,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isConnect: 0
   rotationSpeed: 90
+--- !u!114 &705575842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 705575837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 402
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &736992735
 GameObject:
   m_ObjectHideFlags: 0
@@ -1188,6 +1257,7 @@ GameObject:
   - component: {fileID: 736992737}
   - component: {fileID: 736992739}
   - component: {fileID: 736992738}
+  - component: {fileID: 736992740}
   m_Layer: 0
   m_Name: Fuse2
   m_TagString: Untagged
@@ -1338,6 +1408,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isConnect: 0
   rotationSpeed: 70
+--- !u!114 &736992740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 736992735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 401
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &833478638
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
-public class HouseFuseButtonScript : MonoBehaviour
+public class HouseFuseButtonScript : MonoBehaviourPun
 {
     // 퍼즐 카메라 참조
     public Camera puzzleCamera;
@@ -37,7 +38,7 @@ public class HouseFuseButtonScript : MonoBehaviour
         // 마우스 왼쪽 버튼이 떼어졌는지 확인
         if (Input.GetMouseButtonUp(0))
         {
-            isOnClick = false;
+            photonView.RPC("IsOnClickRPC", RpcTarget.All, false);
         }
         if(isOnClick)
         {
@@ -58,7 +59,13 @@ public class HouseFuseButtonScript : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
         if (hit.collider != null && hit.collider.gameObject == gameObject)
         {
-            isOnClick = true;
+            photonView.RPC("IsOnClickRPC", RpcTarget.All, true);
         }
+    }
+
+    [PunRPC]
+    void IsOnClickRPC(bool state)
+    {
+        isOnClick = state;
     }
 }
