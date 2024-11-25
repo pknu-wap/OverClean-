@@ -68,7 +68,7 @@ public class FuseBoxInteractScript : MonoBehaviourPun
         {
             PuzzleUI.gameObject.SetActive(true);
             // Additive로 씬 로드
-            SceneManager.LoadScene("HouseFusePuzzleScene", LoadSceneMode.Additive);
+            SceneManager.LoadScene("HouseFuseBoxPuzzleScene", LoadSceneMode.Additive);
             isPuzzleOpen = true;
             stageManager.SetPlayerMovement(false);
         }

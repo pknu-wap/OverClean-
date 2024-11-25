@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
+using Unity.VisualScripting;
 
 public class MatthewShelfInteractScript : MonoBehaviour
 {
@@ -34,13 +35,18 @@ public class MatthewShelfInteractScript : MonoBehaviour
 
     void Start()
     {
-        // 매튜 위치 할당
-        playerLocation = GameObject.FindGameObjectWithTag("Player2").GetComponent<Transform>();
+        playerLocation = stageManager.player2.GetComponent<Transform>();
         // sr을 getcomponent 메서드로 초기화
         sr = GetComponent<SpriteRenderer>();
     }
     void Update()
     {
+        // 매튜 위치 할당
+        if(playerLocation == null)
+        {
+            playerLocation = GameObject.FindGameObjectWithTag("Player2").GetComponent<Transform>();
+            return;
+        }
         // 플레이어와 오브젝트 간 거리 계산
         float distanceToPlayer = Vector3.Distance(transform.position, playerLocation.position);
 
