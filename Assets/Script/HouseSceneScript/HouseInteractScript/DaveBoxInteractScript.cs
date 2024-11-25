@@ -4,7 +4,7 @@ using DG.Tweening;
 using UnityEngine;
 using Photon.Pun;
 
-public class DaveBoxInteractScript : MonoBehaviour
+public class DaveBoxInteractScript : MonoBehaviourPun
 {
     // 테두리 없는 상태
     public Material normalState;
@@ -106,11 +106,7 @@ public class DaveBoxInteractScript : MonoBehaviour
             // 스페이스바로 놓기
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                // 목적지의 x,y 좌표 가져와서 박스 두기
-                transform.position = new Vector3(boxDestination.GetComponent<Transform>().position.x, boxDestination.GetComponent<Transform>().position.y + 0.3f, -1.1f);
-                boxInteractEnd = true;
-                // 선반에 박스 도착했다고 알리기
-                matthewShelf.GetComponent<MatthewShelfInteractScript>().isBoxArrived = true;
+                photonView.RPC("HoldingEndRPC", RpcTarget.All);
             }
         }
     }
@@ -131,7 +127,7 @@ public class DaveBoxInteractScript : MonoBehaviour
     void HoldingEndRPC()
     {
         // 목적지의 x,y 좌표 가져와서 박스 두기
-        transform.position = new Vector3(boxDestination.GetComponent<Transform>().position.x, boxDestination.GetComponent<Transform>().position.y + 0.3f, -1.1f);
+        transform.position = new Vector3(boxDestination.GetComponent<Transform>().position.x, boxDestination.GetComponent<Transform>().position.y + 0.3f, 0);
         boxInteractEnd = true;
         // 선반에 박스 도착했다고 알리기
         matthewShelf.GetComponent<MatthewShelfInteractScript>().isBoxArrived = true;
