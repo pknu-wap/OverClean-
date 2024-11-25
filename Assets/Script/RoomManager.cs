@@ -95,6 +95,10 @@ public class RoomManager : MonoBehaviourPunCallbacks
                 }
             }
         }
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            LeaveRoom();
+        }
     }
 
     // 두 플레이어 모두 준비됐는지 확인하는 함수
