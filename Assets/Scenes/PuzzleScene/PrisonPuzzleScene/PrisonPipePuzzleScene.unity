@@ -566,6 +566,8 @@ MonoBehaviour:
   puzzleSolved: 0
   oImage: {fileID: 391158329}
   xImage: {fileID: 1918507791}
+  isMasterPuzzleReady: 0
+  isElsePuzzleReady: 0
 --- !u!114 &548593211
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -928,7 +930,10 @@ MonoBehaviour:
   pipeShape: 0
   x: 0
   y: 0
+  photonView: {fileID: 0}
+  inactivePipeTile: 
   puzzleCamera: {fileID: 0}
+  pipePuzzleScript: {fileID: 0}
 --- !u!114 &1507231585
 MonoBehaviour:
   m_ObjectHideFlags: 0

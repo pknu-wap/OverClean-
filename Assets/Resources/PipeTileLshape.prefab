@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 130fdc3d2a6289b4c93e484c3e5de662, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ffca2caae9fd4e048af84983ba1f8455, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -104,6 +104,7 @@ MonoBehaviour:
   pipeShape: 0
   x: 0
   y: 0
+  photonView: {fileID: 0}
   inactivePipeTile: 
   puzzleCamera: {fileID: 0}
   pipePuzzleScript: {fileID: 0}
@@ -143,7 +144,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.5, y: 1.5}
+    oldSize: {x: 50, y: 50}
     newSize: {x: 1.5, y: 1.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -170,7 +171,8 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 5946518005288092597}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
