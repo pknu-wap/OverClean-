@@ -66,6 +66,7 @@ MonoBehaviour:
   - ExitAndGotoLobbySceneButtonClick
   - ExitAndGotoLobbyScene
   - LoadHouseScene
+  - DestroyPlayerPrefabRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

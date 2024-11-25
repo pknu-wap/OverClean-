@@ -9,8 +9,6 @@ public class DaveBoxInteractScript : MonoBehaviour
     public Material normalState;
     // 테두리 있는 상태
     public Material canInteractState;
-    // 오브젝트의 인덱스(감옥 맵에서 0~7)
-    public int objectIndex;
     // 플레이어를 참조해서 위치를 받아오기 위한 변수(데이브)
     public Transform playerLocation;
     // 들 수 있는 거리

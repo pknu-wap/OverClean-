@@ -889,7 +889,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   normalState: {fileID: 2100000, guid: 156e2e5d3e19cf743a21910567fd6e66, type: 2}
   canInteractState: {fileID: 2100000, guid: 0e469783926eb7e4baeec88270a07c91, type: 2}
-  objectIndex: 0
+  objectIndex: 6
   stageManager: {fileID: 1748221699}
   playerLocation: {fileID: 0}
   interactionDistance: 1.5
@@ -1008,7 +1008,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &620861714
 Transform:
   m_ObjectHideFlags: 0
@@ -1311,7 +1311,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   normalState: {fileID: 2100000, guid: 156e2e5d3e19cf743a21910567fd6e66, type: 2}
   canInteractState: {fileID: 2100000, guid: 0e469783926eb7e4baeec88270a07c91, type: 2}
-  objectIndex: 0
+  objectIndex: 2
   stageManager: {fileID: 1748221699}
   playerLocation: {fileID: 0}
   interactionDistance: 1.3
@@ -2039,7 +2039,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   normalState: {fileID: 2100000, guid: 156e2e5d3e19cf743a21910567fd6e66, type: 2}
   canInteractState: {fileID: 2100000, guid: 0e469783926eb7e4baeec88270a07c91, type: 2}
-  objectIndex: 0
   playerLocation: {fileID: 0}
   canHoldDistance: 2
   isHolding: 0
@@ -2840,7 +2839,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   normalState: {fileID: 2100000, guid: 156e2e5d3e19cf743a21910567fd6e66, type: 2}
   canInteractState: {fileID: 2100000, guid: 0e469783926eb7e4baeec88270a07c91, type: 2}
-  objectIndex: 0
+  objectIndex: 4
   stageManager: {fileID: 1748221699}
   playerLocation: {fileID: 0}
   interactionDistance: 1.5
@@ -3056,7 +3055,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   normalState: {fileID: 2100000, guid: 156e2e5d3e19cf743a21910567fd6e66, type: 2}
   canInteractState: {fileID: 2100000, guid: 0e469783926eb7e4baeec88270a07c91, type: 2}
-  objectIndex: 0
+  objectIndex: 5
   stageManager: {fileID: 1748221699}
   playerLocation: {fileID: 0}
   interactionDistance: 1.5
@@ -3454,7 +3453,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   normalState: {fileID: 2100000, guid: 156e2e5d3e19cf743a21910567fd6e66, type: 2}
   canInteractState: {fileID: 2100000, guid: 0e469783926eb7e4baeec88270a07c91, type: 2}
-  objectIndex: 0
+  objectIndex: 1
   stageManager: {fileID: 1748221699}
   playerLocation: {fileID: 0}
   interactionDistance: 1.3
@@ -3954,6 +3953,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactObject:
   - {fileID: 1514945337}
+  - {fileID: 1627279844}
+  - {fileID: 872800547}
+  - {fileID: 1822420503}
+  - {fileID: 1521573601}
+  - {fileID: 1570227786}
+  - {fileID: 593874986}
   goalZone: {fileID: 1956038722}
   goalZoneColor: {r: 1, g: 1, b: 1, a: 0.50980395}
   interactionsCompleted: 
@@ -4036,7 +4041,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   normalState: {fileID: 2100000, guid: 156e2e5d3e19cf743a21910567fd6e66, type: 2}
   canInteractState: {fileID: 2100000, guid: 0e469783926eb7e4baeec88270a07c91, type: 2}
-  objectIndex: 0
+  objectIndex: 3
   stageManager: {fileID: 1748221699}
   playerLocation: {fileID: 0}
   interactionDistance: 1.5
