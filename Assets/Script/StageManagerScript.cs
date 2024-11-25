@@ -4,6 +4,7 @@ using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class StageManager : MonoBehaviour
 {
@@ -35,6 +36,8 @@ public class StageManager : MonoBehaviour
     public bool isPaused;
     void Awake()
     {
+        // 기존에 있던 프리팹 삭제
+        NetworkingManager.Instance.DestroyPlayerPrefabList();
         goalZone = FindAnyObjectByType<GoalZone>();
         // 플레이어 생성 및 할당
         if (PhotonNetwork.IsConnected)
@@ -144,21 +147,4 @@ public class StageManager : MonoBehaviour
         Debug.Log("타임오버");
         isTimeOver = true;
     }
-
-    public void DestroyPlayerPrefab()
-    {
-        // PhotonNetwork.Destroy를 사용해 네트워크 상에서 제거
-        if (player1.gameObject != null)
-        {
-            PhotonNetwork.Destroy(player1.gameObject);
-            Debug.Log("player1 destroyed successfully.");
-        }
-
-        if (player2.gameObject != null)
-        {
-            PhotonNetwork.Destroy(player2.gameObject);
-            Debug.Log("player2 destroyed successfully.");
-        }
-    }
-
 }
