@@ -601,11 +601,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3e16a82779e3b24a90697b9d212c311, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backgroundMusic:
-  - {fileID: 8300000, guid: 43a73393dba56d54192c1e8260310d72, type: 3}
-  - {fileID: 8300000, guid: 43a73393dba56d54192c1e8260310d72, type: 3}
-  - {fileID: 8300000, guid: 43a73393dba56d54192c1e8260310d72, type: 3}
-  - {fileID: 8300000, guid: 8321c4cc093789440a9fbae40ad1b83f, type: 3}
+  bgm: {fileID: 903381190}
 --- !u!4 &903381189
 Transform:
   m_ObjectHideFlags: 0
@@ -1233,14 +1229,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f76658be6961f941815513e93e7639f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageManager: {fileID: 0}
   tutorialPanel: {fileID: 0}
   pausePanel: {fileID: 0}
+  pauseTextPanel: {fileID: 0}
   titleExitPanel: {fileID: 1928240746}
   roomCodeInputPanel: {fileID: 0}
   tutorialPanelOpen: 1
   titleExitPanelOpen: 0
   roomCodeInputPanelOpen: 0
-  pause: 0
+  isPaused: 0
+  pausedByPlayerId: -1
 --- !u!4 &1523826333
 Transform:
   m_ObjectHideFlags: 0
