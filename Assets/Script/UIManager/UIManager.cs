@@ -13,9 +13,7 @@ public class UIManager : MonoBehaviour
 
     // 버튼이 없는 일시정지 창 "일시정지됨"
     public RectTransform pauseTextPanel;
-    public RectTransform roomCodeInputPanel;
     public bool tutorialPanelOpen = true;
-    public bool roomCodeInputPanelOpen = false;
     public bool isPaused = false;
     private PhotonView photonView;
 
@@ -52,20 +50,7 @@ public class UIManager : MonoBehaviour
                 pausedByPlayerId = PhotonNetwork.LocalPlayer.ActorNumber;
                 photonView.RPC("UpdatePauseState", RpcTarget.All, pausedByPlayerId, false);
             }
-        }
-        else if(SceneManager.GetActiveScene().name == "LobbyScene")
-        {
-            if(!roomCodeInputPanelOpen && Input.GetKeyDown(KeyCode.Escape))
-            {
-                SceneManager.LoadScene("TitleScene");
-            }
-            else if(roomCodeInputPanelOpen && Input.GetKeyDown(KeyCode.Escape))
-            {
-                CloseRoomCodeInputPanel();
-            }
-            
-        }
-        
+        } 
     }
 
     // Prison & House
@@ -142,20 +127,6 @@ public class UIManager : MonoBehaviour
         PhotonNetwork.LoadLevel("MapChooseScene"); 
     }
     
-    // Lobby
-    public void OpenRoomCodeInputPanel()
-    {
-        roomCodeInputPanelOpen = true;
-        roomCodeInputPanel.gameObject.SetActive(roomCodeInputPanelOpen);
-    }
-
-    public void CloseRoomCodeInputPanel()
-    {
-        roomCodeInputPanelOpen = false;
-        roomCodeInputPanel.gameObject.SetActive(roomCodeInputPanelOpen);
-    }
-    
-
     // TitleScene -> StartButton
     // MapClearPanel -> BackToLobbyButton
     public void LoadLobbyScene()

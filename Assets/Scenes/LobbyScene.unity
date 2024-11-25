@@ -342,17 +342,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 185269394}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f76658be6961f941815513e93e7639f, type: 3}
+  m_Script: {fileID: 11500000, guid: 08354109d807a8347bfa1e5c5fd1a2bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tutorialPanel: {fileID: 0}
-  pausePanel: {fileID: 0}
-  titleExitPanel: {fileID: 0}
-  roomCodeInputPanel: {fileID: 1523785826}
-  tutorialPanelOpen: 1
-  titleExitPanelOpen: 0
+  roomCodeInputPanel: {fileID: 1523785825}
   roomCodeInputPanelOpen: 0
-  pause: 0
 --- !u!1 &257938717
 GameObject:
   m_ObjectHideFlags: 0
@@ -1179,8 +1173,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a22321e8d0de9724b94c7e2e80b3740a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  QuickMatchButton: {fileID: 1897779720}
-  MakeRoomButton: {fileID: 2060302028}
   EnterRoomButton: {fileID: 941367449}
   roomCodeInputField: {fileID: 1682606772}
 --- !u!4 &1265989334
@@ -1595,7 +1587,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 185269396}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_TargetAssemblyTypeName: LobbyUIManager, Assembly-CSharp
         m_MethodName: OpenRoomCodeInputPanel
         m_Mode: 1
         m_Arguments:
@@ -1965,8 +1957,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1265989333}
-        m_TargetAssemblyTypeName: LobbyManager, Assembly-CSharp
+      - m_Target: {fileID: 185269396}
+        m_TargetAssemblyTypeName: LobbyUIManager, Assembly-CSharp
         m_MethodName: OnQuickMatch
         m_Mode: 1
         m_Arguments:
@@ -2099,7 +2091,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 185269396}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_TargetAssemblyTypeName: LobbyUIManager, Assembly-CSharp
         m_MethodName: CloseRoomCodeInputPanel
         m_Mode: 1
         m_Arguments:
@@ -2231,8 +2223,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1265989333}
-        m_TargetAssemblyTypeName: LobbyManager, Assembly-CSharp
+      - m_Target: {fileID: 185269396}
+        m_TargetAssemblyTypeName: LobbyUIManager, Assembly-CSharp
         m_MethodName: OnMakeRoom
         m_Mode: 1
         m_Arguments:
