@@ -9,8 +9,8 @@ using System;
 public class StageManager : MonoBehaviour
 {
     // 오브젝트 관련 변수
-    public GameObject[] interactObject;
-    public GoalZone goalZone;
+    public GameObject[] interactObject; 
+    public GoalZoneScript goalZone;
     public Color goalZoneColor;
     public bool[] interactionsCompleted;
     public int interactCount = 0;
@@ -38,7 +38,7 @@ public class StageManager : MonoBehaviour
     {
         // 기존에 있던 프리팹 삭제
         NetworkingManager.Instance.DestroyPlayerPrefabList();
-        goalZone = FindAnyObjectByType<GoalZone>();
+        goalZone = FindAnyObjectByType<GoalZoneScript>();
         // 플레이어 생성 및 할당
         if (PhotonNetwork.IsConnected)
         {

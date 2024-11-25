@@ -207,7 +207,7 @@ MonoBehaviour:
   goalZone: {fileID: 513861988}
   goalZoneColor: {r: 1, g: 1, b: 1, a: 0.50980395}
   interactionsCompleted: 
-  interactCount: 8
+  interactCount: 0
   player1: {fileID: 0}
   player2: {fileID: 0}
   player1StartX: -11
@@ -2344,6 +2344,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e35b8edf9b042764f882bb28ba5f2cc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player1InZone: 0
+  player2InZone: 0
   stageManager: {fileID: 33556873}
   stageClear: 1
   MapClearPanel: {fileID: 1376517036}
