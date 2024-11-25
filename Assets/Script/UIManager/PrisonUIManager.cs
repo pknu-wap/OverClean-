@@ -27,7 +27,7 @@ public class PrisonUIManager : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Z))
         {
-            photonView.RPC("LoadHouseScene", RpcTarget.All, pausedByPlayerId, true);
+            photonView.RPC("LoadHouseScene", RpcTarget.All);
         }
         if(tutorialPanelOpen && !isPaused && Input.GetKeyDown(KeyCode.Escape))
             {

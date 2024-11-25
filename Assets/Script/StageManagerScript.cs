@@ -8,13 +8,13 @@ using TMPro;
 public class StageManager : MonoBehaviour
 {
     // 오브젝트 관련 변수
-    public GameObject[] interactObject; 
+    public GameObject[] interactObject;
     public GoalZone goalZone;
     public Color goalZoneColor;
     public bool[] interactionsCompleted;
     public int interactCount = 0;
     public static bool fusePuzzleSolved = false;
-    
+
     // 플레이어 관리
     public PlayerManager player1;
     public PlayerManager player2;
@@ -24,7 +24,7 @@ public class StageManager : MonoBehaviour
     public float player2StartX;
     public float player2StartY;
     public float player2StartZ;
-    
+
     // 타이머 관련 변수
     public float limitTime;
     public float remainTime;
@@ -53,9 +53,9 @@ public class StageManager : MonoBehaviour
             }
         }
     }
-    
+
     void Start()
-    { 
+    {
         // 상호작용 오브젝트 개수만큼 bool 배열 정의
         interactionsCompleted = new bool[interactObject.Length];
         remainTime = limitTime;
@@ -64,7 +64,7 @@ public class StageManager : MonoBehaviour
         if (timeSlider != null)
         {
             timeSlider.maxValue = limitTime;
-            timeSlider.value = limitTime; 
+            timeSlider.value = limitTime;
         }
     }
 
@@ -79,7 +79,7 @@ public class StageManager : MonoBehaviour
             // 슬라이더 업데이트
             if (timeSlider != null)
             {
-                timeSlider.value = remainTime; 
+                timeSlider.value = remainTime;
             }
             if (remainTime <= 0)
             {
@@ -88,7 +88,7 @@ public class StageManager : MonoBehaviour
             else
             {
                 UpdateTimerText();
-            } 
+            }
         }
 
     }
@@ -119,11 +119,11 @@ public class StageManager : MonoBehaviour
     // 2인용 퍼즐에 상호작용했을 때, 두 플레이어 모두 이동을 제한하는 메서드
     public void SetPlayerMovement(bool setcanMove)
     {
-        if (player1 != null) 
+        if (player1 != null)
         {
             player1.canMove = setcanMove;
         }
-        if (player2 != null) 
+        if (player2 != null)
         {
             player2.canMove = setcanMove;
         }
@@ -145,11 +145,20 @@ public class StageManager : MonoBehaviour
         isTimeOver = true;
     }
 
-    // 새 씬에 들어가기 전 기존 캐릭터 프리팹 파괴
     public void DestroyPlayerPrefab()
     {
-        Destroy(player1.gameObject);
-        Destroy(player2.gameObject);
+        // PhotonNetwork.Destroy를 사용해 네트워크 상에서 제거
+        if (player1.gameObject != null)
+        {
+            PhotonNetwork.Destroy(player1.gameObject);
+            Debug.Log("player1 destroyed successfully.");
+        }
+
+        if (player2.gameObject != null)
+        {
+            PhotonNetwork.Destroy(player2.gameObject);
+            Debug.Log("player2 destroyed successfully.");
+        }
     }
 
 }
