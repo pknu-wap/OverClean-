@@ -29,12 +29,18 @@ public class PrisonUIManager : MonoBehaviour
 
     private void Update()
     {
+        isPaused = PauseManager.Instance.isPaused;
         if (Input.GetKeyDown(KeyCode.Z))
         {
             Debug.Log("Z 눌려짐 - DestroyPlayers 호출");
             // 파괴할 프리팹 네트워킹매니저에 저장
             NetworkingManager.Instance.InsertDestroyPlayerPrefab();
             photonView.RPC("LoadHouseScene", RpcTarget.MasterClient);
+        }
+
+        if(PauseManager.Instance.isTransitioningPauseState)
+        {
+            return;
         }
 
         if (tutorialPanelOpen && !isPaused && Input.GetKeyDown(KeyCode.Escape))
@@ -44,11 +50,13 @@ public class PrisonUIManager : MonoBehaviour
         else if (!tutorialPanelOpen && !isPaused && Input.GetKeyDown(KeyCode.Escape))
         {
             pausedByPlayerId = PhotonNetwork.LocalPlayer.ActorNumber;
+            PauseManager.Instance.isTransitioningPauseState = true;
             photonView.RPC("UpdatePauseState", RpcTarget.All, pausedByPlayerId, true);
         }
         else if (!tutorialPanelOpen && isPaused && Input.GetKeyDown(KeyCode.Escape) && pausedByPlayerId == PhotonNetwork.LocalPlayer.ActorNumber)
         {
             pausedByPlayerId = PhotonNetwork.LocalPlayer.ActorNumber;
+            PauseManager.Instance.isTransitioningPauseState = true;
             photonView.RPC("UpdatePauseState", RpcTarget.All, pausedByPlayerId, false);
         }
     }
@@ -89,38 +97,41 @@ public class PrisonUIManager : MonoBehaviour
     [PunRPC]
     void UpdatePauseState(int actorNumber, bool pauseState)
     {
-        if (!goalZone.stageClear)
+        isPaused = pauseState;
+        PauseManager.Instance.isPaused = pauseState;
+        if (pauseState)
         {
-            isPaused = pauseState;
-            if (pauseState)
-            {
-                stageManager.isPaused = true;
-                stageManager.SetPlayerMovement(false);
-                pausedByPlayerId = actorNumber;
+            stageManager.isPaused = true;
+            stageManager.SetPlayerMovement(false);
+            pausedByPlayerId = actorNumber;
 
-                if (PhotonNetwork.LocalPlayer.ActorNumber == actorNumber)
-                {
-                    pausePanel.gameObject.SetActive(true);
-                    pauseTextPanel.gameObject.SetActive(false);
-                }
-                else
-                {
-                    pausePanel.gameObject.SetActive(false);
-                    pauseTextPanel.gameObject.SetActive(true);
-                }
-            }
-            else if (!pauseState)
+            if (PhotonNetwork.LocalPlayer.ActorNumber == actorNumber)
             {
-                stageManager.isPaused = false;
-                stageManager.SetPlayerMovement(true);
-                pausedByPlayerId = -1;
-                pausePanel.gameObject.SetActive(false);
+                pausePanel.gameObject.SetActive(true);
                 pauseTextPanel.gameObject.SetActive(false);
             }
+            else
+            {
+                pausePanel.gameObject.SetActive(false);
+                pauseTextPanel.gameObject.SetActive(true);
+            }
         }
+        else if (!pauseState)
+        {
+            stageManager.isPaused = false;
+            stageManager.SetPlayerMovement(true);
+            pausedByPlayerId = -1;
+            pausePanel.gameObject.SetActive(false);
+            pauseTextPanel.gameObject.SetActive(false);
+        }
+        StartCoroutine(ResetTransitionState());
 
     }
-
+    private IEnumerator ResetTransitionState()
+    {
+        yield return new WaitForSeconds(0.1f); // 딜레이 추가
+        PauseManager.Instance.isTransitioningPauseState = false; // 상태 전환 완료
+    }
     public void LoadMapChooseScene()
     {
         PhotonNetwork.LoadLevel("MapChooseScene");

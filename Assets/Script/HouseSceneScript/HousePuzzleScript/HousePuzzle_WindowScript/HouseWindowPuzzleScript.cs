@@ -93,6 +93,7 @@ public class HouseWindowPuzzleScript : MonoBehaviour
             PuzzleManager.instance.PuzzleSuccess();
             // 제거할 프리팹 없으니 바로 씬 닫기
             SceneManager.UnloadSceneAsync("HouseWindowPuzzleScene");
+            ClosePuzzleScene();
         }
         else
         {
@@ -111,5 +112,14 @@ public class HouseWindowPuzzleScript : MonoBehaviour
         // 이미지 숨김
         image.gameObject.SetActive(false); 
     }
-
+    public void OnClosePuzzleButtonClicked()
+    {
+        PuzzleManager.instance.ClickPuzzleCloseButton();
+        ClosePuzzleScene();
+    }
+    void ClosePuzzleScene()
+    {
+        // 제거할 프리팹 없으니 바로 씬 닫기
+        SceneManager.UnloadSceneAsync("HouseWindowPuzzleScene");
+    }
 }
