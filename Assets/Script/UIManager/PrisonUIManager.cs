@@ -8,6 +8,8 @@ public class PrisonUIManager : MonoBehaviour
     public StageManager stageManager;
     private PhotonView photonView;
 
+    public GoalZoneScript goalZone;
+
     public GameObject tutorialPanel;
     public GameObject pausePanel;
     public GameObject pauseTextPanel;
@@ -20,6 +22,7 @@ public class PrisonUIManager : MonoBehaviour
     private void Start()
     {
         stageManager = FindObjectOfType<StageManager>();
+        goalZone = FindAnyObjectByType<GoalZoneScript>();
         photonView = GetComponent<PhotonView>();
         tutorialPanel.SetActive(tutorialPanelOpen);
     }
@@ -86,31 +89,34 @@ public class PrisonUIManager : MonoBehaviour
     [PunRPC]
     void UpdatePauseState(int actorNumber, bool pauseState)
     {
-        isPaused = pauseState;
-        if (pauseState)
+        if (!goalZone.stageClear)
         {
-            stageManager.isPaused = true;
-            stageManager.SetPlayerMovement(false);
-            pausedByPlayerId = actorNumber;
-
-            if (PhotonNetwork.LocalPlayer.ActorNumber == actorNumber)
+            isPaused = pauseState;
+            if (pauseState)
             {
-                pausePanel.gameObject.SetActive(true);
+                stageManager.isPaused = true;
+                stageManager.SetPlayerMovement(false);
+                pausedByPlayerId = actorNumber;
+
+                if (PhotonNetwork.LocalPlayer.ActorNumber == actorNumber)
+                {
+                    pausePanel.gameObject.SetActive(true);
+                    pauseTextPanel.gameObject.SetActive(false);
+                }
+                else
+                {
+                    pausePanel.gameObject.SetActive(false);
+                    pauseTextPanel.gameObject.SetActive(true);
+                }
+            }
+            else if (!pauseState)
+            {
+                stageManager.isPaused = false;
+                stageManager.SetPlayerMovement(true);
+                pausedByPlayerId = -1;
+                pausePanel.gameObject.SetActive(false);
                 pauseTextPanel.gameObject.SetActive(false);
             }
-            else
-            {
-                pausePanel.gameObject.SetActive(false);
-                pauseTextPanel.gameObject.SetActive(true);
-            }
-        }
-        else if (!pauseState)
-        {
-            stageManager.isPaused = false;
-            stageManager.SetPlayerMovement(true);
-            pausedByPlayerId = -1;
-            pausePanel.gameObject.SetActive(false);
-            pauseTextPanel.gameObject.SetActive(false);
         }
 
     }
