@@ -8,6 +8,8 @@ public class PrisonUIManager : MonoBehaviour
     public StageManager stageManager;
     private PhotonView photonView;
 
+    public GoalZoneScript goalZone;
+
     public GameObject tutorialPanel;
     public GameObject pausePanel;
     public GameObject pauseTextPanel;
@@ -20,6 +22,7 @@ public class PrisonUIManager : MonoBehaviour
     private void Start()
     {
         stageManager = FindObjectOfType<StageManager>();
+        goalZone = FindAnyObjectByType<GoalZoneScript>();
         photonView = GetComponent<PhotonView>();
         tutorialPanel.SetActive(tutorialPanelOpen);
     }
@@ -87,7 +90,7 @@ public class PrisonUIManager : MonoBehaviour
     void UpdatePauseState(int actorNumber, bool pauseState)
     {
         isPaused = pauseState;
-        if (pauseState)
+        if (!goalZone.stageClear && pauseState)
         {
             stageManager.isPaused = true;
             stageManager.SetPlayerMovement(false);
@@ -104,7 +107,7 @@ public class PrisonUIManager : MonoBehaviour
                 pauseTextPanel.gameObject.SetActive(true);
             }
         }
-        else if (!pauseState)
+        else if (!goalZone.stageClear && !pauseState)
         {
             stageManager.isPaused = false;
             stageManager.SetPlayerMovement(true);
