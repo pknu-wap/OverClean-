@@ -120,4 +120,9 @@ public class HouseFuseBoxPuzzleScript : MonoBehaviourPun
             photonView.RPC("PuzzleSuccess", RpcTarget.All);
         }
     }
+    public void OnClosePuzzleButtonClicked()
+    {
+        PuzzleManager.instance.ClickPuzzleCloseButton();
+        photonView.RPC("ClosePuzzleScene", RpcTarget.All);
+    }
 }

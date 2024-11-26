@@ -24,7 +24,6 @@ public class HouseShelfPuzzleScript : MonoBehaviour
         // 프리팹 생성
         SpawnDustPrefab();
     }
-
     void SpawnDustPrefab()
     {
         for(int i = 0; i < prefabCount; i++)
@@ -60,6 +59,16 @@ public class HouseShelfPuzzleScript : MonoBehaviour
         image.gameObject.SetActive(false); 
         // puzzlesuccess 호출
         PuzzleManager.instance.PuzzleSuccess();
+        ClosePuzzleScene();
+    }
+
+    public void OnClosePuzzleButtonClicked()
+    {
+        PuzzleManager.instance.ClickPuzzleCloseButton();
+        ClosePuzzleScene();
+    }
+    void ClosePuzzleScene()
+    {
         // 씬 닫기
         SceneManager.UnloadSceneAsync("HouseShelfPuzzleScene");
     }
