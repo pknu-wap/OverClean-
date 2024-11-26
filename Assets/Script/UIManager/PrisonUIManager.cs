@@ -1,6 +1,7 @@
-using UnityEngine;  
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
+using System.Collections;
 
 public class PrisonUIManager : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class PrisonUIManager : MonoBehaviour
     public bool tutorialPanelOpen = true;
     public bool isPaused = false;
 
-    public int pausedByPlayerId = -1;   
+    public int pausedByPlayerId = -1;
 
     private void Start()
     {
@@ -25,34 +26,46 @@ public class PrisonUIManager : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKeyDown(KeyCode.Z))
         {
-            SceneManager.LoadScene("HouseScene");
+            Debug.Log("Z 눌려짐 - DestroyPlayers 호출");
+            // 파괴할 프리팹 네트워킹매니저에 저장
+            NetworkingManager.Instance.InsertDestroyPlayerPrefab();
+            // 씬 로드
+            PhotonNetwork.LoadLevel("HouseScene");
         }
-        if(tutorialPanelOpen && !isPaused && Input.GetKeyDown(KeyCode.Escape))
-            {
-                CloseTutorialPanel();
-            }
-            else if(!tutorialPanelOpen && !isPaused && Input.GetKeyDown(KeyCode.Escape))
-            {
-                pausedByPlayerId = PhotonNetwork.LocalPlayer.ActorNumber;
-                photonView.RPC("UpdatePauseState", RpcTarget.All, pausedByPlayerId, true);
-            }
-            else if(!tutorialPanelOpen && isPaused && Input.GetKeyDown(KeyCode.Escape) && pausedByPlayerId == PhotonNetwork.LocalPlayer.ActorNumber)
-            {
-                pausedByPlayerId = PhotonNetwork.LocalPlayer.ActorNumber;
-                photonView.RPC("UpdatePauseState", RpcTarget.All, pausedByPlayerId, false);
-            }
+
+        if (tutorialPanelOpen && !isPaused && Input.GetKeyDown(KeyCode.Escape))
+        {
+            CloseTutorialPanel();
+        }
+        else if (!tutorialPanelOpen && !isPaused && Input.GetKeyDown(KeyCode.Escape))
+        {
+            pausedByPlayerId = PhotonNetwork.LocalPlayer.ActorNumber;
+            photonView.RPC("UpdatePauseState", RpcTarget.All, pausedByPlayerId, true);
+        }
+        else if (!tutorialPanelOpen && isPaused && Input.GetKeyDown(KeyCode.Escape) && pausedByPlayerId == PhotonNetwork.LocalPlayer.ActorNumber)
+        {
+            pausedByPlayerId = PhotonNetwork.LocalPlayer.ActorNumber;
+            photonView.RPC("UpdatePauseState", RpcTarget.All, pausedByPlayerId, false);
+        }
+    }
+
+    // 임시 테스트용 하우스씬 로드
+    [PunRPC]
+    public void LoadHouseScene()
+    {
+        
     }
 
     public void OpenTutorialPanel()
     {
-        if(!tutorialPanelOpen)
+        if (!tutorialPanelOpen)
         {
             tutorialPanelOpen = true;
-            tutorialPanel.gameObject.SetActive(tutorialPanelOpen);    
+            tutorialPanel.gameObject.SetActive(tutorialPanelOpen);
         }
-        else if(tutorialPanelOpen)
+        else if (tutorialPanelOpen)
         {
             tutorialPanelOpen = false;
             tutorialPanel.gameObject.SetActive(tutorialPanelOpen);
@@ -91,7 +104,7 @@ public class PrisonUIManager : MonoBehaviour
                 pauseTextPanel.gameObject.SetActive(true);
             }
         }
-        else if(!pauseState)
+        else if (!pauseState)
         {
             stageManager.isPaused = false;
             stageManager.SetPlayerMovement(true);
@@ -99,14 +112,14 @@ public class PrisonUIManager : MonoBehaviour
             pausePanel.gameObject.SetActive(false);
             pauseTextPanel.gameObject.SetActive(false);
         }
-        
+
     }
 
     public void LoadMapChooseScene()
     {
-        PhotonNetwork.LoadLevel("MapChooseScene"); 
+        PhotonNetwork.LoadLevel("MapChooseScene");
     }
-    
+
     public void LoadLobbyScene()
     {
         photonView.RPC("ExitAndGotoLobbyScene", RpcTarget.All);
@@ -115,6 +128,6 @@ public class PrisonUIManager : MonoBehaviour
     [PunRPC]
     public void ExitAndGotoLobbyScene()
     {
-        PhotonNetwork.LoadLevel("LobbyScene"); 
+        PhotonNetwork.LoadLevel("LobbyScene");
     }
 }
