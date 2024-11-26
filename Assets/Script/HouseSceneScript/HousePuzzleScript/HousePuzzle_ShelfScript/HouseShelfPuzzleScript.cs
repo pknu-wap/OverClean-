@@ -15,9 +15,9 @@ public class HouseShelfPuzzleScript : MonoBehaviour
     // 파괴된 프리팹 개수
     public int destroyPrefabCount = 0;
     // 생성 범위 가장자리값 선언
-    private Vector2 maxVal = new Vector2(-44,-47.5f);
-    private Vector2 minVal = new Vector2(-56,-52.5f);
-    void Start()
+    private Vector2 maxVal = new Vector2(-45,-47.5f);
+    private Vector2 minVal = new Vector2(-56,-53f);
+    void Awake()
     {
         // 초기에 이미지 숨김
         oImage.gameObject.SetActive(false); 
@@ -31,7 +31,7 @@ public class HouseShelfPuzzleScript : MonoBehaviour
         {
             float x = Random.Range(minVal.x,maxVal.x);
             float y = Random.Range(minVal.y,maxVal.y);
-            Vector2 spawnPosition = new Vector2(x, y);
+            Vector3 spawnPosition = new Vector3(x, y, -1);
             int randIdx = Random.Range(0,dustPrefabList.Count);
             // 프리팹 생성
             Instantiate(dustPrefabList[randIdx], spawnPosition, Quaternion.identity);

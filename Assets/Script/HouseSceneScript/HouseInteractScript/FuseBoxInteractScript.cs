@@ -47,6 +47,12 @@ public class FuseBoxInteractScript : MonoBehaviourPun
             }
         }
 
+        else
+        {
+            // 테두리 삭제
+            HideHighlight();
+        }
+
          // 퍼즐이 열려 있을 때 퍼즐을 해결하면 상호작용 성공
         if (isPuzzleOpen)
         {

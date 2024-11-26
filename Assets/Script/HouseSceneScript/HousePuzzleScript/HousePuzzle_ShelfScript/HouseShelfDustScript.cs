@@ -7,7 +7,7 @@ public class HouseShelfPuzzleDustScript : MonoBehaviour
     // HouseShelfScript 참조(destroyPrefabCount 참조를 위함)
     private HouseShelfPuzzleScript ShelfPuzzleScript;
 
-    void Start()
+    void Awake()
     {
         // ShelfPuzzleScript를 찾아 참조
         ShelfPuzzleScript = FindObjectOfType<HouseShelfPuzzleScript>();
@@ -23,6 +23,10 @@ public class HouseShelfPuzzleDustScript : MonoBehaviour
             ShelfPuzzleScript.destroyPrefabCount++;
             // 이 프리팹 파괴
             Destroy(gameObject);
+        }
+        else
+        {
+            return;
         }
     }
 }
