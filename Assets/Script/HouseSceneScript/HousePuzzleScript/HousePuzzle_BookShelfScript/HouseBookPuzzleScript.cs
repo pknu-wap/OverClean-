@@ -126,19 +126,7 @@ public class HouseBookPuzzleScript : MonoBehaviour
             yield return StartCoroutine(ShowImage(oImage));
             // puzzlesuccess 호출
             PuzzleManager.instance.PuzzleSuccess();
-            // 퍼즐 씬에서 사용한 book 프리팹을 전부 찾아와 제거
-            GameObject[] destroyBook = GameObject.FindGameObjectsWithTag("Book");
-            for(int i = 0; i < destroyBook.Length; i++)
-            {
-                Destroy(destroyBook[i]);
-            }
-            // 퍼즐 씬에서 사용한 checkgrid 프리팹을 전부 찾아와 제거
-            GameObject[] destroyCheckGrid = GameObject.FindGameObjectsWithTag("CheckGrid");
-            for(int i = 0; i < destroyCheckGrid.Length; i++)
-            {
-                Destroy(destroyCheckGrid[i]);
-            }
-            SceneManager.UnloadSceneAsync("HouseBookPuzzleScene");
+            ClosePuzzleScene();
         }
         else
         {
@@ -158,5 +146,26 @@ public class HouseBookPuzzleScript : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         // 이미지 숨김
         image.gameObject.SetActive(false);
+    }
+    public void OnClosePuzzleButtonClicked()
+    {
+        PuzzleManager.instance.ClickPuzzleCloseButton();
+        ClosePuzzleScene();
+    }
+    void ClosePuzzleScene()
+    {
+        // 퍼즐 씬에서 사용한 book 프리팹을 전부 찾아와 제거
+        GameObject[] destroyBook = GameObject.FindGameObjectsWithTag("Book");
+        for(int i = 0; i < destroyBook.Length; i++)
+        {
+            Destroy(destroyBook[i]);
+        }
+        // 퍼즐 씬에서 사용한 checkgrid 프리팹을 전부 찾아와 제거
+        GameObject[] destroyCheckGrid = GameObject.FindGameObjectsWithTag("CheckGrid");
+        for(int i = 0; i < destroyCheckGrid.Length; i++)
+        {
+            Destroy(destroyCheckGrid[i]);
+        }
+        SceneManager.UnloadSceneAsync("HouseBookPuzzleScene");
     }
 }
