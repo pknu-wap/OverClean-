@@ -106,17 +106,6 @@ public class DaveBoxInteractScript : MonoBehaviourPun
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 photonView.RPC("HoldingEndRPC", RpcTarget.All);
-                // 투명도 조정
-                SpriteRenderer spriteRenderer = boxDestination.GetComponent<SpriteRenderer>();
-
-                if (spriteRenderer != null)
-                {
-                    Color color = spriteRenderer.color;
-                    // a값(투명도) 재조절
-                    color.a = 0;
-                    // 변경된 색상 다시 할당
-                    spriteRenderer.color = color;
-                }
             }
         }
     }
@@ -138,10 +127,23 @@ public class DaveBoxInteractScript : MonoBehaviourPun
     {
         isHolding = false;
         // 목적지의 x,y 좌표 가져와서 박스 두기
-        transform.position = new Vector3(boxDestination.GetComponent<Transform>().position.x, boxDestination.GetComponent<Transform>().position.y + 0.3f, -1.0f);
+        transform.position = new Vector3(boxDestination.GetComponent<Transform>().position.x, boxDestination.GetComponent<Transform>().position.y + 0.3f, 0.9f);
         boxInteractEnd = true;
         // 선반에 박스 도착했다고 알리기
         matthewShelf.GetComponent<MatthewShelfInteractScript>().isBoxArrived = true;
+        // 도착지 상태 갱신
+        boxDestination.GetComponent<BoxDestinationZoneScript>().sr.material = normalState;
+        // 투명도 조정
+        SpriteRenderer spriteRenderer = boxDestination.GetComponent<SpriteRenderer>();
+
+        if (spriteRenderer != null)
+        {
+            Color color = spriteRenderer.color;
+            // a값(투명도) 재조절
+            color.a = 0;
+            // 변경된 색상 다시 할당
+            spriteRenderer.color = color;
+        }
     }
 
 

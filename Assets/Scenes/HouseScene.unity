@@ -5126,7 +5126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   normalState: {fileID: 2100000, guid: 156e2e5d3e19cf743a21910567fd6e66, type: 2}
-  canInteractState: {fileID: 2100000, guid: e6d0bc543f597f84f9b6ef33df0aff8f, type: 2}
+  canInteractState: {fileID: 2100000, guid: 1a0517ea99bbc3e45bc921cbe1b5dec6, type: 2}
   sr: {fileID: 0}
   daveBox: {fileID: 1236432511}
 --- !u!1 &2095312401
