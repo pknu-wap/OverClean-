@@ -60,6 +60,7 @@ public class HouseShelfPuzzleScript : MonoBehaviour
         image.gameObject.SetActive(false); 
         // puzzlesuccess 호출
         PuzzleManager.instance.PuzzleSuccess();
+        ClosePuzzleScene();
     }
 
     public void OnClosePuzzleButtonClicked()
