@@ -64,6 +64,24 @@ MonoBehaviour:
   - ShowImageTrigger
   - UpdatePauseState
   - ExitAndGotoLobbySceneButtonClick
+  - ExitAndGotoLobbyScene
+  - LoadHouseScene
+  - DestroyPlayerPrefabRPC
+  - BookInteractRPC
+  - BlockInteractRPC
+  - FinalDoorInteractRPC
+  - HoldingEndRPC
+  - HoldingStartRPC
+  - ShelfInteractRPC
+  - SinkInteractRPC
+  - WindowInteractRPC
+  - FuseClearRPC
+  - FuseCloseRPC
+  - IsConnect
+  - IsOnClickRPC
+  - LoadFusePuzzleScene
+  - SetRotate
+  - SetState
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

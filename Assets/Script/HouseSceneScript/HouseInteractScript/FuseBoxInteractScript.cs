@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
 
-public class FuseBoxInteractScript : MonoBehaviour
+public class FuseBoxInteractScript : MonoBehaviourPun
 {
     // 테두리 없는 상태
     public Material normalState;
@@ -13,10 +14,8 @@ public class FuseBoxInteractScript : MonoBehaviour
     public int objectIndex;
     // stagemanager를 참조해서 상호작용 여부를 제어하기 위한 변수
     public StageManager stageManager;
-    // 플레이어를 참조해서 위치를 받아오기 위한 변수
-    public Transform playerLocation;
-    // 상호작용 거리
-    public float interactionDistance = 1.5f;
+    // 상호작용 구역을 참조하기 위한 변수
+    public FuseInteractZone fuseInteractZone;
     // 상호작용 여부
     public bool hasInteracted = false;
     // 싱크대를 참조해서 material을 조정하기 위한 spriterenderer 변수
@@ -34,57 +33,73 @@ public class FuseBoxInteractScript : MonoBehaviour
     }
     void Update()
     {
-        // 플레이어와 오브젝트 간 거리 계산
-        float distanceToPlayer = Vector3.Distance(transform.position, playerLocation.position);
 
-        // 테두리 생성
-        ShowHighlight();
-
-        // 상호작용 가능한 거리 안에 있고 상호작용하지 않았다면
-        if (distanceToPlayer <= interactionDistance && !hasInteracted)
+        // 상호작용 존 안에 두 플레이어 모두가 있고 상호작용하지 않았다면
+        if (fuseInteractZone != null && fuseInteractZone.isPlayer1In && fuseInteractZone.isPlayer2In && !hasInteracted)
         {
+            // 테두리 생성
+            ShowHighlight();
             // 스페이스바로 상호작용
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                Interact();
+                // 모든 플레이어가 씬 로드 시작
+                photonView.RPC("LoadFusePuzzleScene", RpcTarget.AllBuffered);
             }
         }
+
         else
         {
             // 테두리 삭제
             HideHighlight();
         }
-        // 퍼즐이 열려 있을 때 퍼즐을 해결하면 상호작용 성공
-        if (isPuzzleOpen && PuzzleManager.instance.isPuzzleSuccess)
+
+         // 퍼즐이 열려 있을 때 퍼즐을 해결하면 상호작용 성공
+        if (isPuzzleOpen)
         {
-            // 오브젝트 상호작용됨
-            hasInteracted = true;
-            // 퍼즐이 닫힘
-            isPuzzleOpen = false;
-            // statemanager에게 상호작용되었다고 알림
-            stageManager.ObjectInteract(objectIndex);
-            // 퍼즐매니저의 퍼즐 성공여부를 초기화
-            PuzzleManager.instance.isPuzzleSuccess = false;
-            // 퍼즐이 성공했으므로 플레이어 이동 가능하게 설정
-            playerLocation.GetComponent<PlayerManager>().canMove = true;
+            if (PuzzleManager.instance.isPuzzleSuccess)
+            {
+                photonView.RPC("FuseClearRPC", RpcTarget.All);
+            }
+            else if(PuzzleManager.instance.clickPuzzleCloseButton)
+            {
+                photonView.RPC("FuseCloseRPC", RpcTarget.All);
+            }
         }
     }
 
-    // 상호작용 함수
-    void Interact()
+    [PunRPC]
+    void LoadFusePuzzleScene()
     {
-        // 퍼즐이 열려 있지 않을 때만 Interact가 실행되었을 때 퍼즐씬이 불러와지도록 조건 추가
         if (!isPuzzleOpen)
         {
             PuzzleUI.gameObject.SetActive(true);
-            // 씬매니저로 퍼즐씬 불러오기
+            // Additive로 씬 로드
             SceneManager.LoadScene("HouseFuseBoxPuzzleScene", LoadSceneMode.Additive);
-            // 퍼즐 오픈 변수 true
             isPuzzleOpen = true;
-            // Player.cs의 canMove를 제어해 플레이어 이동 제한
-            playerLocation.GetComponent<PlayerManager>().canMove = false;
-       }
+            stageManager.SetPlayerMovement(false);
+        }
+    }
 
+    [PunRPC]
+    void FuseClearRPC()
+    {
+        isPuzzleOpen = false;
+        // 오브젝트 상호작용됨
+        hasInteracted = true;
+        // statemanager에게 상호작용되었다고 알림
+        stageManager.ObjectInteract(objectIndex);
+        // 퍼즐매니저의 퍼즐 성공여부를 초기화
+        PuzzleManager.instance.isPuzzleSuccess = false;
+        // 퍼즐이 성공했으므로 플레이어 이동 가능하게 설정
+        stageManager.SetPlayerMovement(true);
+    }
+
+    [PunRPC]
+    void FuseCloseRPC()
+    {
+        isPuzzleOpen = false;
+        PuzzleManager.instance.clickPuzzleCloseButton = false;
+        stageManager.SetPlayerMovement(true);
     }
 
     // 테두리 생성 및 표시

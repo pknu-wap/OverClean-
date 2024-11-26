@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
+using Unity.VisualScripting;
 
 public class MatthewShelfInteractScript : MonoBehaviour
 {
@@ -30,14 +32,35 @@ public class MatthewShelfInteractScript : MonoBehaviour
     
     // 상호작용시 비활성화 되어있는 캔버스를 열기 위한 변수
     public RectTransform PuzzleUI;
+    // 현재 클라이언트가 매튜인지(디폴트 false)
+    public bool matthewIsMe = false;
 
     void Start()
     {
+        AddLocalPlayer();
         // sr을 getcomponent 메서드로 초기화
         sr = GetComponent<SpriteRenderer>();
     }
+
+    void AddLocalPlayer()
+    {
+        PhotonView[] photonViews = FindObjectsOfType<PhotonView>();
+        foreach (var photonView in photonViews)
+        {
+            if (photonView.gameObject.tag == "Player2")
+            {
+                playerLocation = photonView.transform;
+            }
+        }
+    }
+
     void Update()
     {
+        if(playerLocation == null)
+        {
+            AddLocalPlayer();
+            return;
+        }
         // 플레이어와 오브젝트 간 거리 계산
         float distanceToPlayer = Vector3.Distance(transform.position, playerLocation.position);
 
@@ -59,18 +82,27 @@ public class MatthewShelfInteractScript : MonoBehaviour
             HideHighlight();
         }
         // 퍼즐이 열려 있을 때 퍼즐을 해결하면 상호작용 성공
-        if (isPuzzleOpen && PuzzleManager.instance.isPuzzleSuccess)
+        if (isPuzzleOpen)
         {
-            // 오브젝트 상호작용됨
-            hasInteracted = true;
-            // 퍼즐이 닫힘
-            isPuzzleOpen = false;
-            // statemanager에게 상호작용되었다고 알림
-            stageManager.ObjectInteract(objectIndex);
-            // 퍼즐매니저의 퍼즐 성공여부를 초기화
-            PuzzleManager.instance.isPuzzleSuccess = false;
-            // 퍼즐이 성공했으므로 플레이어 이동 가능하게 설정
-            playerLocation.GetComponent<PlayerManager>().canMove = true;
+            if (PuzzleManager.instance.isPuzzleSuccess)
+            {
+                // 퍼즐이 닫힘
+                isPuzzleOpen = false;
+                // 퍼즐매니저의 퍼즐 성공여부를 초기화
+                PuzzleManager.instance.isPuzzleSuccess = false;
+                playerLocation.GetComponent<PlayerManager>().canMove = true;
+                PhotonView photonView = GetComponent<PhotonView>();
+                // RPC 함수 호출
+                photonView.RPC("ShelfInteractRPC", RpcTarget.All);
+            }
+            else if (PuzzleManager.instance.clickPuzzleCloseButton)
+            {
+                isPuzzleOpen = false;
+
+                PuzzleManager.instance.clickPuzzleCloseButton = false;
+
+                playerLocation.GetComponent<PlayerManager>().canMove = true;
+            }
         }
     }
 
@@ -88,6 +120,15 @@ public class MatthewShelfInteractScript : MonoBehaviour
             // Player.cs의 canMove를 제어해 플레이어 이동 제한
             playerLocation.GetComponent<PlayerManager>().canMove = false;
         }
+    }
+
+    [PunRPC]
+    void ShelfInteractRPC()
+    {
+        // 상호작용 완료됨
+        hasInteracted = true;
+        // 해당 오브젝트 인덱스 상호작용 완료를 stageManager에게 전달
+        stageManager.ObjectInteract(objectIndex);
     }
 
     // 테두리 생성 및 표시
