@@ -26,12 +26,18 @@ public class PrisonUIManager : MonoBehaviour
 
     private void Update()
     {
+        isPaused = PauseManager.Instance.isPaused;
         if (Input.GetKeyDown(KeyCode.Z))
         {
             Debug.Log("Z 눌려짐 - DestroyPlayers 호출");
             // 파괴할 프리팹 네트워킹매니저에 저장
             NetworkingManager.Instance.InsertDestroyPlayerPrefab();
             photonView.RPC("LoadHouseScene", RpcTarget.MasterClient);
+        }
+
+        if(PauseManager.Instance.isTransitioningPauseState)
+        {
+            return;
         }
 
         if (tutorialPanelOpen && !isPaused && Input.GetKeyDown(KeyCode.Escape))
@@ -41,11 +47,13 @@ public class PrisonUIManager : MonoBehaviour
         else if (!tutorialPanelOpen && !isPaused && Input.GetKeyDown(KeyCode.Escape))
         {
             pausedByPlayerId = PhotonNetwork.LocalPlayer.ActorNumber;
+            PauseManager.Instance.isTransitioningPauseState = true;
             photonView.RPC("UpdatePauseState", RpcTarget.All, pausedByPlayerId, true);
         }
         else if (!tutorialPanelOpen && isPaused && Input.GetKeyDown(KeyCode.Escape) && pausedByPlayerId == PhotonNetwork.LocalPlayer.ActorNumber)
         {
             pausedByPlayerId = PhotonNetwork.LocalPlayer.ActorNumber;
+            PauseManager.Instance.isTransitioningPauseState = true;
             photonView.RPC("UpdatePauseState", RpcTarget.All, pausedByPlayerId, false);
         }
     }
@@ -87,6 +95,7 @@ public class PrisonUIManager : MonoBehaviour
     void UpdatePauseState(int actorNumber, bool pauseState)
     {
         isPaused = pauseState;
+        PauseManager.Instance.isPaused = pauseState;
         if (pauseState)
         {
             stageManager.isPaused = true;
@@ -112,9 +121,14 @@ public class PrisonUIManager : MonoBehaviour
             pausePanel.gameObject.SetActive(false);
             pauseTextPanel.gameObject.SetActive(false);
         }
+        StartCoroutine(ResetTransitionState());
 
     }
-
+    private IEnumerator ResetTransitionState()
+    {
+        yield return new WaitForSeconds(0.1f); // 딜레이 추가
+        PauseManager.Instance.isTransitioningPauseState = false; // 상태 전환 완료
+    }
     public void LoadMapChooseScene()
     {
         PhotonNetwork.LoadLevel("MapChooseScene");

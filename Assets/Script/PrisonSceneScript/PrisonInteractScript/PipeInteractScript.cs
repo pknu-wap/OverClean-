@@ -78,7 +78,7 @@ public class PipeInteract : MonoBehaviourPun
     [PunRPC]
     void LoadPipePuzzleScene()
     {
-        if (!isPuzzleOpen)
+        if (!isPuzzleOpen && !PauseManager.Instance.isPaused)
         {
             PuzzleUI.gameObject.SetActive(true);
             // Additive로 씬 로드
