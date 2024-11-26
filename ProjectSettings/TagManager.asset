@@ -18,6 +18,8 @@ TagManager:
   - CheckGrid
   - Book
   - GoalZone
+  - DaveButton
+  - MatthewButton
   layers:
   - Default
   - TransparentFX

@@ -2,16 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using Photon.Pun;
 
-public class DaveBoxInteractScript : MonoBehaviour
+public class DaveBoxInteractScript : MonoBehaviourPun
 {
     // 테두리 없는 상태
     public Material normalState;
     // 테두리 있는 상태
     public Material canInteractState;
-    // 오브젝트의 인덱스(감옥 맵에서 0~7)
-    public int objectIndex;
-    // 플레이어를 참조해서 위치를 받아오기 위한 변수(데이브)
+    // stagemanager를 참조해서 상호작용 여부를 제어하기 위한 변수
+    public StageManager stageManager;
+    // 플레이어 위치를 저장할 변수
     public Transform playerLocation;
     // 들 수 있는 거리
     public float canHoldDistance = 2.0f;
@@ -30,12 +31,30 @@ public class DaveBoxInteractScript : MonoBehaviour
 
     void Start()
     {
+        AddLocalPlayer();
         // sr을 getcomponent 메서드로 초기화
         sr = GetComponent<SpriteRenderer>();
     }
+
+    void AddLocalPlayer()
+    {
+        PhotonView[] photonViews = FindObjectsOfType<PhotonView>();
+        foreach (var photonView in photonViews)
+        {
+            if (photonView.gameObject.tag == "Player1")
+            {
+                playerLocation = photonView.transform;
+            }
+        }
+    }
+
     void Update()
     {
-        // 만약 박스를 성공적으로 뒀다면 더이상 상호작용 x
+        if(playerLocation == null)
+        {
+            AddLocalPlayer();
+            return;
+        }
         if (boxInteractEnd)
         {
             return;
@@ -52,8 +71,8 @@ public class DaveBoxInteractScript : MonoBehaviour
             // 스페이스바로 들기
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                // 들기 시작
-                isHolding = true;
+                PhotonView photonView = GetComponent<PhotonView>();
+                photonView.RPC("HoldingStartRPC", RpcTarget.All);
 
                 // 투명도 조정
                 SpriteRenderer spriteRenderer = boxDestination.GetComponent<SpriteRenderer>();
@@ -87,13 +106,15 @@ public class DaveBoxInteractScript : MonoBehaviour
             // 스페이스바로 놓기
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                // 목적지의 x,y 좌표 가져와서 박스 두기
-                transform.position = new Vector3(boxDestination.GetComponent<Transform>().position.x, boxDestination.GetComponent<Transform>().position.y + 0.3f, -1.1f);
-                boxInteractEnd = true;
-                // 선반에 박스 도착했다고 알리기
-                matthewShelf.GetComponent<MatthewShelfInteractScript>().isBoxArrived = true;
+                photonView.RPC("HoldingEndRPC", RpcTarget.All);
             }
         }
+    }
+
+    [PunRPC]
+    void HoldingStartRPC()
+    {
+        isHolding = true;
     }
 
     // 상자 위치를 옮겨 든 것처럼 보이게 하는 함수
@@ -101,6 +122,17 @@ public class DaveBoxInteractScript : MonoBehaviour
     {
         transform.position = new Vector3(playerLocation.position.x, playerLocation.position.y + 1.04f, playerLocation.position.z);
     }
+
+    [PunRPC]
+    void HoldingEndRPC()
+    {
+        // 목적지의 x,y 좌표 가져와서 박스 두기
+        transform.position = new Vector3(boxDestination.GetComponent<Transform>().position.x, boxDestination.GetComponent<Transform>().position.y + 0.3f, 0);
+        boxInteractEnd = true;
+        // 선반에 박스 도착했다고 알리기
+        matthewShelf.GetComponent<MatthewShelfInteractScript>().isBoxArrived = true;
+    }
+
 
     // 테두리 생성 및 표시
     void ShowHighlight()

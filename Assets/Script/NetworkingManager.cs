@@ -15,6 +15,9 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
     // 기존 방 코드를 저장할 HashSet
     private HashSet<string> existingRoomCodes = new HashSet<string>();
 
+    // 씬 전환시 파괴할 플레이어 프리팹 저장 리스트
+    public List<GameObject> prefabsToDestroy = new List<GameObject>();
+
     private void Awake()
     {
         // 싱글톤 패턴 구현: NetworkingManager가 중복되지 않도록 설정
@@ -232,5 +235,29 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
         {
             roomManager.UpdateCharacterImages();
         }
+    }
+    
+    // 씬 전환시 파괴할 플레이어 프리팹 저장용 함수
+    public void InsertDestroyPlayerPrefab()
+    {
+        PhotonView[] photonViews = FindObjectsOfType<PhotonView>();
+        foreach (var photonView in photonViews)
+        {
+            if (photonView.gameObject.name.Contains("Player"))
+            {
+                Debug.Log(photonView.gameObject.name + "할당됨");
+                prefabsToDestroy.Add(photonView.gameObject);
+            }
+        }
+    }
+
+    // 저장된 플레이어 프리팹 파괴 함수
+    public void DestroyPlayerPrefabList()
+    {
+        foreach (GameObject prefab in prefabsToDestroy)
+        {
+            PhotonView.Destroy(prefab);
+        }
+        prefabsToDestroy.Clear();
     }
 }
