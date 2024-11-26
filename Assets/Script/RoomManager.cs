@@ -174,7 +174,10 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
         // 카운트다운 종료 시 텍스트 초기화 및 게임 씬 로드
         countdownText.text = "";
-        PhotonNetwork.LoadLevel("PrisonScene");
+        if(PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.LoadLevel("PrisonScene");
+        }
     }
 
     public void ReadyUpDave()

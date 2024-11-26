@@ -537,7 +537,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 7482667652216324306, guid: fdee3a0df83ab5d4896a6e4eaa80b18c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
@@ -1017,7 +1017,7 @@ Transform:
   m_GameObject: {fileID: 593874986}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.84, y: -5.41, z: 0}
+  m_LocalPosition: {x: 4.84, y: -5.41, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1036,7 +1036,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   normalState: {fileID: 2100000, guid: 156e2e5d3e19cf743a21910567fd6e66, type: 2}
-  canInteractState: {fileID: 2100000, guid: 0e469783926eb7e4baeec88270a07c91, type: 2}
+  canInteractState: {fileID: 2100000, guid: e6d0bc543f597f84f9b6ef33df0aff8f, type: 2}
   objectIndex: 6
   stageManager: {fileID: 1748221699}
   playerLocations: []
@@ -1411,7 +1411,7 @@ Transform:
   m_GameObject: {fileID: 872800547}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.27, y: -4.73, z: 0}
+  m_LocalPosition: {x: -3.27, y: -4.73, z: 1}
   m_LocalScale: {x: 1, y: 1.8635, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1482,7 +1482,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   normalState: {fileID: 2100000, guid: 156e2e5d3e19cf743a21910567fd6e66, type: 2}
-  canInteractState: {fileID: 2100000, guid: 0e469783926eb7e4baeec88270a07c91, type: 2}
+  canInteractState: {fileID: 2100000, guid: e6d0bc543f597f84f9b6ef33df0aff8f, type: 2}
   objectIndex: 2
   stageManager: {fileID: 1748221699}
   playerLocation: {fileID: 0}
@@ -1626,7 +1626,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &882575294
@@ -1811,7 +1811,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &952393423
@@ -2383,7 +2383,7 @@ Transform:
   m_GameObject: {fileID: 1236432511}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.18, y: -5.35, z: -0.5}
+  m_LocalPosition: {x: -6.18, y: -5.35, z: 1}
   m_LocalScale: {x: 0.8346, y: 0.7979, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2402,7 +2402,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   normalState: {fileID: 2100000, guid: 156e2e5d3e19cf743a21910567fd6e66, type: 2}
-  canInteractState: {fileID: 2100000, guid: 0e469783926eb7e4baeec88270a07c91, type: 2}
+  canInteractState: {fileID: 2100000, guid: e6d0bc543f597f84f9b6ef33df0aff8f, type: 2}
   stageManager: {fileID: 1748221699}
   playerLocation: {fileID: 0}
   canHoldDistance: 2
@@ -3049,7 +3049,7 @@ Transform:
   m_GameObject: {fileID: 1514945337}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.54, y: -4.74, z: 0}
+  m_LocalPosition: {x: -10.54, y: -4.74, z: 1}
   m_LocalScale: {x: 1.3, y: 1.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3068,7 +3068,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   normalState: {fileID: 2100000, guid: 156e2e5d3e19cf743a21910567fd6e66, type: 2}
-  canInteractState: {fileID: 2100000, guid: 0e469783926eb7e4baeec88270a07c91, type: 2}
+  canInteractState: {fileID: 2100000, guid: e6d0bc543f597f84f9b6ef33df0aff8f, type: 2}
   objectIndex: 0
   stageManager: {fileID: 1748221699}
   playerLocations: []
@@ -3230,7 +3230,7 @@ Transform:
   m_GameObject: {fileID: 1521573601}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.32, y: -5.38, z: 0}
+  m_LocalPosition: {x: 1.32, y: -5.38, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3249,7 +3249,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   normalState: {fileID: 2100000, guid: 156e2e5d3e19cf743a21910567fd6e66, type: 2}
-  canInteractState: {fileID: 2100000, guid: 0e469783926eb7e4baeec88270a07c91, type: 2}
+  canInteractState: {fileID: 2100000, guid: e6d0bc543f597f84f9b6ef33df0aff8f, type: 2}
   objectIndex: 4
   stageManager: {fileID: 1748221699}
   playerLocations: []
@@ -3488,7 +3488,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   normalState: {fileID: 2100000, guid: 156e2e5d3e19cf743a21910567fd6e66, type: 2}
-  canInteractState: {fileID: 2100000, guid: 0e469783926eb7e4baeec88270a07c91, type: 2}
+  canInteractState: {fileID: 2100000, guid: e6d0bc543f597f84f9b6ef33df0aff8f, type: 2}
   objectIndex: 5
   stageManager: {fileID: 1748221699}
   fuseInteractZone: {fileID: 191372674}
@@ -3601,7 +3601,7 @@ Transform:
   m_GameObject: {fileID: 1570227786}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.14, y: -5.37, z: 0}
+  m_LocalPosition: {x: 3.14, y: -5.37, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3837,7 +3837,7 @@ Transform:
   m_GameObject: {fileID: 1627279844}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.71, y: -4.9, z: 0}
+  m_LocalPosition: {x: -8.71, y: -4.9, z: 1}
   m_LocalScale: {x: 1.4484, y: 1.275211, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3908,7 +3908,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   normalState: {fileID: 2100000, guid: 156e2e5d3e19cf743a21910567fd6e66, type: 2}
-  canInteractState: {fileID: 2100000, guid: 0e469783926eb7e4baeec88270a07c91, type: 2}
+  canInteractState: {fileID: 2100000, guid: e6d0bc543f597f84f9b6ef33df0aff8f, type: 2}
   objectIndex: 1
   stageManager: {fileID: 1748221699}
   playerLocations: []
@@ -4500,7 +4500,7 @@ Transform:
   m_GameObject: {fileID: 1822420503}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.77, y: -5.38, z: 0}
+  m_LocalPosition: {x: -0.77, y: -5.38, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4519,7 +4519,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   normalState: {fileID: 2100000, guid: 156e2e5d3e19cf743a21910567fd6e66, type: 2}
-  canInteractState: {fileID: 2100000, guid: 0e469783926eb7e4baeec88270a07c91, type: 2}
+  canInteractState: {fileID: 2100000, guid: e6d0bc543f597f84f9b6ef33df0aff8f, type: 2}
   objectIndex: 3
   stageManager: {fileID: 1748221699}
   playerLocations: []
@@ -4738,7 +4738,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
+    newSize: {x: 2.56, y: 2.56}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -4758,6 +4758,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e35b8edf9b042764f882bb28ba5f2cc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player1InZone: 0
+  player2InZone: 0
   stageManager: {fileID: 1748221699}
   stageClear: 0
   MapClearPanel: {fileID: 0}
@@ -4803,12 +4805,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 7482667652216324306, guid: fdee3a0df83ab5d4896a6e4eaa80b18c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.043137256}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2.56, y: 2.56}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -4823,7 +4825,7 @@ Transform:
   m_GameObject: {fileID: 1956038720}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.71, y: -8.96, z: 0}
+  m_LocalPosition: {x: 5.71, y: -8.96, z: 1}
   m_LocalScale: {x: 1.5992, y: 3.8676, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5008,7 +5010,7 @@ Transform:
   m_GameObject: {fileID: 2094775840}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.24, y: -6.1919, z: 0}
+  m_LocalPosition: {x: -3.24, y: -6.1919, z: 1}
   m_LocalScale: {x: 1.712077, y: 1.0108743, z: 1.712077}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5124,7 +5126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   normalState: {fileID: 2100000, guid: 156e2e5d3e19cf743a21910567fd6e66, type: 2}
-  canInteractState: {fileID: 2100000, guid: 0e469783926eb7e4baeec88270a07c91, type: 2}
+  canInteractState: {fileID: 2100000, guid: e6d0bc543f597f84f9b6ef33df0aff8f, type: 2}
   sr: {fileID: 0}
   daveBox: {fileID: 1236432511}
 --- !u!1 &2095312401
