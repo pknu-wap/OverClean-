@@ -16,10 +16,10 @@ public class PrisonPipePuzzleScript : MonoBehaviourPun
     // 파이프들의 가로줄 갯수
     private int gridHeight = 5;
     // 파이프 타일 생성의 초기 x,y 절대 좌표
-    private int originXPosition = -494;
-    private int originYPosition = 216;
-    // 각 파이프 타일 간격 (약간의 여유 공간 포함)
-    private int tileSize = 110;
+    private double originXPosition = -406.8;
+    private double originYPosition = 169.4;
+    // 각 파이프 타일 간격 (여유 공간 없이 딱 들어맞게 조정)
+    private double tileSize = 89.7;
     // 각 파이프 타일의 변수에 접근하기 위해, 스크립트를 저장하는 배열
     public PipeTileScript[,] pipeTileScripts;
     // 파이프 길 생성 시에, 길의 꺾이는 파이프의 위치 정보 모음
@@ -103,7 +103,7 @@ public class PrisonPipePuzzleScript : MonoBehaviourPun
                 GameObject pipeTile = Instantiate(pipeShapes[pipeShape], pipeGrid.transform);
 
                 // 타일 위치 계산
-                UnityEngine.Vector3 tilePosition = new UnityEngine.Vector3(originXPosition + x * tileSize, originYPosition - y * tileSize, 0);
+                UnityEngine.Vector3 tilePosition = new UnityEngine.Vector3((float)originXPosition + x * (float)tileSize, (float)originYPosition - y * (float)tileSize, 0);
                 pipeTile.transform.localPosition = tilePosition;
                 // 0도, 90도, 180도, 270도 중 하나로 회전
                 int randomRotation = Random.Range(0, 4) * -90;
