@@ -1040,7 +1040,7 @@ MonoBehaviour:
   objectIndex: 6
   stageManager: {fileID: 1748221699}
   playerLocations: []
-  interactionDistance: 1.5
+  interactionDistance: 2
   hasInteracted: 0
   sr: {fileID: 0}
   PuzzleUI: {fileID: 222962354}
@@ -1486,7 +1486,7 @@ MonoBehaviour:
   objectIndex: 2
   stageManager: {fileID: 1748221699}
   playerLocation: {fileID: 0}
-  interactionDistance: 1.3
+  interactionDistance: 2.5
   hasInteracted: 0
   houseShelf: {fileID: 872800547}
   sr: {fileID: 0}
@@ -3253,7 +3253,7 @@ MonoBehaviour:
   objectIndex: 4
   stageManager: {fileID: 1748221699}
   playerLocations: []
-  interactionDistance: 1.5
+  interactionDistance: 2
   hasInteracted: 0
   sr: {fileID: 0}
   PuzzleUI: {fileID: 222962354}
@@ -3912,7 +3912,7 @@ MonoBehaviour:
   objectIndex: 1
   stageManager: {fileID: 1748221699}
   playerLocations: []
-  interactionDistance: 1.3
+  interactionDistance: 2.5
   hasInteracted: 0
   sr: {fileID: 0}
   PuzzleUI: {fileID: 222962354}
@@ -4523,7 +4523,7 @@ MonoBehaviour:
   objectIndex: 3
   stageManager: {fileID: 1748221699}
   playerLocations: []
-  interactionDistance: 1.5
+  interactionDistance: 2
   hasInteracted: 0
   sr: {fileID: 0}
   PuzzleUI: {fileID: 222962354}
