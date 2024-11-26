@@ -59,8 +59,15 @@ public class PlayerManager : MonoBehaviour
     void Update()
     {
         // 원격 플레이어일 경우 위치 및 방향 데이터를 수신하지 않음
-        if(!photonView.IsMine || !canMove)
+        if(!photonView.IsMine)
         {
+            return;
+        }
+        // 움직일 수 없는 상태일 때, 애니메이션 속도 0으로 초기화
+        if(!canMove)
+        {
+            inputVec = Vector2.zero;
+            anim.SetFloat("Speed", 0);
             return;
         }
 
@@ -87,6 +94,13 @@ public class PlayerManager : MonoBehaviour
     void FixedUpdate()
     {
         if (!photonView.IsMine) return;
+
+        // 움직일 수 없는 상태일 때, 이동속도를 0으로 초기화
+        if (!canMove)
+        {
+            rigid.velocity = Vector2.zero;
+            return;
+        }
 
         Vector2 nextVec = inputVec.normalized * speed * Time.fixedDeltaTime;
         rigid.MovePosition(rigid.position + nextVec);
