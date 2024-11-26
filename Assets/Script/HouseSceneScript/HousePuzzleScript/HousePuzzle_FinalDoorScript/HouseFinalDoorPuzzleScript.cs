@@ -35,6 +35,13 @@ public class HouseFinalDoorPuzzleScript : MonoBehaviour
         oImage.gameObject.SetActive(false);
         xImage.gameObject.SetActive(false);
     }
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            OnClosePuzzleButtonClicked();
+        }
+    }
 
     public void OnClick()
     {

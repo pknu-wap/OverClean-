@@ -24,7 +24,6 @@ public class HouseShelfPuzzleScript : MonoBehaviour
         // 프리팹 생성
         SpawnDustPrefab();
     }
-
     void SpawnDustPrefab()
     {
         for(int i = 0; i < prefabCount; i++)
@@ -46,6 +45,10 @@ public class HouseShelfPuzzleScript : MonoBehaviour
         {
             // 클리어 코루틴 실행
             StartCoroutine(ShowImage(oImage));
+        }
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            OnClosePuzzleButtonClicked();
         }
     }
 

@@ -42,6 +42,14 @@ public class HouseBlockPuzzleScript : MonoBehaviour
         oImage.gameObject.SetActive(false);
         xImage.gameObject.SetActive(false);
     }
+    
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            OnClosePuzzleButtonClicked();
+        }
+    }
 
     // 코루틴 시작 함수(버튼과 연결)
     public void StartCheckClear()

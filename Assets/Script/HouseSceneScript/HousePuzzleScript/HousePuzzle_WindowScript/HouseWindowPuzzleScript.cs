@@ -57,6 +57,10 @@ public class HouseWindowPuzzleScript : MonoBehaviour
         {
             rotateKey.transform.Rotate(0, 0, rotationSpeed * Time.deltaTime);
         }
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            OnClosePuzzleButtonClicked();
+        }
     }
 
     // 마우스 클릭 시 호출되는 함수

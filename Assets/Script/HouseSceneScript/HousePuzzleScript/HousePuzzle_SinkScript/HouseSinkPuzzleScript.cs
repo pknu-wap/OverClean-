@@ -25,7 +25,6 @@ public class HouseSinkPuzzleScript : MonoBehaviour
         // 프리팹 생성
         SpawnDirtyPrefab();
     }
-
     void SpawnDirtyPrefab()
     {
         for(int i = 0; i < prefabCount; i++)
@@ -52,6 +51,10 @@ public class HouseSinkPuzzleScript : MonoBehaviour
         {
             // 클리어 코루틴 실행
             StartCoroutine(ShowImage(oImage));
+        }
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            OnClosePuzzleButtonClicked();
         }
     }
 
