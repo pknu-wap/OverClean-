@@ -64,7 +64,7 @@ public class FuseBoxInteractScript : MonoBehaviourPun
     [PunRPC]
     void LoadFusePuzzleScene()
     {
-        if (!isPuzzleOpen)
+        if (!isPuzzleOpen && !PauseManager.Instance.isPaused)
         {
             PuzzleUI.gameObject.SetActive(true);
             // Additive로 씬 로드
