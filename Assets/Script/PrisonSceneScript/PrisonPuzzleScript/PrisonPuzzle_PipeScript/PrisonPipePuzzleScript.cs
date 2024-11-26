@@ -18,7 +18,7 @@ public class PrisonPipePuzzleScript : MonoBehaviourPun
     // 파이프 타일 생성의 초기 x,y 절대 좌표
     private double originXPosition = -406.8;
     private double originYPosition = 169.4;
-    // 각 파이프 타일 간격 (약간의 여유 공간 포함)
+    // 각 파이프 타일 간격 (여유 공간 없이 딱 들어맞게 조정)
     private double tileSize = 89.7;
     // 각 파이프 타일의 변수에 접근하기 위해, 스크립트를 저장하는 배열
     public PipeTileScript[,] pipeTileScripts;
