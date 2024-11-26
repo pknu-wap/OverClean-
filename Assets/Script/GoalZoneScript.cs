@@ -4,12 +4,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-public class GoalZone : MonoBehaviour
+public class GoalZoneScript : MonoBehaviour
 {
     // 플레이어 1이 구역에 들어왔는지 여부
-    private bool player1InZone = false; 
+    public bool player1InZone = false; 
     // 플레이어 2가 구역에 들어왔는지 여부 
-    private bool player2InZone = false; 
+    public bool player2InZone = false; 
     // 상호작용 개수를 확인하기 위한 stagemanager 참조
     public StageManager stageManager;    
     // 스테이지 클리어 여부를 stageManager에게 전달하기 위한 변수
@@ -18,6 +18,11 @@ public class GoalZone : MonoBehaviour
     public GameObject MapClearPanel;
     // 타이머 텍스트를 표시하기 위한 text ui 참조
     public TMP_Text clearTimeText;
+
+    void Start()
+    {
+        stageManager = FindAnyObjectByType<StageManager>();
+    }
 
     // 플레이어가 구역에 들어왔을 때 처리
     void OnTriggerEnter2D(Collider2D other)
@@ -52,10 +57,21 @@ public class GoalZone : MonoBehaviour
 
     void CheckForClear()
     {
+        
         // 두 플레이어가 구역 안에 들어왔고, 시간 내에 모든 상호작용이 완료됐다면
-        if (player1InZone && player2InZone && stageManager.interactCount == stageManager.interactObject.Length && !stageManager.isTimeOver)
+        if (player1InZone && player2InZone && stageManager.interactCount == stageManager.interactObject.Length )
         {
-            ClearStage();
+            if(SceneManager.GetActiveScene().name == "PrisonScene")
+            {
+                ClearStage();   
+            }
+            else
+            {
+                if(!stageManager.isTimeOver)
+                {
+                    ClearStage();
+                }
+            }
         }
     }
 

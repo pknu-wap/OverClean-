@@ -2536,17 +2536,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f76658be6961f941815513e93e7639f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageManager: {fileID: 0}
   tutorialPanel: {fileID: 0}
   pausePanel: {fileID: 0}
-  pauseTextPanel: {fileID: 0}
   titleExitPanel: {fileID: 0}
   roomCodeInputPanel: {fileID: 0}
   tutorialPanelOpen: 1
   titleExitPanelOpen: 0
   roomCodeInputPanelOpen: 0
-  isPaused: 0
-  pausedByPlayerId: -1
+  pause: 0
 --- !u!4 &2031633106
 Transform:
   m_ObjectHideFlags: 0
@@ -2570,4 +2567,3 @@ SceneRoots:
   - {fileID: 1222379148}
   - {fileID: 1276365108}
   - {fileID: 1710354787}
-  - {fileID: 2031633106}
