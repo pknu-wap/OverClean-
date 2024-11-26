@@ -86,14 +86,6 @@ public class HouseBookPuzzleScript : MonoBehaviour
             bookList[2] + " 책은 3번째 자리입니다."
         );
     }
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            OnClosePuzzleButtonClicked();
-        }
-    }
-
     // 배열 섞는 메서드
     private void ShuffleArray<String>(String[] array)
     {

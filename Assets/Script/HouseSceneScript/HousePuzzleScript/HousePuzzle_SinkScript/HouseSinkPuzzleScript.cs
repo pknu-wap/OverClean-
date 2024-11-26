@@ -52,10 +52,6 @@ public class HouseSinkPuzzleScript : MonoBehaviour
             // 클리어 코루틴 실행
             StartCoroutine(ShowImage(oImage));
         }
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            OnClosePuzzleButtonClicked();
-        }
     }
 
     // o 이미지를 띄우고 퍼즐 종료
