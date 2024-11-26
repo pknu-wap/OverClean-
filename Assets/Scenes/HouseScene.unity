@@ -1017,7 +1017,7 @@ Transform:
   m_GameObject: {fileID: 593874986}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.84, y: -5.41, z: 1}
+  m_LocalPosition: {x: 5.12, y: -5.11, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1040,7 +1040,7 @@ MonoBehaviour:
   objectIndex: 6
   stageManager: {fileID: 1748221699}
   playerLocations: []
-  interactionDistance: 2
+  interactionDistance: 1.5
   hasInteracted: 0
   sr: {fileID: 0}
   PuzzleUI: {fileID: 222962354}
@@ -1618,7 +1618,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: -2413806693520163455, guid: 34a924f8a507e2c46a08cc936c2de72f, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1626,7 +1626,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &882575294
@@ -1803,7 +1803,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: -2413806693520163455, guid: 34a924f8a507e2c46a08cc936c2de72f, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1811,7 +1811,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &952393423
@@ -3230,7 +3230,7 @@ Transform:
   m_GameObject: {fileID: 1521573601}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.32, y: -5.38, z: 1}
+  m_LocalPosition: {x: 1.28, y: -4.97, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3253,7 +3253,7 @@ MonoBehaviour:
   objectIndex: 4
   stageManager: {fileID: 1748221699}
   playerLocations: []
-  interactionDistance: 2
+  interactionDistance: 1.5
   hasInteracted: 0
   sr: {fileID: 0}
   PuzzleUI: {fileID: 222962354}
@@ -4523,7 +4523,7 @@ MonoBehaviour:
   objectIndex: 3
   stageManager: {fileID: 1748221699}
   playerLocations: []
-  interactionDistance: 2
+  interactionDistance: 1.5
   hasInteracted: 0
   sr: {fileID: 0}
   PuzzleUI: {fileID: 222962354}
