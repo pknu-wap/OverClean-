@@ -524,6 +524,12 @@ MonoBehaviour:
   bgm: {fileID: 903381190}
   defaultMusic: {fileID: 8300000, guid: 43a73393dba56d54192c1e8260310d72, type: 3}
   prisonMusic: {fileID: 8300000, guid: 8321c4cc093789440a9fbae40ad1b83f, type: 3}
+  sfxSource: {fileID: 903381190}
+  prisonLockSounds:
+  - {fileID: 8300000, guid: f2527b6438cae2a4cb7ab678a7d9a2ad, type: 3}
+  - {fileID: 8300000, guid: f3d7bae7956aad5438c3fe6e4ffff2cb, type: 3}
+  - {fileID: 8300000, guid: 09f4904427de0e8419f664ac7ce5140a, type: 3}
+  - {fileID: 8300000, guid: f05632228f93f174e8dc48bf48403afd, type: 3}
 --- !u!4 &903381189
 Transform:
   m_ObjectHideFlags: 0
