@@ -2248,7 +2248,7 @@ Transform:
   m_GameObject: {fileID: 327420191}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 844.0705, y: 192.37509, z: 0}
+  m_LocalPosition: {x: -12.82, y: 28.79, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -26178,7 +26178,7 @@ Transform:
   m_GameObject: {fileID: 1236432511}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.739064, y: 36.669388, z: -1}
+  m_LocalPosition: {x: -12.95, y: 37.88, z: -1}
   m_LocalScale: {x: 0.8346, y: 0.7979, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -28836,7 +28836,7 @@ MonoBehaviour:
   objectIndex: 4
   stageManager: {fileID: 1748221699}
   playerLocations: []
-  interactionDistance: 3.5
+  interactionDistance: 3
   hasInteracted: 0
   sr: {fileID: 0}
   PuzzleUI: {fileID: 222962354}
@@ -31130,7 +31130,7 @@ MonoBehaviour:
   objectIndex: 1
   stageManager: {fileID: 1748221699}
   playerLocations: []
-  interactionDistance: 3
+  interactionDistance: 2
   hasInteracted: 0
   sr: {fileID: 0}
   PuzzleUI: {fileID: 222962354}
@@ -33720,7 +33720,7 @@ Transform:
   m_GameObject: {fileID: 1822420503}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.71, y: -5.31, z: -1}
+  m_LocalPosition: {x: 6.24, y: -4.66, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
