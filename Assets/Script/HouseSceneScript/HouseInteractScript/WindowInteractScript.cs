@@ -45,7 +45,7 @@ public class WindowInteractScript : MonoBehaviour
     {
         AddLocalPlayer();
         // targetPosition 초기화
-        targetPosition = new Vector3(houseWindow.transform.position.x, houseWindow.transform.position.y - 1.8f, houseWindow.transform.position.z);
+        targetPosition = new Vector3(houseWindow.transform.position.x, houseWindow.transform.position.y - 3.0f, houseWindow.transform.position.z);
     }
     // 태그를 통해 로컬 플레이어(상호작용은 각각의 클라이언트 관점에서 자신의 캐릭터로만 할 수 있으므로) 할당
     void AddLocalPlayer()
