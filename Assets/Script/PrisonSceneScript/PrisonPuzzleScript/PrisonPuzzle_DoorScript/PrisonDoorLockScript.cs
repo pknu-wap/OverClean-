@@ -43,7 +43,7 @@ public class PrisonDoorLockScript : MonoBehaviour
     // 열쇠와의 충돌을 감지하는 메서드
     private void OnTriggerEnter2D(Collider2D other)
     {
-        AudioManager audioManager = FindObjectOfType<AudioManager>();
+        SoundAssetManager audioManager = FindObjectOfType<SoundAssetManager>();
         if(audioManager != null)
         {
             audioManager.PlayRandomPrisonDoorPuzzleKeySound();

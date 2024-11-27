@@ -420,7 +420,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1403442926}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_TargetAssemblyTypeName: SoundAssetManager, Assembly-CSharp
         m_MethodName: ButtonClickSound
         m_Mode: 1
         m_Arguments:
@@ -1159,10 +1159,10 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 576152284}
-  - {fileID: 662318147}
   - {fileID: 548593209}
   - {fileID: 1990446906}
   - {fileID: 714318641}
   - {fileID: 1115899507}
   - {fileID: 1868223616}
+  - {fileID: 662318147}
   - {fileID: 1403442927}

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
-public class AudioManager : MonoBehaviour
+public class SoundAssetManager : MonoBehaviour
 {
     public AudioSource sfxSource;
     public List<AudioClip> prisonLockSounds;
@@ -26,7 +26,7 @@ public class AudioManager : MonoBehaviour
         sfxSource.PlayOneShot(randomClip, volumeScale);
         Debug.Log("PrisonLockSound : 정상적으로 사운드가 재생되었습니다!");
     }
-
+ 
     public void PrisonDoorOpenSound()
     {  
         float volumeScale = 3.0f;
@@ -43,8 +43,12 @@ public class AudioManager : MonoBehaviour
 
     public void ButtonClickSound()
     {
-        float volumeScale = 3.0f;
-        sfxSource.PlayOneShot(buttonClickSound, volumeScale);
-        Debug.Log("ButtonClickSound : 정상적으로 사운드가 재생되었습니다!");
-    }
+        // FindObjectOfType를 사용하여 다른 씬의 AudioSource를 가져오기
+        AudioSource prisonSceneAudioSource = FindObjectOfType<AudioSource>();
+        if (prisonSceneAudioSource != null)
+        {
+            prisonSceneAudioSource.PlayOneShot(buttonClickSound, 3.0f);
+            Debug.Log("ButtonClickSound played on PrisonScene's AudioSource.");
+        }
+}
 }
