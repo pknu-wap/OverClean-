@@ -300,7 +300,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1763588365}
+      - m_Target: {fileID: 1774183749}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
         m_MethodName: ButtonClickSound
         m_Mode: 1
@@ -1123,7 +1123,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!1 &1763588363
+--- !u!1 &1774183747
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1131,27 +1131,27 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1763588366}
-  - component: {fileID: 1763588365}
-  - component: {fileID: 1763588364}
+  - component: {fileID: 1774183750}
+  - component: {fileID: 1774183749}
+  - component: {fileID: 1774183748}
   m_Layer: 0
-  m_Name: AudioManager
+  m_Name: SoundAssetManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!82 &1763588364
+--- !u!82 &1774183748
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1763588363}
+  m_GameObject: {fileID: 1774183747}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 43a73393dba56d54192c1e8260310d72, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 48d35b4348f4e804e851d7a1c94a6dde, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -1237,22 +1237,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1763588365
+--- !u!114 &1774183749
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1763588363}
+  m_GameObject: {fileID: 1774183747}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3e16a82779e3b24a90697b9d212c311, type: 3}
+  m_Script: {fileID: 11500000, guid: feb9855003729ab4bb687812aa7c4fc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bgm: {fileID: 1763588364}
-  defaultMusic: {fileID: 8300000, guid: 43a73393dba56d54192c1e8260310d72, type: 3}
-  prisonMusic: {fileID: 8300000, guid: 8321c4cc093789440a9fbae40ad1b83f, type: 3}
-  sfxSource: {fileID: 1763588364}
+  sfxSource: {fileID: 1774183748}
   prisonLockSounds:
   - {fileID: 8300000, guid: f2527b6438cae2a4cb7ab678a7d9a2ad, type: 3}
   - {fileID: 8300000, guid: f3d7bae7956aad5438c3fe6e4ffff2cb, type: 3}
@@ -1261,16 +1258,16 @@ MonoBehaviour:
   prisonDoorOpenSound: {fileID: 8300000, guid: fa8b34cacac61ec42a91a0a001342e1f, type: 3}
   prisonDustLeafSound: {fileID: 8300000, guid: f91f68d66f41af041a5102f824e7ffeb, type: 3}
   buttonClickSound: {fileID: 8300000, guid: 48d35b4348f4e804e851d7a1c94a6dde, type: 3}
---- !u!4 &1763588366
+--- !u!4 &1774183750
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1763588363}
+  m_GameObject: {fileID: 1774183747}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 930.67865, y: 451.14453, z: -14.444471}
+  m_LocalPosition: {x: 851.38904, y: 580.9176, z: -25.457619}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1360,4 +1357,4 @@ SceneRoots:
   - {fileID: 287806276}
   - {fileID: 833478641}
   - {fileID: 33508093}
-  - {fileID: 1763588366}
+  - {fileID: 1774183750}
