@@ -35,6 +35,10 @@ public class MatthewShelfInteractScript : MonoBehaviour
     // 현재 클라이언트가 매튜인지(디폴트 false)
     public bool matthewIsMe = false;
 
+    // 맵에서 위에 있던 종이/먼지들
+    public GameObject dust1;
+    public GameObject dust2;
+
     void Start()
     {
         AddLocalPlayer();
@@ -125,6 +129,8 @@ public class MatthewShelfInteractScript : MonoBehaviour
     [PunRPC]
     void ShelfInteractRPC()
     {
+        Destroy(dust1);
+        Destroy(dust2);
         // 상호작용 완료됨
         hasInteracted = true;
         // 해당 오브젝트 인덱스 상호작용 완료를 stageManager에게 전달
