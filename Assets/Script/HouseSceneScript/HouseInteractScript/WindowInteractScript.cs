@@ -25,7 +25,7 @@ public class WindowInteractScript : MonoBehaviour
     // 창문을 이동시킬 목표 위치 targetPosition 선언
     private Vector3 targetPosition;
     // 창문 이동 속도
-    public float doorMoveSpeed = 1.0f;
+    public float windowMoveSpeed = 1.0f;
     // 창문이 이동 중인지 여부
     private bool isMoving = false;
     // 창문을 참조해서 material을 조정하기 위한 spriterenderer 변수
@@ -68,7 +68,7 @@ public class WindowInteractScript : MonoBehaviour
         // 모든 플레이어의 위치와 오브젝트 간 거리 계산
         foreach (var playerLocation in playerLocations)
         {
-            float distanceToPlayer = Vector3.Distance(transform.position, playerLocation.position);
+            float distanceToPlayer = Vector2.Distance(transform.position, playerLocation.position);
 
             // 상호작용 가능 거리 내에 있는 플레이어가 있는지 확인
             if (distanceToPlayer <= interactionDistance && !hasInteracted)
@@ -149,7 +149,7 @@ public class WindowInteractScript : MonoBehaviour
     void MoveWindow()
     {
         // 창문을 타겟 위치까지 부드럽게 이동시킴
-        houseWindow.transform.position = Vector3.MoveTowards(houseWindow.transform.position, targetPosition, doorMoveSpeed * Time.deltaTime);
+        houseWindow.transform.position = Vector3.MoveTowards(houseWindow.transform.position, targetPosition, windowMoveSpeed * Time.deltaTime);
 
         // 창문이 목표 위치에 도달하면 이동 중지
         if (Vector3.Distance(houseWindow.transform.position, targetPosition) < 0.01f)
@@ -159,10 +159,10 @@ public class WindowInteractScript : MonoBehaviour
     }
 
     [PunRPC]
-    // 문 상호작용이 완료됐을 때 모든 플레이어에게서 작동되어야 할 함수
+    // 창문 상호작용이 완료됐을 때 모든 플레이어에게서 작동되어야 할 함수
     void WindowInteractRPC()
     {
-        // 문 이동
+        // 창문 이동
         isMoving = true;
         // 상호작용 완료됨
         hasInteracted = true;

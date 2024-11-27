@@ -9,14 +9,14 @@ public class LobbyManager : MonoBehaviour
     // 방 코드 입력 필드
     public InputField roomCodeInputField;
 
-    private void Start()
+    void Start()
     {
         if (PhotonNetwork.InRoom)
         {
             NetworkingManager.Instance.LeaveRoom();
         }
         // 방 입장 버튼 클릭 이벤트 설정
-        EnterRoomButton.onClick.AddListener(JoinRoomWithCode); 
+        EnterRoomButton.onClick.AddListener(JoinRoomWithCode);
     }
 
     // 코드를 입력해서 룸 입장하기(EnterRoomModal panel에서)
