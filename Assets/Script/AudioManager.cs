@@ -12,6 +12,7 @@ public class AudioManager : MonoBehaviour
     public AudioSource sfxSource;
     public List<AudioClip> prisonLockSounds;
     public AudioClip prisonDoorOpenSound;
+    public AudioClip prisonDustLeafSound;
 
     private void Awake()
     {
@@ -88,13 +89,20 @@ public class AudioManager : MonoBehaviour
         float volumeScale = 3.0f;
         // 열쇠소리를 더 크게 하고자 함.
         sfxSource.PlayOneShot(randomClip, volumeScale);
-        Debug.Log("정상적으로 사운드가 재생되었습니다!");
+        Debug.Log("PrisonLockSound : 정상적으로 사운드가 재생되었습니다!");
     }
 
     public void PrisonDoorOpenSound()
     {  
         float volumeScale = 3.0f;
         sfxSource.PlayOneShot(prisonDoorOpenSound, volumeScale);
-        Debug.Log("정상적으로 사운드가 재생되었습니다!");
+        Debug.Log("PrisonDoorOpen : 정상적으로 사운드가 재생되었습니다!");
+    }
+
+    public void PrisonDustLeafRustingSound()
+    {
+        float volumeScale = 3.0f;
+        sfxSource.PlayOneShot(prisonDustLeafSound,volumeScale);
+        Debug.Log("PrisonDustLeafRusting : 정상적으로 사운드가 재생되었습니다!");
     }
 }
