@@ -152,6 +152,11 @@ public class DoorInteract : MonoBehaviour
     // 문 상호작용이 완료됐을 때 모든 플레이어에게서 작동되어야 할 함수
     void DoorInteractRPC()
     {
+        AudioManager audioManager = FindObjectOfType<AudioManager>();
+        if(audioManager != null)
+        {
+            audioManager.PrisonDoorOpenSound();
+        }
         // 문 이동
         isMoving = true;
         // 상호작용 완료됨
