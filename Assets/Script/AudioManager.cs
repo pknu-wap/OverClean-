@@ -13,6 +13,7 @@ public class AudioManager : MonoBehaviour
     public List<AudioClip> prisonLockSounds;
     public AudioClip prisonDoorOpenSound;
     public AudioClip prisonDustLeafSound;
+    public AudioClip buttonClickSound;
 
     private void Awake()
     {
@@ -104,5 +105,12 @@ public class AudioManager : MonoBehaviour
         float volumeScale = 3.0f;
         sfxSource.PlayOneShot(prisonDustLeafSound,volumeScale);
         Debug.Log("PrisonDustLeafRusting : 정상적으로 사운드가 재생되었습니다!");
+    }
+
+    public void ButtonClickSound()
+    {
+        float volumeScale = 3.0f;
+        sfxSource.PlayOneShot(buttonClickSound, volumeScale);
+        Debug.Log("ButtonClickSound : 정상적으로 사운드가 재생되었습니다!");
     }
 }

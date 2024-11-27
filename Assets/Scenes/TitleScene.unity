@@ -453,6 +453,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 903381188}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: ButtonClickSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &586330996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -532,6 +544,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f05632228f93f174e8dc48bf48403afd, type: 3}
   prisonDoorOpenSound: {fileID: 8300000, guid: fa8b34cacac61ec42a91a0a001342e1f, type: 3}
   prisonDustLeafSound: {fileID: 8300000, guid: f91f68d66f41af041a5102f824e7ffeb, type: 3}
+  buttonClickSound: {fileID: 8300000, guid: 48d35b4348f4e804e851d7a1c94a6dde, type: 3}
 --- !u!4 &903381189
 Transform:
   m_ObjectHideFlags: 0
@@ -871,6 +884,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1523826334}
         m_TargetAssemblyTypeName: TitleUIManager, Assembly-CSharp
         m_MethodName: OpenTitleExitPanel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 903381188}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: ButtonClickSound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
