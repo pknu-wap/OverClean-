@@ -9,7 +9,7 @@ public class GotoSecondFloorScript : MonoBehaviour
     {
         if (other.name.Contains("Player"))
         {
-            Vector3 secondFloor = new Vector3(-15.8f,36.03f,-2);
+            Vector3 secondFloor = new Vector3(-12.82f,28.79f,-2);
             other.transform.position = secondFloor;
         }
     }

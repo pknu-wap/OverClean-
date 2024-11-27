@@ -9,7 +9,7 @@ public class GotoFirstFloorScript : MonoBehaviour
     {
         if (other.name.Contains("Player"))
         {
-            Vector3 firstFloor = new Vector3(-1.47f,-4.37f,-2);
+            Vector3 firstFloor = new Vector3(-0.85f,-5.21f,-2);
             other.transform.position = firstFloor;
         }
     }
