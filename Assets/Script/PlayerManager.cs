@@ -89,8 +89,6 @@ public class PlayerManager : MonoBehaviour
                 speed = 2; // 기본 속도로 복구
             }
         }
-
-        anim.SetFloat("Speed", inputVec.magnitude);
         UpdateAnimationDirection(CalculateDirection(inputVec));
     }
 
