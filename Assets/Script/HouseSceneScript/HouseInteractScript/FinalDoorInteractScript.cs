@@ -64,7 +64,7 @@ public class FinalDoorInteractScript : MonoBehaviour
         // 모든 플레이어의 위치와 오브젝트 간 거리 계산
         foreach (var playerLocation in playerLocations)
         {
-            float distanceToPlayer = Vector3.Distance(transform.position, playerLocation.position);
+            float distanceToPlayer = Vector2.Distance(transform.position, playerLocation.position);
 
             // 상호작용 가능 거리 내에 있는 플레이어가 있는지 확인
             if (distanceToPlayer <= interactionDistance && !hasInteracted)
