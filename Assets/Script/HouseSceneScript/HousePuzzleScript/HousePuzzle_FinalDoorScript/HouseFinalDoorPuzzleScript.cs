@@ -51,8 +51,7 @@ public class HouseFinalDoorPuzzleScript : MonoBehaviour
             yield return StartCoroutine(ShowImage(oImage));
             // puzzlesuccess 호출
             PuzzleManager.instance.PuzzleSuccess();
-            // 씬 닫기
-            SceneManager.UnloadSceneAsync("HouseFinalDoorPuzzleScene");
+            ClosePuzzleScene();
         }
         else
         {
@@ -70,5 +69,15 @@ public class HouseFinalDoorPuzzleScript : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         // 이미지 숨김
         image.gameObject.SetActive(false);
+    }
+    public void OnClosePuzzleButtonClicked()
+    {
+        PuzzleManager.instance.ClickPuzzleCloseButton();
+        ClosePuzzleScene();
+    }
+    void ClosePuzzleScene()
+    {
+        // 씬 닫기
+        SceneManager.UnloadSceneAsync("HouseFinalDoorPuzzleScene");
     }
 }
