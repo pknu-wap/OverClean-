@@ -531,6 +531,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 09f4904427de0e8419f664ac7ce5140a, type: 3}
   - {fileID: 8300000, guid: f05632228f93f174e8dc48bf48403afd, type: 3}
   prisonDoorOpenSound: {fileID: 8300000, guid: fa8b34cacac61ec42a91a0a001342e1f, type: 3}
+  prisonDustLeafSound: {fileID: 8300000, guid: f91f68d66f41af041a5102f824e7ffeb, type: 3}
 --- !u!4 &903381189
 Transform:
   m_ObjectHideFlags: 0
