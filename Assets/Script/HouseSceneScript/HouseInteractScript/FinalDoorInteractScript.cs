@@ -20,7 +20,13 @@ public class FinalDoorInteractScript : MonoBehaviour
     public float interactionDistance = 1.5f;
     // 상호작용 여부
     public bool hasInteracted = false;
-    // 싱크대를 참조해서 material을 조정하기 위한 spriterenderer 변수
+    // 창문을 이동시킬 목표 위치 targetPosition 선언
+    private Vector3 targetPosition;
+    // 창문 이동 속도
+    public float doorMoveSpeed = 1.0f;
+    // 창문이 이동 중인지 여부
+    private bool isMoving = false;
+    // material을 조정하기 위한 spriterenderer 변수
     public SpriteRenderer sr;
     // 퍼즐이 열려있는지 확인하기 위한 변수
     private bool isPuzzleOpen = false;
@@ -33,6 +39,8 @@ public class FinalDoorInteractScript : MonoBehaviour
         AddLocalPlayer();
         // sr을 getcomponent 메서드로 초기화
         sr = GetComponent<SpriteRenderer>();
+        // targetPosition 초기화
+        targetPosition = new Vector3(gameObject.transform.position.x - 4.64f, gameObject.transform.position.y, gameObject.transform.position.z);
     }
 
     // 태그를 통해 로컬 플레이어(상호작용은 각각의 클라이언트 관점에서 자신의 캐릭터로만 할 수 있으므로) 할당
@@ -56,7 +64,7 @@ public class FinalDoorInteractScript : MonoBehaviour
         // 모든 플레이어의 위치와 오브젝트 간 거리 계산
         foreach (var playerLocation in playerLocations)
         {
-            float distanceToPlayer = Vector3.Distance(transform.position, playerLocation.position);
+            float distanceToPlayer = Vector2.Distance(transform.position, playerLocation.position);
 
             // 상호작용 가능 거리 내에 있는 플레이어가 있는지 확인
             if (distanceToPlayer <= interactionDistance && !hasInteracted)
@@ -109,6 +117,10 @@ public class FinalDoorInteractScript : MonoBehaviour
                 }
             }
         }
+        if (isMoving)
+        {
+            MoveDoor();
+        }
     }
 
     // 상호작용 함수
@@ -127,9 +139,24 @@ public class FinalDoorInteractScript : MonoBehaviour
        }
     }
 
+    // 문을 부드럽게 이동시키는 함수
+    void MoveDoor()
+    {
+        // 창문을 타겟 위치까지 부드럽게 이동시킴
+        gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, targetPosition, doorMoveSpeed * Time.deltaTime);
+
+        // 창문이 목표 위치에 도달하면 이동 중지
+        if (Vector3.Distance(gameObject.transform.position, targetPosition) < 0.01f)
+        {
+            isMoving = false;
+        }
+    }
+
     [PunRPC]
     void FinalDoorInteractRPC()
     {
+        // 문 이동
+        isMoving = true;
         // 상호작용 완료됨
         hasInteracted = true;
         // 해당 오브젝트 인덱스 상호작용 완료를 stageManager에게 전달

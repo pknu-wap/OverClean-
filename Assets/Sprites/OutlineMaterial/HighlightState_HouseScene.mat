@@ -91,7 +91,7 @@ Material:
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _Thickness: 5
+    - _Thickness: 3
     - _TileMode: 0
     - _UVSec: 0
     - _Weight: 0.5

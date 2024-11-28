@@ -271,7 +271,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08354109d807a8347bfa1e5c5fd1a2bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomCodeInputPanel: {fileID: 1523785825}
+  roomCodeInputPanel: {fileID: 1662044498}
   roomCodeInputPanelOpen: 0
 --- !u!1 &257938717
 GameObject:
@@ -449,6 +449,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc90ff6fc42dcab40a80ccf83db8df83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefabsToDestroy: []
 --- !u!4 &819555813
 Transform:
   m_ObjectHideFlags: 0
