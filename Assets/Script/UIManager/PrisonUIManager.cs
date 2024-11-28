@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Photon.Pun;
 using System.Collections;
 
@@ -7,6 +6,8 @@ public class PrisonUIManager : MonoBehaviour
 {
     public StageManager stageManager;
     private PhotonView photonView;
+
+    public GoalZoneScript goalZone;
 
     public GameObject tutorialPanel;
     public GameObject pausePanel;
@@ -20,6 +21,7 @@ public class PrisonUIManager : MonoBehaviour
     private void Start()
     {
         stageManager = FindObjectOfType<StageManager>();
+        goalZone = FindAnyObjectByType<GoalZoneScript>();
         photonView = GetComponent<PhotonView>();
         tutorialPanel.SetActive(tutorialPanelOpen);
     }
@@ -27,13 +29,6 @@ public class PrisonUIManager : MonoBehaviour
     private void Update()
     {
         isPaused = PauseManager.Instance.isPaused;
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            Debug.Log("Z 눌려짐 - DestroyPlayers 호출");
-            // 파괴할 프리팹 네트워킹매니저에 저장
-            NetworkingManager.Instance.InsertDestroyPlayerPrefab();
-            photonView.RPC("LoadHouseScene", RpcTarget.MasterClient);
-        }
 
         if(PauseManager.Instance.isTransitioningPauseState)
         {
@@ -56,14 +51,6 @@ public class PrisonUIManager : MonoBehaviour
             PauseManager.Instance.isTransitioningPauseState = true;
             photonView.RPC("UpdatePauseState", RpcTarget.All, pausedByPlayerId, false);
         }
-    }
-
-    // 하우스씬 로드(마스터 클라이언트만 실행하도록 PUNRPC 호출할것!)
-    [PunRPC]
-    public void LoadHouseScene()
-    {
-        // 씬 로드
-        PhotonNetwork.LoadLevel("HouseScene");
     }
 
     public void OpenTutorialPanel()
@@ -94,7 +81,10 @@ public class PrisonUIManager : MonoBehaviour
     [PunRPC]
     void UpdatePauseState(int actorNumber, bool pauseState)
     {
+        if (!goalZone.stageClear)
+        {
         isPaused = pauseState;
+        if (!goalZone.stageClear && pauseState)
         PauseManager.Instance.isPaused = pauseState;
         if (pauseState)
         {
@@ -122,7 +112,7 @@ public class PrisonUIManager : MonoBehaviour
             pauseTextPanel.gameObject.SetActive(false);
         }
         StartCoroutine(ResetTransitionState());
-
+        }
     }
     private IEnumerator ResetTransitionState()
     {

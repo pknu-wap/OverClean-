@@ -790,6 +790,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stageManager: {fileID: 33556873}
+  goalZone: {fileID: 0}
   tutorialPanel: {fileID: 2146890594}
   pausePanel: {fileID: 1041156427}
   pauseTextPanel: {fileID: 664677909}
@@ -2291,7 +2292,7 @@ MonoBehaviour:
   player1InZone: 0
   player2InZone: 0
   stageManager: {fileID: 33556873}
-  stageClear: 1
+  stageClear: 0
   MapClearPanel: {fileID: 1376517036}
   clearTimeText: {fileID: 619571448}
 --- !u!61 &513861989

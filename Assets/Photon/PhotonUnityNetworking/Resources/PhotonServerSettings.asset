@@ -82,6 +82,8 @@ MonoBehaviour:
   - LoadFusePuzzleScene
   - SetRotate
   - SetState
+  - LoadMapChooseScene
+  - LoadPrisonScene
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
