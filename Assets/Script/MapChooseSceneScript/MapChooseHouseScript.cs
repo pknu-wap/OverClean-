@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MapChooseHouseScript : MonoBehaviour
+public class MapChooseHouseScript : MonoBehaviourPun
 {
     // 플레이어가 들어왔는지 확인하기 위한 변수
     public bool isPlayer1In = false;
@@ -61,7 +62,8 @@ public class MapChooseHouseScript : MonoBehaviour
             // 스페이스바로 상호작용
             if (Input.GetKeyDown(KeyCode.Space)) 
             {
-                SceneManager.LoadScene("HouseScene");
+                NetworkingManager.Instance.InsertDestroyPlayerPrefab();
+                photonView.RPC("LoadHouseScene", RpcTarget.MasterClient);
             }
         }
         else
@@ -81,5 +83,13 @@ public class MapChooseHouseScript : MonoBehaviour
     void HideHighlight()
     {
         sr.material = normalState;
+    }
+
+    // 하우스씬 로드(마스터 클라이언트만 실행하도록 PUNRPC 호출할것!)
+    [PunRPC]
+    public void LoadHouseScene()
+    {
+        // 씬 로드
+        PhotonNetwork.LoadLevel("HouseScene");
     }
 }
