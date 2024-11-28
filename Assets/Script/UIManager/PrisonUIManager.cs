@@ -127,6 +127,7 @@ public class PrisonUIManager : MonoBehaviour
             pauseTextPanel.gameObject.SetActive(false);
         }
         StartCoroutine(ResetTransitionState());
+        }
     }
     private IEnumerator ResetTransitionState()
     {
