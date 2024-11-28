@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TitleUIManager : MonoBehaviour
 {
@@ -39,6 +40,6 @@ public class TitleUIManager : MonoBehaviour
 
     public void LoadLobbyScene()
     {
-        PhotonNetwork.LoadLevel("LobbyScene");
+        SceneManager.LoadScene("LobbyScene");
     }
 }
