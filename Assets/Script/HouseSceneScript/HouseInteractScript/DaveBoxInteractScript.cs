@@ -119,7 +119,7 @@ public class DaveBoxInteractScript : MonoBehaviourPun
     // 상자 위치를 옮겨 든 것처럼 보이게 하는 함수
     void Holding()
     {
-        transform.position = new Vector3(playerLocation.position.x, playerLocation.position.y + 1.04f, playerLocation.position.z);
+        transform.position = new Vector3(playerLocation.position.x, playerLocation.position.y + 1.2f, playerLocation.position.z);
     }
 
     [PunRPC]
@@ -127,7 +127,7 @@ public class DaveBoxInteractScript : MonoBehaviourPun
     {
         isHolding = false;
         // 목적지의 x,y 좌표 가져와서 박스 두기
-        transform.position = new Vector3(boxDestination.GetComponent<Transform>().position.x, boxDestination.GetComponent<Transform>().position.y + 0.3f, 0.9f);
+        transform.position = new Vector3(boxDestination.GetComponent<Transform>().position.x, boxDestination.GetComponent<Transform>().position.y + 0.3f, 0.5f);
         boxInteractEnd = true;
         // 선반에 박스 도착했다고 알리기
         matthewShelf.GetComponent<MatthewShelfInteractScript>().isBoxArrived = true;
