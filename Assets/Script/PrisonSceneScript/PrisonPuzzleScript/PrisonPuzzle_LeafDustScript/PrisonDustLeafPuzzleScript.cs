@@ -81,6 +81,11 @@ public class PrisonDustLeafPuzzleScript : MonoBehaviour
     // 퍼즐 성공 시 호출되는 함수
     public void PuzzleSuccess()
     {
+        SoundAssetManager audioManager = FindObjectOfType<SoundAssetManager>();
+        if(audioManager != null)
+        {
+            audioManager.PrisonDustLeafRustingSound();
+        }
         Debug.Log("씬이 종료됩니다.");
         // 퍼즐 매니저의 puzzlesuccess 호출
         PuzzleManager.instance.PuzzleSuccess();
