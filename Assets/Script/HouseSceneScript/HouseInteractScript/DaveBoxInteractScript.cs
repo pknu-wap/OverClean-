@@ -60,7 +60,7 @@ public class DaveBoxInteractScript : MonoBehaviourPun
             return;
         }
         // 플레이어와 오브젝트 간 거리 계산
-        float distanceToPlayer = Vector3.Distance(transform.position, playerLocation.position);
+        float distanceToPlayer = Vector2.Distance(transform.position, playerLocation.position);
 
         // 테두리 생성
         ShowHighlight();
