@@ -54,6 +54,16 @@ public class PlayerManager : MonoBehaviour
             speed = 2;
             allowRun = true; // 달리기 기능 활성화
         }
+        AudioListener audioListener = GetComponentInChildren<AudioListener>();
+
+        if (photonView != null && !photonView.IsMine)
+        {
+            // 원격 플레이어의 Audio Listener를 비활성화
+            if (audioListener != null)
+            {
+                audioListener.enabled = false;
+            }
+        }
     }
 
     void Update()
@@ -86,8 +96,6 @@ public class PlayerManager : MonoBehaviour
                 speed = 2; // 기본 속도로 복구
             }
         }
-
-        anim.SetFloat("Speed", inputVec.magnitude);
         UpdateAnimationDirection(CalculateDirection(inputVec));
     }
 

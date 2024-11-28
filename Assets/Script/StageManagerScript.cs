@@ -34,6 +34,8 @@ public class StageManager : MonoBehaviour
     public TMP_Text timerText;
     public Slider timeSlider;
     public bool isPaused;
+    public GameObject timerJet;
+    public GameObject timerEnd;
     void Awake()
     {
         // 기존에 있던 프리팹 삭제
@@ -86,6 +88,8 @@ public class StageManager : MonoBehaviour
             }
             if (remainTime <= 0)
             {
+                timerJet.SetActive(false);
+                timerEnd.SetActive(true);
                 TimeOver();
             }
             else

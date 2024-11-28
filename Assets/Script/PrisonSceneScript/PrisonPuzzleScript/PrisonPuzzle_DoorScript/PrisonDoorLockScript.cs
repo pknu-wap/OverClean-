@@ -43,12 +43,18 @@ public class PrisonDoorLockScript : MonoBehaviour
     // 열쇠와의 충돌을 감지하는 메서드
     private void OnTriggerEnter2D(Collider2D other)
     {
+        SoundAssetManager audioManager = FindObjectOfType<SoundAssetManager>();
+        if(audioManager != null)
+        {
+            audioManager.PlayRandomPrisonDoorPuzzleKeySound();
+        }
         // 타임바를 최대값(1.0)으로 초기화
         timeBar.value = 1.0f;
         // 타임바 UI를 활성화하여 화면에 표시
         timeBar.gameObject.SetActive(true);
         // 체크(타임아웃) 시작
         isTimeout = true;
+
         // CheckTime 코루틴을 시작하여 열쇠 확인 절차 실행
         StartCoroutine(CheckTime(other));
     }
