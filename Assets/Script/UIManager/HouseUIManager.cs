@@ -117,17 +117,29 @@ public class HouseUIManager : MonoBehaviour
     }
     public void LoadMapChooseScene()
     {
+        if(BGMManager.instance != null)
+        {
+            BGMManager.instance.SetMusicForScene("MapChooseScene"); 
+        }
         PhotonNetwork.LoadLevel("MapChooseScene"); 
     }
     
     public void LoadLobbyScene()
     {
+        if(BGMManager.instance != null)
+        {
+            BGMManager.instance.SetMusicForScene("MapChooseScene"); 
+        }
         photonView.RPC("ExitAndGotoLobbyScene", RpcTarget.All);
     }
 
     [PunRPC]
     public void ExitAndGotoLobbyScene()
     {
+        if(BGMManager.instance != null)
+        {
+            BGMManager.instance.SetMusicForScene("MapChooseScene"); 
+        }
         PhotonNetwork.LoadLevel("LobbyScene"); 
     }
 }

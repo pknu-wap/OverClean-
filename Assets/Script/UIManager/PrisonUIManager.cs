@@ -131,17 +131,32 @@ public class PrisonUIManager : MonoBehaviour
     }
     public void LoadMapChooseScene()
     {
+        if(BGMManager.instance != null)
+        {
+            BGMManager.instance.SetMusicForScene("MapChooseScene"); 
+        }
+        Debug.Log("BGMManager == null");
         PhotonNetwork.LoadLevel("MapChooseScene");
     }
 
     public void LoadLobbyScene()
     {
+        if(BGMManager.instance != null)
+        {
+            BGMManager.instance.SetMusicForScene("MapChooseScene"); 
+        }
+        Debug.Log("BGMManager == null");
         photonView.RPC("ExitAndGotoLobbyScene", RpcTarget.All);
     }
 
     [PunRPC]
     public void ExitAndGotoLobbyScene()
     {
+        if(BGMManager.instance != null)
+        {
+            BGMManager.instance.SetMusicForScene("MapChooseScene"); 
+        }
+        Debug.Log("BGMManager == null");
         PhotonNetwork.LoadLevel("LobbyScene");
     }
 }
