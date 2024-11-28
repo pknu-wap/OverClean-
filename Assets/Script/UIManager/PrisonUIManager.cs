@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Photon.Pun;
 using System.Collections;
 
@@ -7,6 +6,8 @@ public class PrisonUIManager : MonoBehaviour
 {
     public StageManager stageManager;
     private PhotonView photonView;
+
+    public GoalZoneScript goalZone;
 
     public GameObject tutorialPanel;
     public GameObject pausePanel;
@@ -20,6 +21,7 @@ public class PrisonUIManager : MonoBehaviour
     private void Start()
     {
         stageManager = FindObjectOfType<StageManager>();
+        goalZone = FindAnyObjectByType<GoalZoneScript>();
         photonView = GetComponent<PhotonView>();
         tutorialPanel.SetActive(tutorialPanelOpen);
     }
@@ -79,7 +81,10 @@ public class PrisonUIManager : MonoBehaviour
     [PunRPC]
     void UpdatePauseState(int actorNumber, bool pauseState)
     {
+        if (!goalZone.stageClear)
+        {
         isPaused = pauseState;
+        if (!goalZone.stageClear && pauseState)
         PauseManager.Instance.isPaused = pauseState;
         if (pauseState)
         {
@@ -107,7 +112,7 @@ public class PrisonUIManager : MonoBehaviour
             pauseTextPanel.gameObject.SetActive(false);
         }
         StartCoroutine(ResetTransitionState());
-
+        }
     }
     private IEnumerator ResetTransitionState()
     {
