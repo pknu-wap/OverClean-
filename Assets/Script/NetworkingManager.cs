@@ -49,6 +49,30 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
             int playerCount = PhotonNetwork.CountOfPlayers;
             Debug.Log("현재 로비에 접속된 플레이어 수: " + playerCount);
         }
+        // 주택 씬으로 점프하는 코드
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            Debug.Log("J 눌려짐 - DestroyPlayers 호출, 주택으로");
+            // 파괴할 프리팹 네트워킹매니저에 저장
+            InsertDestroyPlayerPrefab();
+            photonView.RPC("LoadHouseScene", RpcTarget.MasterClient);
+        }
+        // 감옥 씬으로 점프하는 코드
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            Debug.Log("K 눌려짐 - DestroyPlayers 호출, 감옥으로");
+            // 파괴할 프리팹 네트워킹매니저에 저장
+            InsertDestroyPlayerPrefab();
+            photonView.RPC("LoadPrisonScene", RpcTarget.MasterClient);
+        }
+        // 감옥 씬으로 점프하는 코드
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            Debug.Log("L 눌려짐 - DestroyPlayers 호출, 감옥으로");
+            // 파괴할 프리팹 네트워킹매니저에 저장
+            InsertDestroyPlayerPrefab();
+            photonView.RPC("LoadMapChooseScene", RpcTarget.MasterClient);
+        }
     }
 
 
@@ -259,5 +283,29 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
             PhotonView.Destroy(prefab);
         }
         prefabsToDestroy.Clear();
+    }
+
+    // 하우스씬 로드(마스터 클라이언트만 실행하도록 PUNRPC 호출할것!)
+    [PunRPC]
+    public void LoadHouseScene()
+    {
+        // 씬 로드
+        PhotonNetwork.LoadLevel("HouseScene");
+    }
+
+    // 감옥씬 로드(마스터 클라이언트만 실행하도록 PUNRPC 호출할것!)
+    [PunRPC]
+    public void LoadPrisonScene()
+    {
+        // 씬 로드
+        PhotonNetwork.LoadLevel("PrisonScene");
+    }
+
+    // 마을씬 로드(마스터 클라이언트만 실행하도록 PUNRPC 호출할것!)
+    [PunRPC]
+    public void LoadMapChooseScene()
+    {
+        // 씬 로드
+        PhotonNetwork.LoadLevel("MapChooseScene");
     }
 }

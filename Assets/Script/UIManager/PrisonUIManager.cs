@@ -27,13 +27,6 @@ public class PrisonUIManager : MonoBehaviour
     private void Update()
     {
         isPaused = PauseManager.Instance.isPaused;
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            Debug.Log("Z 눌려짐 - DestroyPlayers 호출");
-            // 파괴할 프리팹 네트워킹매니저에 저장
-            NetworkingManager.Instance.InsertDestroyPlayerPrefab();
-            photonView.RPC("LoadHouseScene", RpcTarget.MasterClient);
-        }
 
         if(PauseManager.Instance.isTransitioningPauseState)
         {
@@ -56,14 +49,6 @@ public class PrisonUIManager : MonoBehaviour
             PauseManager.Instance.isTransitioningPauseState = true;
             photonView.RPC("UpdatePauseState", RpcTarget.All, pausedByPlayerId, false);
         }
-    }
-
-    // 하우스씬 로드(마스터 클라이언트만 실행하도록 PUNRPC 호출할것!)
-    [PunRPC]
-    public void LoadHouseScene()
-    {
-        // 씬 로드
-        PhotonNetwork.LoadLevel("HouseScene");
     }
 
     public void OpenTutorialPanel()
