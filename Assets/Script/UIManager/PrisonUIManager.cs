@@ -96,35 +96,20 @@ public class PrisonUIManager : MonoBehaviour
     [PunRPC]
     void UpdatePauseState(int actorNumber, bool pauseState)
     {
+        if (!goalZone.stageClear)
+        {
         isPaused = pauseState;
         if (!goalZone.stageClear && pauseState)
         PauseManager.Instance.isPaused = pauseState;
         if (pauseState)
         {
-            isPaused = pauseState;
-            if (pauseState)
-            {
-                stageManager.isPaused = true;
-                stageManager.SetPlayerMovement(false);
-                pausedByPlayerId = actorNumber;
+            stageManager.isPaused = true;
+            stageManager.SetPlayerMovement(false);
+            pausedByPlayerId = actorNumber;
 
-                if (PhotonNetwork.LocalPlayer.ActorNumber == actorNumber)
-                {
-                    pausePanel.gameObject.SetActive(true);
-                    pauseTextPanel.gameObject.SetActive(false);
-                }
-                else
-                {
-                    pausePanel.gameObject.SetActive(false);
-                    pauseTextPanel.gameObject.SetActive(true);
-                }
-            }
-            else if (!pauseState)
+            if (PhotonNetwork.LocalPlayer.ActorNumber == actorNumber)
             {
-                stageManager.isPaused = false;
-                stageManager.SetPlayerMovement(true);
-                pausedByPlayerId = -1;
-                pausePanel.gameObject.SetActive(false);
+                pausePanel.gameObject.SetActive(true);
                 pauseTextPanel.gameObject.SetActive(false);
             }
             else
@@ -133,7 +118,7 @@ public class PrisonUIManager : MonoBehaviour
                 pauseTextPanel.gameObject.SetActive(true);
             }
         }
-        else if (!goalZone.stageClear && !pauseState)
+        else if (!pauseState)
         {
             stageManager.isPaused = false;
             stageManager.SetPlayerMovement(true);
