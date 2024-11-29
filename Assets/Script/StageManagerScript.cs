@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using UnityEngine.SceneManagement;
 
 public class StageManager : MonoBehaviour
 {
@@ -49,12 +50,22 @@ public class StageManager : MonoBehaviour
             {
                 GameObject playerObj1 = PhotonNetwork.Instantiate("Player1", new Vector3(player1StartX, player1StartY, player1StartZ), Quaternion.identity);
                 player1 = playerObj1.GetComponent<PlayerManager>();
+                if(SceneManager.GetActiveScene().name == "PrisonScene")
+                {
+                    SpriteRenderer sr = playerObj1.GetComponent<SpriteRenderer>();
+                    sr.sortingOrder = 0;
+                }
             }
             // 매튜 할당 / 생성
             else
             {
                 GameObject playerObj2 = PhotonNetwork.Instantiate("Player2", new Vector3(player2StartX, player2StartY, player2StartZ), Quaternion.identity);
                 player2 = playerObj2.GetComponent<PlayerManager>();
+                if(SceneManager.GetActiveScene().name == "PrisonScene")
+                {
+                    SpriteRenderer sr = playerObj2.GetComponent<SpriteRenderer>();
+                    sr.sortingOrder = 0;
+                }
             }
         }
     }
