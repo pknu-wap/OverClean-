@@ -179,6 +179,7 @@ GameObject:
   - component: {fileID: 370398673}
   - component: {fileID: 370398675}
   - component: {fileID: 370398676}
+  - component: {fileID: 370398677}
   m_Layer: 0
   m_Name: HouseEnterZone
   m_TagString: Untagged
@@ -315,6 +316,28 @@ MonoBehaviour:
   sr: {fileID: 0}
   normalState: {fileID: 2100000, guid: 156e2e5d3e19cf743a21910567fd6e66, type: 2}
   canInteractState: {fileID: 2100000, guid: 0e469783926eb7e4baeec88270a07c91, type: 2}
+--- !u!114 &370398677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 370398672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 1
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1294173212
 GameObject:
   m_ObjectHideFlags: 0
@@ -6236,6 +6259,7 @@ GameObject:
   - component: {fileID: 1955333541}
   - component: {fileID: 1955333543}
   - component: {fileID: 1955333544}
+  - component: {fileID: 1955333545}
   m_Layer: 0
   m_Name: PrisonEnterZone
   m_TagString: Untagged
@@ -6372,6 +6396,28 @@ MonoBehaviour:
   sr: {fileID: 0}
   normalState: {fileID: 2100000, guid: 156e2e5d3e19cf743a21910567fd6e66, type: 2}
   canInteractState: {fileID: 2100000, guid: 0e469783926eb7e4baeec88270a07c91, type: 2}
+--- !u!114 &1955333545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1955333540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 2
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
