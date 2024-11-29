@@ -168,6 +168,7 @@ public class DoorInteract : MonoBehaviour
     // 문을 부드럽게 이동시키는 함수
     void MoveDoor()
     {
+        sr.sortingOrder = 0;
         // 문을 타겟 위치까지 부드럽게 이동시킴
         prisonDoor.transform.position = Vector3.MoveTowards(prisonDoor.transform.position, targetPosition, doorMoveSpeed * Time.deltaTime);
 

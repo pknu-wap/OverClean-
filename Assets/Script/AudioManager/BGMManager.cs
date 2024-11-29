@@ -67,7 +67,7 @@ public class BGMManager : MonoBehaviour
             scene.name == "PrisonLeafPuzzleScene" || 
             scene.name == "PrisonPipePuzzleScene") 
             return;
-            ChangeMusic(prisonMusic, 0.2f);
+            ChangeMusic(prisonMusic, 0.3f);
         }
     }
     public void SetMusicForScene(string sceneName)
