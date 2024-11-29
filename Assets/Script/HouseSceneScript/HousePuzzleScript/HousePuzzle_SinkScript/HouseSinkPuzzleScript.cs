@@ -75,6 +75,12 @@ public class HouseSinkPuzzleScript : MonoBehaviour
     }
     void ClosePuzzleScene()
     {
+        // 퍼즐 씬에서 사용한 Dirty 프리팹을 전부 찾아와 제거
+        GameObject[] destroyDirty = GameObject.FindGameObjectsWithTag("Dirty");
+        for(int i = 0; i < destroyDirty.Length; i++)
+        {
+            Destroy(destroyDirty[i]);
+        }
         // 씬 닫기
         SceneManager.UnloadSceneAsync("HouseSinkPuzzleScene");
     }
