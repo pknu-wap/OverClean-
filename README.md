@@ -62,15 +62,4 @@ OverClean은 **<OverCooked!>** 의 컨셉, 플레이 방식에 많은 영향을 
     <td align="center"><b>기획 및 디자인</b></td>
   </tr>
 </table>
-        
-<br><br>
-        
-## ⚽ 그라운드 룰
-<img width="476" alt="image" src="https://github.com/user-attachments/assets/8ba55c14-f195-44ee-9032-ee15afad6727">
-
-<br><br>
-
-## 📅 개발 일정
-<img width="1109" alt="image" src="https://github.com/user-attachments/assets/0c2a870e-a483-4383-aa34-b171f8a28662">
-<img width="1036" alt="image" src="https://github.com/user-attachments/assets/a2a966ae-7588-433b-a35a-0e7fae537a2c">
 
